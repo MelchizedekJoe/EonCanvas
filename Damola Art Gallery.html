@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Echoing Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./style.css">
+
+    </head>
+<body class="w3-black">
+
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+    <!-- Avatar image in top left corner -->
+    <img src="./Images/Damola Profile/422310439_18414766672059019_4766391432607743275_n.jpg" style="width:100%">
+    <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-black">
+      <i class="fa fa-home w3-xxlarge"></i>
+      <p>HOME</p>
+    </a>
+    <a href="index.html#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+      <i class="fa fa-user w3-xxlarge"></i>
+      <p>ABOUT</p>
+    </a>
+    <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+      <i class="fa fa-eye w3-xxlarge"></i>
+      <p>PHOTOS</p>
+    </a>
+    <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+      <i class="fa fa-envelope w3-xxlarge"></i>
+      <p>CONTACT</p>
+    </a>
+  </nav>
+
+<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+    <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+        <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+        <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
+        <a href="#artists" class="w3-bar-item w3-button" style="width:25% !important">ARTISTS</a>
+        <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
+    </div>
+</div>
+
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+    <!-- Header/Home -->
+    <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+        <h1 class="w3-jumbo"><span class="w3-hide-small"></span> Echoing Canvas.</h1>
+        <p>Listen to the Echoing Canvas.</p>
+        <img src="./Images/Damola Profile.jpg" alt="Canvas" class="w3-image" width="992" height="1108">
+        <div></div>
+    </header>
+
+    <!-- Header -->
+    <header class="w3-container w3-xlarge w3-padding-24">
+        <a href="#" class="w3-left w3-button w3-white">MY ART</a>
+        <a href="#about" class="w3-right w3-button w3-white">About</a>
+    </header>
+
+    <!-- Photo Grid -->
+    <div class="w3-row">
+        <div class="gallery">
+            <div class="photo"><img src="./Images/Damola Profile/405544866_18403408609059019_443893947920474504_n.jpg" alt="Art 1"></div>
+            <div class="photo"><img src="./Images/Damola Profile/406483513_18406615282059019_659963491799768536_n.jpg" alt="Art 2"></div>
+            <div class="photo"><img src="./Images/Damola Profile/409544787_18406615264059019_3504241333748315029_n.jpg" alt="Art 3"></div>
+            <div class="photo"><img src="./Images/Damola Profile/415285434_18409991815059019_2667105058615193228_n.jpg" alt="Art 4"></div>
+            <div class="photo"><img src="./Images/Damola Profile/415283546_18409991827059019_7440412573772289746_n.jpg" alt="Art 5"></div>
+            <div class="photo"><img src="./Images/Damola Profile/421274368_18414347716059019_3272971437949679470_n.jpg" alt="Art 6"></div>
+            <div class="photo"><img src="./Images/Damola Profile/421813853_18414766663059019_408253133761223442_n.jpg" alt="Art 7"></div>
+            <div class="photo"><img src="./Images/Damola Profile/422310439_18414766672059019_4766391432607743275_n.jpg" alt="Art 8"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const photos = document.querySelectorAll('.photo');
+            photos.forEach(photo => {
+                photo.addEventListener('click', () => {
+                    const lightbox = document.createElement('div');
+                    lightbox.classList.add('lightbox');
+                    document.body.appendChild(lightbox);
+
+                    const img = document.createElement('img');
+                    img.src = photo.querySelector('img').src;
+                    lightbox.appendChild(img);
+
+                    lightbox.addEventListener('click', () => {
+                        document.body.removeChild(lightbox);
+                    });
+                });
+            });
+        });
+    </script>
+
+    <!-- About Damola -->
+    <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
+        <h2 class="w3-text-light-grey">Info</h2>
+        <hr style="width:200px" class="w3-opacity">
+        <p>Damola Ayegbayo is an Experienced Visual Artist with a demonstrated history of working in the arts and crafts industry. Skilled in Paintings and Drawings. He aims to communicate the power and beauty of black African women, realities of life and morals, through colors and black beautiful women's faces.</p>
+        <p>“ The name of my painting style is called ÀBÈFÉ meaning (pleaded to be loved) which is my native name. my craft is an expressionism style of art, I use portraits of beautiful black women to speak to society about morals, good behavior, love, and unity. an image of a black beautiful woman always reminds me of how my strong mother trained and brought me up with love and good morals helping me to discover my real self, the concept of using a black woman is a great reference to my loving mother and the role Other women had played in my life, their importance and existence in the world can not be underestimated.</p>
+        <p>He is inspired by his late grandfather that was a painter, sculptor, and ceramist from a tender age, as his love to practice art increased in the university by meeting with greater like minds in the department and visits many art galleries and art departments in other universities, also traveled to historic ancient cities and art workshops etc.</p>
+
+        <h2>Educational background</h2>
+        <p>Obtained Bachelor’s in Education in Obafemi Awolowo University Ile-Ife, from the fine and applied arts department where he specialized in painting.</p>
+
+        <h2>Events</h2>
+        <p>- KPMG live stage painting 2019</p>
+        <p>- Live performance on African sport on, at Super sports TV. Lagos</p>
+        <p>- Standard Chartered Bank stage painting, Lagos</p>
+        <p>- Series of Sip And Paint at The Metaphor, Lagos</p>
+
+        <h2>PUBLICATION</h2>
+        <p>- In The City Magazine, Atlanta's premiere for art, media, and fashion</p>
+        <p>- The Sun Newspaper, Nigeria</p>
+        <p>- The Nation Newspaper, Nigeria</p>
+
+        <h2>Exhibitions</h2>
+        <ul>
+            <li><strong>A joint art exhibition titled The Adventure,</strong> 02/2020.</li>
+            <li><strong>A Virtual Showcase Of Artwork By Hansford and Sons London,</strong> 06/2020.</li>
+            <li><strong>ARTS FROM THE MOTHER LAND, Thames Art Center, NEW YORK,</strong> 08/2022.</li>
+        </ul>
+
+    </div>
+
+    <!-- Contact Damola -->
+    <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
+        <h2 class="w3-text-light-grey">Contact Damola</h2>
+        <hr style="width:200px" class="w3-opacity">
+        <div class="w3-section">
+            <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Nigeria</p>
+            <p><i class="fa fa-building fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                <a href="https://maps.app.goo.gl/veCpNGTHEyNgLne16" target="_blank" style="color: white; text-decoration: none;">
+                    1, unity close, Asi Bodija. Ibadan, Oyo State
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.27031054496493!2d3.920556712811233!3d7.429244608620967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1039ed4f2790cd3d%3A0xa835b7226837b4cf!2s1%20Asi%20Bodija%20Road%2C%20Ibadan%20200132%2C%20Oyo%2C%20Nigeria!5e0!3m2!1sen!2suk!4v1721762407805!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </a>
+            </p>
+            <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: +2349024354717</p>
+            <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: admin@ayegbayodamola.com</p>
+        </div><br>
+        <p>Let's get in touch. Send me a message:</p>
+        <form action="/action_page.php" target="_blank">
+            <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required name="Name"></p>
+            <p><input class="w3-input w3-padding-16" type="text" placeholder="Email" required name="Email"></p>
+            <p><input class="w3-input w3-padding-16" type="text" placeholder="Subject" required name="Subject"></p>
+            <p><input class="w3-input w3-padding-16" type="text" placeholder="Message" required name="Message"></p>
+            <p>
+                <button class="w3-button w3-light-grey w3-padding-large" type="submit">
+                    <i class="fa fa-paper-plane"></i> SEND MESSAGE
+                </button>
+            </p>
+        </form>
+    </div>
+
+   <!-- Footer -->
+<!-- Footer -->
+<footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+    <a href="https://www.facebook.com/ayegbayod1" target="_blank">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    </a>
+    <a href="https://www.instagram.com/damola_ayegbayo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+    </a>
+    <a href="https://x.com/ayegbayo_damola" target="_blank">
+        <!-- Custom X icon SVG -->
+        <svg class="w3-hover-opacity" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0C5.37167 0 0 5.37167 0 12C0 18.6283 5.37167 24 12 24C18.6283 24 24 18.6283 24 12C24 5.37167 18.6283 0 12 0ZM16.2426 15.6569L12 11.4142L7.75736 15.6569L6.34315 14.2426L10.5858 10L6.34315 5.75736L7.75736 4.34315L12 8.58579L16.2426 4.34315L17.6569 5.75736L13.4142 10L17.6569 14.2426L16.2426 15.6569Z" fill="currentColor"/>
+        </svg>
+    </a>
+    <a href="https://www.linkedin.com/in/damola-ayegbayo-6b417b1b8" target="_blank">
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </a>
+    <p class="w3-medium">
+        <img src="./Images/Echoing Canvas.png" alt="Echoing Canvas Logo" style="height: 50px; vertical-align: middle;">
+        2024 Echoing Canvas. All rights reserved.
+    </p>
+</footer>
+
+
+</body>
+</html>

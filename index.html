@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="./style.css">
+
+<style>
+body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+.w3-row-padding img {margin-bottom: 12px}
+/* Set the width of the sidebar to 120px */
+.w3-sidebar {width: 120px;background: #222;}
+/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+#main {margin-left: 120px}
+/* Remove margins from "page content" on small screens */
+@media only screen and (max-width: 600px) {#main {margin-left: 0}}
+</style>
+</head>
+<body class="w3-black">
+
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+    <!-- Avatar image in top left corner -->
+    <img src="./Images/Gallery Online.jpg" style="width:100%">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
+      <i class="fa fa-home w3-xxlarge"></i>
+      <p>HOME</p>
+    </a>
+    <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+      <i class="fa fa-user w3-xxlarge"></i>
+      <p>ABOUT</p>
+    </a>
+    <a href="#artists" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+      <i class="fa fa-eye w3-xxlarge"></i>
+      <p>ARTISTS</p>
+    </a>
+    <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+      <i class="fa fa-envelope w3-xxlarge"></i>
+      <p>CONTACT</p>
+    </a>
+  </nav>
+  
+  <!-- Navbar on small screens (Hidden on medium and large screens) -->
+  <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+    <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+      <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+      <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
+      <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">PHOTOS</a>
+      <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
+    </div>
+  </div>
+  
+  <!-- Page Content -->
+  <div class="w3-padding-large" id="main">
+    <!-- Header/Home -->
+    <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+      <h1 class="w3-jumbo"><span class="w3-hide-small"></span> Echoing Canvas.</h1>
+      <p>Listen to the Echoing Canvas.</p>
+      <img src="./Images/Gallery Online.jpg" alt="Canvas" class="w3-image" width="992" height="1108">
+    </header>
+  
+  <!-- About Section -->
+  <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
+    <h2 class="w3-text-light-grey">About Us</h2>
+    <hr style="width:200px" class="w3-opacity">
+    <p>At Echo from the South, our mission is to amplify the voices of disadvantaged African artists, providing them with a global platform to showcase their talent. We believe in the power of art to tell stories, express culture, and drive social change.</p>
+        
+        <h2>Who We Are</h2>
+        <p>We are a social enterprise dedicated to bridging the gap between African artists and art enthusiasts worldwide, offering support and empowerment to overcome unique challenges.</p>
+
+        <h2>Our Vision</h2>
+        <p>We envision a world where African artists are celebrated globally, fostering appreciation and understanding of Africa’s rich artistic heritage.</p>
+
+        <h2>What We Do</h2>
+        <ul>
+            <li><strong>Online Gallery:</strong> Curated collections of diverse African artworks.</li>
+            <li><strong>Artist Support:</strong> Marketing, promotion, and resources for artists.</li>
+            <li><strong>Community Engagement:</strong> Virtual events, workshops, and discussions.</li>
+        </ul>
+
+        <h2>Join Us</h2>
+        <p>Explore our gallery, discover new artists, and support the incredible talent that echoes from the south.</p>
+
+        <h2>Echo from the South – Listen to the Echoing Canvas</h2>
+    </p>
+    <h3 class="w3-padding-16 w3-text-light-grey">Our Skills</h3>
+    <p class="w3-wide">Acrylic on Canvas</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:95%"></div>
+    </div>
+    <p class="w3-wide">charcoal realistic drawing</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:85%"></div>
+    </div>
+    <p class="w3-wide">textile art</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:80%"></div>
+    </div><br>
+    
+    <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">3+</span><br>
+        Partners
+      </div>
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">3+</span><br>
+        Projects Done
+      </div>
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">3+</span><br>
+        Happy Clients
+      </div>
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">10+</span><br>
+        Meetings
+      </div>
+    </div>
+
+    <button class="w3-button w3-light-grey w3-padding-large w3-section">
+      <i class="fa fa-download"></i> Download Brochure
+    </button>
+    
+    <!-- Grid for pricing tables -->
+    <style>
+        .partners {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            width: 300px; /* Adjust width to fit one image at a time */
+            height: 200px; /* Adjust height to fit the image */
+            margin: 0 auto; /* Center the container itself */
+        }
+
+        .partners img {
+            max-width: 100%;
+            max-height: 100%;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s, transform 1s;
+        }
+
+        .partners img.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+
+<h3 class="w3-padding-16 w3-text-light-grey" style="text-align:center;">Our Partners</h3>
+<div class="partners">
+    <img src="./Images/sussex_innovation.jpg" alt="Partner 1">
+    <img src="./Images/2000px-University_of_Sussex_Logo.svg.png" alt="Partner 2">
+    <img src="./Images/Silicon Brighton.jpeg" alt="Partner 3">
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const images = document.querySelectorAll('.partners img');
+        let currentIndex = 0;
+
+        function showNextImage() {
+            images[currentIndex].classList.remove('show');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('show');
+        }
+
+        // Initial display
+        images[currentIndex].classList.add('show');
+
+        // Change image every 3 seconds
+        setInterval(showNextImage, 3000);
+    });
+</script>
+
+<!-- Testimonials Section -->
+<div class="w3-container" id="testimonials">
+    <h3 class="w3-padding-16 w3-text-light-grey">Testimonials</h3>
+    <div class="w3-row-padding w3-grayscale">
+      <div class="w3-half w3-margin-bottom">
+        <div class="w3-card w3-white">
+          <div class="w3-container">
+            <img src="./Images/steve-rackley-expandedopt.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+            <h3>Steve</h3>
+            <p class="w3-opacity">Customer</p>
+            <p>"Echoing Canvas provided me with a fantastic piece of art. The detail and creativity are amazing. I highly recommend their work!"</p>
+          </div>
+        </div>
+      </div>
+      <div class="w3-half w3-margin-bottom">
+        <div class="w3-card w3-white">
+          <div class="w3-container">
+            <img src="./Images/Joseph Brad.jpeg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+            <h3>Joseph</h3>
+            <p class="w3-opacity">Customer</p>
+            <p>"I was impressed by the artwork I received from Echoing Canvas. It's now a centerpiece in my home. Their artists are truly talented!"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Echoing Team Members Section -->
+  <div class="w3-container" id="team">
+    <h3 class="w3-padding-24 w3-text-light-grey">Echoing Team Members</h3>
+    <div class="w3-row-padding w3-grayscale">
+      <div class="w3-half w3-margin-bottom">
+        <div class="w3-card w3-white">
+          <div class="w3-container">
+            <img src="./Images/Damilola CE.jpeg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+            <p><span class="w3-large w3-margin-right">Damilola Ajiboye.</span> Founder/Innovator at Echoing Canvas.</p>
+            <p>Damilola loves to empower everyone.</p><br>
+          </div>
+        </div>
+      </div>
+      <div class="w3-half w3-margin-bottom">
+        <div class="w3-card w3-white">
+          <div class="w3-container">
+            <img src="./Images/Hastings Golosi.jpeg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+            <p><span class="w3-large w3-margin-right">Hastings HaGo Golosi.</span> Media Manager/Story Teller at Echoing Canvas.</p>
+            <p>Hastings loves to tell real stories.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Echoing Artists Section -->
+  <div class="w3-padding-64 w3-content" id="artists">
+    <h2 class="w3-text-light-grey">Echoing Artists</h2>
+    <hr style="width:200px" class="w3-opacity">
+  
+    <!-- Grid for artists -->
+  <div class="w3-row-padding" style="margin:0 -16px; text-align:center;">
+    <!-- Row for Damola Ayegbayo -->
+    <a href="./Damola Art Gallery.html" style="color: inherit; text-decoration: none;">
+      <div class="w3-margin-bottom" style="display: flex; flex-direction: column; align-items: center; margin: 0 auto;">
+        <div style="display: flex; justify-content: center;">
+          <img src="./Images/Damola Ayegbayo.jpg" style="width:100%; max-width: 300px; margin-right: 16px;">
+          <img src="./Images/Damola.jpg" style="width:100%; max-width: 300px;">
+        </div>
+        <p><span class="w3-large w3-margin-right">Damola Ayegbayo</span></p>
+      </div>
+    </a>
+    <!-- Row for Simi Adey -->
+    <a href="./Starlex Art Gallery.html" style="color: inherit; text-decoration: none;">
+      <div class="w3-margin-bottom" style="display: flex; flex-direction: column; align-items: center; margin: 0 auto;">
+        <div style="display: flex; justify-content: center;">
+          <img src="./Images/Starlex.jpg" style="width:100%; max-width: 300px; margin-right: 16px;">
+          <img src="./Images/Simi Aday.jpg" style="width:100%; max-width: 300px;">
+        </div>
+        <p><span class="w3-large w3-margin-right">Simi Adey</span></p>
+      </div>
+    </a>
+    <!-- Row for Ayomikun Ojoade -->
+    <a href="./Ayomikun Art Gallery.html" style="color: inherit; text-decoration: none;">
+      <div class="w3-margin-bottom" style="display: flex; flex-direction: column; align-items: center; margin: 0 auto;">
+        <div style="display: flex; justify-content: center;">
+          <img src="./Images/Ayomikun Ojoade.jpg" style="width:100%; max-width: 300px; margin-right: 16px;">
+          <img src="./Images/Ayomikun.jpg" style="width:100%; max-width: 300px;">
+        </div>
+        <p><span class="w3-large w3-margin-right">Ayomikun Ojoade</span></p>
+      </div>
+    </a>
+  </div>
+  <!-- End artists grid -->
+  </div>
+  <!-- End Portfolio Section -->
+  
+      
+  <!-- Contact Section -->
+  <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
+    <h2 class="w3-text-light-grey">Contact US</h2>
+    <hr style="width:200px" class="w3-opacity">
+
+    <div class="w3-section">
+      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> United Kingdom</p>
+      <p><i class="fa fa-building fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+        <a href="https://www.google.com/maps/search/?api=1&query=Sussex+Innovation+Centre,+Southwick+Street,+Science+Park+Square,+Brighton+BN1+9SB" target="_blank" style="color: white; text-decoration: none;">
+          Sussex Innovation Centre, Southwick Street, Science Park Square, Brighton BN1 9SB
+        </a>
+      </p>
+      <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: +(44) 7446018348</p>
+      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: canvasofhopeinitiative@gmail.com</p>
+    </div><br>
+    <p>Let's get in touch. Send me a message:</p>
+
+    <form action="/action_page.php" target="_blank">
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required name="Name"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Email" required name="Email"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Subject" required name="Subject"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Message" required name="Message"></p>
+      <p>
+        <button class="w3-button w3-light-grey w3-padding-large" type="submit">
+          <i class="fa fa-paper-plane"></i> SEND MESSAGE
+        </button>
+      </p>
+    </form>
+  <!-- End Contact Section -->
+  </div>
+  
+<!-- Footer -->
+<footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+  <i class="fa fa-facebook-official w3-hover-opacity"></i>
+  <i class="fa fa-instagram w3-hover-opacity"></i>
+  <i class="fa fa-snapchat w3-hover-opacity"></i>
+  <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+  <i class="fa fa-twitter w3-hover-opacity"></i>
+  <i class="fa fa-linkedin w3-hover-opacity"></i>
+  <p class="w3-medium">
+    <img src="./Images/Echoing Canvas.png" alt="Echoing Canvas Logo" style="height: 50px; vertical-align: middle;">
+    2024 Echoing Canvas. All rights reserved.
+</p>
+<!-- End footer -->
+</footer>
+
+
+<!-- END PAGE CONTENT -->
+</div>
+
+</body>
+</html>

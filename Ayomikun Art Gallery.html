@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="./style.css">
+
+<style>
+  body, h1, h2, h3, h4, h5, h6 {
+      font-family: "Montserrat", sans-serif;
+  }
+
+  .w3-row-padding img {
+      margin-bottom: 12px;
+  }
+
+  /* Set the width of the sidebar to 120px */
+  .w3-sidebar {
+      width: 120px;
+      background: #222;
+  }
+
+  /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+  #main {
+      margin-left: 120px;
+  }
+
+  /* Remove margins from "page content" on small screens */
+  @media only screen and (max-width: 600px) {
+      #main {
+          margin-left: 0;
+      }
+  }
+
+  body {
+      background-color: #f4f4f4;
+  }
+
+  .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      width: 80%;
+      max-width: 1200px;
+      margin: 0 auto;
+  }
+
+  .photo {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .photo img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.5s ease;
+  }
+
+  .photo:hover img {
+      transform: scale(1.1);
+  }
+
+  .photo::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+  }
+
+  .photo:hover::after {
+      opacity: 1;
+  }
+
+  .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+  }
+
+  .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+  }
+</style>
+
+</head>
+<body class="w3-black">
+
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+  <!-- Avatar image in top left corner -->
+  <img src="./Images/Ayomikun Signature Art.jpg" style="width:100%">
+  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
+    <i class="fa fa-home w3-xxlarge"></i>
+    <p>HOME</p>
+  </a>
+  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-user w3-xxlarge"></i>
+    <p>ABOUT</p>
+  </a>
+  <a href="#artists" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-eye w3-xxlarge"></i>
+    <p>ARTISTS</p>
+  </a>
+  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-envelope w3-xxlarge"></i>
+    <p>CONTACT</p>
+  </a>
+</nav>
+
+<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
+    <a href="#artists" class="w3-bar-item w3-button" style="width:25% !important">ARTISTS</a>
+    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
+  </div>
+</div>
+
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+  <!-- Header/Home -->
+  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+    <h1 class="w3-jumbo"><span class="w3-hide-small"></span> Echoing Canvas.</h1>
+    <p>Listen to the Echoing Canvas.</p>
+    <img src="./Images/Ayomikun Profile/176050752_155386409841645_899981766682875081_n.jpg" alt="Canvas" class="w3-image" width="992" height="1108">
+  </header>
+
+  <!-- Photo Grid -->
+     <div class="gallery">
+        <div class="photo"><img src="./Images/Ayomikun Profile/119442122_247457559910741_7997442948889105169_n.jpg" alt="Art 1"></div>
+        <div class="photo"><img src="./Images/Ayomikun Profile/175722260_600572560915075_742554901852688200_n.jpg" alt="Art 2"></div>
+        <div class="photo"><img src="./Images/Ayomikun Profile/286450467_1317167442104907_4637435039714106641_n.jpg" alt="Art 3"></div>
+        <div class="photo"><img src="./Images/Ayomikun Profile/182902708_1688963151296158_6656761930335340123_n.jpg" alt="Art 4"></div>
+        <div class="photo"><img src="./Images/Ayomikun Profile/183654732_610082036632232_1892599053854133576_n.jpg" alt="Art 5"></div>
+        <div class="photo"><img src="./Images/Ayomikun Profile/184045828_468900750835206_4649887083660056472_n.jpg" alt="Art 6"></div>
+        <div class="photo"><img src="./Images/Ayomikun Profile/412272809_365658136115192_714419259465181166_n.jpg" alt="Art 7"></div>
+        <div class="photo"><img src="./Images/Ayomikun Profile/286924197_555928832606067_4977951266506134844_n.jpg" alt="Art 8"></div>
+        <div class="photo"><img src="./Images/Ayomikun Profile/287072008_690706511988477_1361528943875386933_n.jpg" alt="Art 5"></div>
+        <div class="photo"><img src="./Images/Ayomikun Profile/319131578_535233068504746_3371961086760184939_n.jpg" alt="Art 6"></div>
+        <div class="photo"><img src="./Images/Ayomikun Profile/412771903_1442490689741018_3248165479142180053_n.jpg" alt="Art 7"></div>
+        <div class="photo"><img src="./Images/Ayomikun Profile/83651808_1104948823191260_4332485585665023970_n.jpg" alt="Art 8"></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const photos = document.querySelectorAll('.photo');
+        photos.forEach(photo => {
+            photo.addEventListener('click', () => {
+                const lightbox = document.createElement('div');
+                lightbox.classList.add('lightbox');
+                document.body.appendChild(lightbox);
+
+                const img = document.createElement('img');
+                img.src = photo.querySelector('img').src;
+                lightbox.appendChild(img);
+
+                lightbox.addEventListener('click', () => {
+                    document.body.removeChild(lightbox);
+                });
+            });
+        });
+    });
+</script>
+
+  <!-- About Ayomikun -->
+  <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
+    <h2 class="w3-text-light-grey">Ayomikun Ojoade: The Prolific Maestro of Realism</h2>
+    <hr style="width:200px" class="w3-opacity">
+    <p>
+      Hailing from the vibrant city of Lagos, Nigeria, Ayomikun Ojoade is a young yet well-established artist who has carved a niche for himself in the world of contemporary art. With a penchant for charcoal and oil, Ayomikun's creations are a testament to the power of realism, capturing the essence of his subjects with an impressive depth and precision that leaves viewers in awe.
+      
+      A proud alumnus of the esteemed Yaba College of Technology and the Universal Studios of Art, Onikan, Ayomikun's foundation in art is as robust as his passion. His dedication to his craft is evident in every stroke and shade, making him a sought-after name in the art community.
+      
+      Ayomikun's clientele is as illustrious as his portfolio. He has had the privilege of creating masterpieces for celebrities like Temi Otedola, Darey Art Alade, Folarin Falana (popularly known as Falz), and the comedic genius Helen Paul. Beyond individual commissions, his artworks grace the homes of discerning collectors who recognize and appreciate the brilliance of his talent.
+      
+      However, Ayomikun's artistry isn't confined to personal portraits or celebrity commissions. He is a storyteller, using his medium to shed light on pressing global issues. His recent contributions to an exhibition in Ukraine are a poignant reflection on the war and its profound effects, showcasing his ability to transcend boundaries and touch hearts universally.
+      
+      In Ayomikun Ojoade, the art world has a gem - a beacon of talent, dedication, and purpose. As he continues to ascend in his artistic journey, one can only anticipate the greater heights he is destined to reach.
+      
+      ---
+        </p>
+
+        <h2>Achievements</h2>
+        <ul>
+            <li><strong>A joint art exhibition titled The Adventure,</strong> 02/2020.</li>
+            <li><strong>A Virtual Showcase Of Artwork By Hansford and Sons London,</strong> 06/2020.</li>
+            <li><strong>ARTS FROM THE MOTHER LAND, Thames Art Center, NEW YORK,</strong> 08/2022.</li> 
+        </ul>
+
+        <h2>Echo from the South – Listen to the Echoing Canvas</h2>
+    
+  <!-- Contact Damola -->
+  <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
+    <h2 class="w3-text-light-grey">Contact US</h2>
+    <hr style="width:200px" class="w3-opacity">
+
+    <div class="w3-section">
+      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> United Kingdom</p>
+      <p><i class="fa fa-building fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+        <a href="https://www.google.com/maps/search/?api=1&query=Sussex+Innovation+Centre,+Southwick+Street,+Science+Park+Square,+Brighton+BN1+9SB" target="_blank" style="color: white; text-decoration: none;">
+          Sussex Innovation Centre, Southwick Street, Science Park Square, Brighton BN1 9SB
+        </a>
+      </p>
+      <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: +(44) 7446018348</p>
+      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: canvasofhopeinitiative@gmail.com</p>
+    </div><br>
+    <p>Let's get in touch. Send me a message:</p>
+
+    <form action="/action_page.php" target="_blank">
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required name="Name"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Email" required name="Email"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Subject" required name="Subject"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Message" required name="Message"></p>
+      <p>
+        <button class="w3-button w3-light-grey w3-padding-large" type="submit">
+          <i class="fa fa-paper-plane"></i> SEND MESSAGE
+        </button>
+      </p>
+    </form>
+  <!-- End Contact Section -->
+  </div>
+  
+    <!-- Footer -->
+  <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+    <p class="w3-medium">
+      <img src="./Images/Echoing Canvas.png" alt="Echoing Canvas Logo" style="height: 50px; vertical-align: middle;">
+      2024 Echoing Canvas. All rights reserved.
+  </p>
+  <!-- End footer -->
+  </footer>
+
+
+<!-- END PAGE CONTENT -->
+</div>
+
+</body>
+</html>
