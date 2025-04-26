@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Echoing Canvas | Echoing Canvas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      z-index: 1000;
+    }
+    nav img {
+      height: 40px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 600;
+    }
+    nav a:hover {
+      color: #f39c12;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .hero {
+      height: 100vh;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+      padding-top: 80px;
+      background-size: cover;
+      background-position: center;
+      animation: heroAnim 10s infinite alternate ease-in-out;
+    }
+
+    @keyframes heroAnim {
+      0% {
+        background-image: url('./Customers Images/2 - Joseph Brafield/10806444_945364218234_862699086748011628_n (1).jpg');
+      }
+      50% {
+        background-image: url('./Customers Images/2 - Joseph Brafield/WhatsApp Image 2024-07-02 at 00.00.52_7df861f7.jpg');
+      }
+      100% {
+        background-image: url('./Customers Images/2 - Joseph Brafield/10806444_945364218234_862699086748011628_n (1).jpg');
+      }
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      background: rgba(0,0,0,0.5);
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+    .hero p {
+      margin-top: 15px;
+      font-size: 1.2em;
+      background: rgba(0,0,0,0.4);
+      padding: 10px;
+      border-radius: 6px;
+    }
+
+    .profile-section {
+      background-color: #111;
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .profile-section h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    .profile-section p {
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6em;
+      font-weight: 300;
+    }
+
+    .gallery {
+      background-color: #111;
+      color: white;
+      padding: 60px 20px;
+    }
+    .gallery h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2em;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .video-section {
+      padding: 30px 20px;
+      text-align: center;
+      background: #000;
+    }
+    .video-container-narrow {
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 4 / 3;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.video-container-narrow video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+
+    .contact-section {
+      background: #111;
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .contact-section a {
+      color: #f39c12;
+      text-decoration: none;
+    }
+    .contact-section a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 40px 20px;
+      color: white;
+    }
+    footer img {
+      height: 40px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <img src="./Images/Echoing Canvas.png" alt="Echoing Canvas Logo" />
+    <div class="nav-links">
+      <a href="index.html">HOME</a>
+      <a href="#profile">ARTIST PROFILE</a>
+      <a href="#gallery">GALLERY</a>
+      <a href="#video">BEHIND THE SCENES</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Echoing Canvas</h1>
+    <p>Art that speaks through stillness, realism, and raw beauty.</p>
+  </section>
+
+  <section id="profile" class="profile-section">
+    <h2>About the Artist: Ayomikun Ojoade</h2>
+    <p><strong>Location:</strong> Lagos, Nigeria<br><strong>Skills:</strong> Paintings, Drawings<br><strong>Speciality:</strong> Realism in Charcoal and Oil</p>
+    <p><strong>Notable Clients:</strong> Temi Otedola, Darey Art Alade, Falz, Helen Paul</p>
+    <p><strong>Education:</strong> Studied at the College of Technology, Lagos</p>
+    <p><strong>Exhibitions:</strong> Contributed to an exhibition in Ukraine – a poignant reflection on the war and its profound effects.</p>
+    <img src="./Images/Ayomikun (2).jpg" alt="Ayomikun Ojoade" style="margin-top:20px; max-width:300px; border-radius:10px; box-shadow: 0 0 10px rgba(255,255,255,0.2);">
+  </section>
+
+  <section id="gallery" class="gallery">
+    <h2>Gallery Showcase</h2>
+    <div class="gallery-grid">
+      <img src="./Customers Images/2 - Joseph Brafield/10806444_945364218234_862699086748011628_n (1).jpg" alt="Original Reference Photo">
+      <img src="./Customers Images/2 - Joseph Brafield/WhatsApp Image 2024-07-02 at 00.00.52_7df861f7.jpg" alt="Charcoal Drawing Result">
+      <img src="./Images/Ayomikun Profile/119442122_247457559910741_7997442948889105169_n.jpg" alt="Art 1">
+      <img src="./Customers Images/2 - Joseph Brafield/WhatsApp Image 2024-08-10 at 04.56.02_e7dc8b07.jpg" alt="Presentation Moment 1">
+      <img src="./Images/Ayomikun Profile/182902708_1688963151296158_6656761930335340123_n.jpg" alt="Art 2">
+      <img src="./Images/Ayomikun Profile/183654732_610082036632232_1892599053854133576_n.jpg" alt="Art 3">
+      <img src="./Customers Images/2 - Joseph Brafield/WhatsApp Image 2024-08-10 at 04.56.02_ec2e997b.jpg" alt="Presentation Moment 2">
+      <img src="./Images/Ayomikun Profile/319131578_535233068504746_3371961086760184939_n.jpg" alt="Art 5">
+      <img src="./Images/Ayomikun Profile/412771903_1442490689741018_3248165479142180053_n.jpg" alt="Art 6">
+      <img src="./Images/Ayomikun Profile/412272809_365658136115192_714419259465181166_n.jpg" alt="Art 7">
+      <img src="./Images/Ayomikun Profile/286924197_555928832606067_4977951266506134844_n.jpg" alt="Art 8">
+    </div>
+  </section>
+
+  <section id="video" class="video-section">
+    <h2 style="color:white; margin-bottom: 20px;">Behind the Canvas</h2>
+    <div class="video-container-narrow">
+      <video controls>
+        <source src="./Customers Images/2 - Joseph Brafield/The Making of the Picture.MP4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+  
+
+  <section id="contact" class="contact-section">
+    <h2>Contact Us</h2>
+    <p><i class="fa fa-map-marker"></i> United Kingdom</p>
+    <p><i class="fa fa-building"></i> <a href="https://www.google.com/maps/search/?api=1&query=Sussex+Innovation+Centre,+Brighton+BN1+9SB" target="_blank">Sussex Innovation Centre, Brighton</a></p>
+    <p><i class="fa fa-phone"></i> +(44) 7446 018348</p>
+    <p><i class="fa fa-envelope"></i> <a href="mailto:info@eoncanvas.co.uk">info@eoncanvas.co.uk</a></p>
+  </section>
+
+  <footer id="footer">
+    <p>
+      <img src="./Images/Echoing Canvas.png" alt="Echoing Canvas Logo">
+      &copy; 2024 Echoing Canvas. All rights reserved.
+    </p>
+  </footer>
+</body>
+</html>

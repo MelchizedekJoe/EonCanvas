@@ -1,151 +1,207 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>W3.CSS Template</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="./style.css">
-
-<style>
-body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-.w3-row-padding img {margin-bottom: 12px}
-/* Set the width of the sidebar to 120px */
-.w3-sidebar {width: 120px;background: #222;}
-/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-#main {margin-left: 120px}
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {#main {margin-left: 0}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Echoing Canvas: Showcasing African textile artistry and fashion by Starlex and other emerging creatives.">
+  <meta property="og:title" content="Echoing Canvas">
+  <meta property="og:description" content="Featuring Starlex – a fusion of fashion, textile, and storytelling.">
+  <meta property="og:image" content="./Images/Starlex.jpg">
+  <meta property="og:url" content="https://yourdomain.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Echoing Canvas</title>
+  <link rel="icon" href="./Images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    body, h1, h2, h3, h4, h5, h6 {
+      font-family: "Montserrat", sans-serif;
+    }
+    .w3-sidebar {
+      width: 120px;
+      background: #222;
+    }
+    #main {
+      margin-left: 120px;
+    }
+    @media only screen and (max-width: 600px) {
+      #main {
+        margin-left: 0;
+      }
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    .photo img {
+      cursor: pointer;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+    .photo img:hover {
+      transform: scale(1.05);
+    }
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #555;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      z-index: 999;
+    }
+    .back-to-top:hover {
+      background: #333;
+    }
+  </style>
 </head>
+
 <body class="w3-black">
 
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <!-- Avatar image in top left corner -->
-  <img src="/w3images/avatar_smoke.jpg" style="width:100%">
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <i class="fa fa-home w3-xxlarge"></i>
-    <p>HOME</p>
-  </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>ABOUT</p>
-  </a>
-  <a href="#artists" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-eye w3-xxlarge"></i>
-    <p>ARTISTS</p>
-  </a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-envelope w3-xxlarge"></i>
-    <p>CONTACT</p>
-  </a>
-</nav>
+  <!-- Sidebar -->
+  <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+    <img src="/Images/Echoing Canvas (2).png" style="width:100%" alt="Echoing Canvas Logo">
+    <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-black"><i class="fa fa-home w3-xxlarge"></i><p>HOME</p></a>
+    <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><i class="fa fa-user w3-xxlarge"></i><p>ABOUT</p></a>
+    <a href="#artworks" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><i class="fa fa-eye w3-xxlarge"></i><p>ARTWORKS</p></a>
+    <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><i class="fa fa-envelope w3-xxlarge"></i><p>CONTACT</p></a>
+  </nav>
 
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
-    <a href="#artists" class="w3-bar-item w3-button" style="width:25% !important">ARTISTS</a>
-    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
-  </div>
-</div>
-
-<!-- Page Content -->
-<div class="w3-padding-large" id="main">
-  <!-- Header/Home -->
-  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-    <h1 class="w3-jumbo"><span class="w3-hide-small"></span> Echoing Canvas.</h1>
-    <p>Listen to the Echoing Canvas.</p>
-    <img src="./Images/Starlex.jpg" alt="Canvas" class="w3-image" width="992" height="1108">
+  <!-- Top nav for mobile -->
+  <header class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+    <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+      <a href="index.html" class="w3-bar-item w3-button" style="width:25%">HOME</a>
+      <a href="#about" class="w3-bar-item w3-button" style="width:25%">ABOUT</a>
+      <a href="#artworks" class="w3-bar-item w3-button" style="width:25%">ARTWORKS</a>
+      <a href="#contact" class="w3-bar-item w3-button" style="width:25%">CONTACT</a>
+    </div>
   </header>
 
-<!-- About Simi Adey -->
-<div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
-  <h2 class="w3-text-light-grey">Info</h2>
-  <hr style="width:200px" class="w3-opacity">
-  <p>Simi Adey is a passionate Fashion Designer and Textile Artist, blending her creative talents to craft unique fashion pieces and textile portraits. As the founder of **Styled by Starlex**, Simi is dedicated to fulfilling her clients’ fashion aspirations with custom-made bridal gowns, ready-to-wear collections, kiddies’ ball gowns, fascinators, and more. Her mission is to ensure customer satisfaction by bringing their dream designs to life with top-notch quality.
+  <!-- Main -->
+  <div class="w3-padding-large" id="main">
 
-      As a Textile Artist, Simi creates captivating textile portraits using fabrics, threads, and various artistic techniques. Her journey includes experimenting with techniques like braiding and stitching to bring her artistic visions to life. She has explored subjects such as cultural representations and personal portraits, using her craft to celebrate diverse narratives and expressions.
+    <!-- Hero -->
+    <section class="w3-container w3-padding-64 w3-center" id="home">
+      <h1 class="w3-xxxlarge w3-animate-bottom">Echoing Canvas</h1>
+      <p class="w3-large w3-opacity">Listen to the Echoing Canvas.</p>
+      <div class="w3-display-container w3-padding-16">
+        <img src="./Images/Starlex.jpg" alt="Canvas by Starlex" class="w3-image w3-round-large" style="max-height:600px; object-fit:cover;" loading="lazy">
+      </div>
+    </section>
 
-      Beyond her artistic pursuits, Simi is a driven individual who leads a creative community named **THE PEAKS**, aimed at nurturing aspiring fashion designers. Her goal is to empower designers to build their skills and reach their full potential. Simi’s playful yet disciplined nature reflects her commitment to making a positive impact on her generation through creativity and community building.</p>
-  
-  <h2>Educational Background</h2>
-  <p>Obtained extensive experience in fashion design and textile art through her journey as a creative designer and artist, continually refining her skills through hands-on projects and mentorship.</p>
+    <!-- About Starlex -->
+    <section class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
+      <h2 class="w3-text-light-grey">About Starlex</h2>
+      <hr style="width:200px" class="w3-opacity">
+      <p><strong>Simi Adey</strong>, known as <strong>Starlex</strong>, is a Fashion Designer and Textile Artist blending timeless elegance with African heritage...</p>
+      <h3>Educational Background</h3>
+      <p>Trained in fashion design through formal education, hands-on experience, and mentorship.</p>
+      <h3>Events</h3>
+      <p>- Styled by Starlex Launch Showcase<br>- Textile Art Exhibition at The Metaphor, Lagos<br>- Creative collaborations with The Peaks.</p>
+      <h3>New Projects</h3>
+      <p>Exploring bold textile techniques and sustainable materials for a new portrait series.</p>
+    </section>
 
-  <h2>Events</h2>
-  <p>- Textile Art Exhibition at The Metaphor, Lagos<br>
-      - Fashion showcase at Styled by Starlex Launch Event<br>
-      - Collaborative creative projects with fashion communities and designers.</p>
-  
-  <h2>Publications</h2>
-  <p>- Featured in Lagos Fashion & Art Magazine<br>
-      - Interviewed in The Sun Newspaper, Nigeria<br>
-      - Profiled by African Creative Women Network.</p>
+    <!-- Featured Artworks -->
+    <section class="w3-container w3-padding-64 w3-light-grey" id="artworks">
+      <h2 class="w3-text-black w3-center">Featured Artworks</h2>
+      <div class="w3-row-padding w3-center">
+        <div class="w3-col l4 m6 s12 w3-margin-bottom">
+          <div class="w3-card-4 w3-hover-shadow photo">
+            <img src="./Images/Starlex/371742549_1234079397273471_5614060028200103371_n.jpg" alt="Textile Elegance" style="width:100%; height:400px; object-fit:cover;" loading="lazy">
+            <div class="w3-container"><h5>Textile Elegance</h5></div>
+          </div>
+        </div>
+        <div class="w3-col l4 m6 s12 w3-margin-bottom">
+          <div class="w3-card-4 w3-hover-shadow photo">
+            <img src="./Images/Starlex/391594172_1806937503087730_1882012132132485150_n.jpg" alt="Cultural Fusion" style="width:100%; height:400px; object-fit:cover;" loading="lazy">
+            <div class="w3-container"><h5>Cultural Fusion</h5></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <h2>Exhibitions</h2>
-  <ul>
-      <li><strong>Solo Exhibition: Textile Narratives</strong>, 04/2023.</li>
-      <li><strong>Joint Exhibition with Emerging Designers,</strong> 07/2023.</li>
-      <li><strong>Women in Art & Design Showcase, London,</strong> 10/2023.</li>
-  </ul>
+    <!-- Contact -->
+    <section class="w3-content w3-padding-64 w3-text-grey" id="contact">
+      <h2 class="w3-text-light-grey">Contact Us</h2>
+      <hr style="width:200px" class="w3-opacity">
+      <div class="w3-section">
+        <p><i class="fa fa-map-marker fa-fw w3-text-white"></i> United Kingdom</p>
+        <p><i class="fa fa-building fa-fw w3-text-white"></i> <a href="https://www.google.com/maps?q=Sussex+Innovation+Centre,+Brighton" target="_blank" style="color:white;">Sussex Innovation Centre, Brighton</a></p>
+        <p><i class="fa fa-phone fa-fw w3-text-white"></i> +44 7446018348</p>
+        <p><i class="fa fa-envelope fa-fw w3-text-white"></i> info@eoncanvas.co.uk</p>
+      </div>
+      <form action="#" method="POST">
+        <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" name="Name" required></p>
+        <p><input class="w3-input w3-padding-16" type="email" placeholder="Email" name="Email" required></p>
+        <p><input class="w3-input w3-padding-16" type="text" placeholder="Subject" name="Subject" required></p>
+        <p><textarea class="w3-input w3-padding-16" placeholder="Message" name="Message" required></textarea></p>
+        <p><button class="w3-button w3-light-grey w3-padding-large" type="submit"><i class="fa fa-paper-plane"></i> SEND MESSAGE</button></p>
+      </form>
+    </section>
 
-  <h2>New Projects</h2>
-  <p>Currently exploring innovative textile techniques and materials to create new portrait series that celebrate African culture and heritage through textile art.</p>
-</div>
-
-    
-  <!-- Contact Damola -->
-  <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
-    <h2 class="w3-text-light-grey">Contact US</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <div class="w3-section">
-      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> United Kingdom</p>
-      <p><i class="fa fa-building fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
-        <a href="https://www.google.com/maps/search/?api=1&query=Sussex+Innovation+Centre,+Southwick+Street,+Science+Park+Square,+Brighton+BN1+9SB" target="_blank" style="color: white; text-decoration: none;">
-          Sussex Innovation Centre, Southwick Street, Science Park Square, Brighton BN1 9SB
-        </a>
-      </p>
-      <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: +(44) 7446018348</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: info@eoncanvas.co.uk</p>
-    </div><br>
-    <p>Let's get in touch. Send me a message:</p>
-
-    <form action="/action_page.php" target="_blank">
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required name="Name"></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Email" required name="Email"></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Subject" required name="Subject"></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Message" required name="Message"></p>
-      <p>
-        <button class="w3-button w3-light-grey w3-padding-large" type="submit">
-          <i class="fa fa-paper-plane"></i> SEND MESSAGE
-        </button>
-      </p>
-    </form>
-  <!-- End Contact Section -->
-  </div>
-  
     <!-- Footer -->
-  <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
-    <p class="w3-medium">
-      <img src="./Images/Echoing Canvas.png" alt="Echoing Canvas Logo" style="height: 50px; vertical-align: middle;">
-      2024 Echoing Canvas. All rights reserved.
-  </p>
-  <!-- End footer -->
-  </footer>
+    <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+      <a href="https://www.instagram.com/e_on_canvas/" target="_blank"><i class="fa fa-instagram w3-hover-opacity"></i></a>
+      <a href="https://www.linkedin.com/company/eoncanvas/" target="_blank"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+      <p class="w3-medium">
+        <img src="./Images/Echoing Canvas.png" alt="Echoing Canvas Logo" style="height:50px; vertical-align:middle;"> 2024 Echoing Canvas. All rights reserved.
+      </p>
+    </footer>
 
-<!-- END PAGE CONTENT -->
-</div>
+    <!-- Back to top -->
+    <button class="back-to-top" id="backToTopBtn" title="Go to top">↑</button>
 
+  </div>
+
+  <!-- JS Lightbox + Back to Top -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Lightbox
+      const photos = document.querySelectorAll('.photo img');
+      photos.forEach(photo => {
+        photo.addEventListener('click', () => {
+          const lightbox = document.createElement('div');
+          lightbox.className = 'lightbox';
+          const img = document.createElement('img');
+          img.src = photo.src;
+          lightbox.appendChild(img);
+          document.body.appendChild(lightbox);
+          lightbox.addEventListener('click', () => document.body.removeChild(lightbox));
+        });
+      });
+      // Back to top
+      const topBtn = document.getElementById('backToTopBtn');
+      window.onscroll = () => {
+        topBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+      };
+      topBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
 </body>
 </html>
