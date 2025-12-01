@@ -252,51 +252,50 @@
 
       <!-- Right: enquiry form -->
       <div class="w3-col s12 m7">
-        <form name="EonCanvasContact"
-              method="POST"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-              action="/thanks.html">
-          <!-- Netlify form name -->
-          <input type="hidden" name="form-name" value="EonCanvasContact">
+<form name="EonCanvasContact"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      action="/thanks.html">
+  <input type="hidden" name="form-name" value="EonCanvasContact">
 
-          <!-- Honeypot -->
-          <p style="display:none;">
-            <label>Don’t fill this out: <input name="bot-field"></label>
-          </p>
+  <!-- Honeypot -->
+  <p style="display:none;">
+    <label>Don’t fill this out: <input name="bot-field"></label>
+  </p>
 
-          <div class="w3-section">
-            <label class="w3-text-light-grey">What would you like to talk about?</label>
-            <select class="w3-select w3-border w3-black" name="enquiryType" required>
-              <option value="" disabled selected>Select an option</option>
-              <option value="Commission">Commission a custom artwork</option>
-              <option value="Purchase">Purchase an existing artwork</option>
-              <option value="ArtistCollab">Artist collaboration / feature</option>
-              <option value="Partnership">Partnership / event / exhibition</option>
-              <option value="Other">Something else</option>
-            </select>
-          </div>
+  <div class="w3-section">
+    <label class="w3-text-light-grey">What would you like to talk about?</label>
+    <select class="w3-select w3-border w3-black" name="enquiryType" required>
+      <option value="" disabled selected>Select an option</option>
+      <option value="Commission">Commission a custom artwork</option>
+      <option value="Purchase">Purchase an existing artwork</option>
+      <option value="ArtistCollab">Artist collaboration / feature</option>
+      <option value="Partnership">Partnership / event / exhibition</option>
+      <option value="Other">Something else</option>
+    </select>
+  </div>
 
-          <div class="w3-section">
-            <label class="w3-text-light-grey">Your Name</label>
-            <input class="w3-input w3-border w3-black" type="text" name="name" required>
-          </div>
+  <div class="w3-section">
+    <label class="w3-text-light-grey">Your Name</label>
+    <input class="w3-input w3-border w3-black" type="text" name="name" required>
+  </div>
 
-          <div class="w3-section">
-            <label class="w3-text-light-grey">Email Address</label>
-            <input class="w3-input w3-border w3-black" type="email" name="email" required>
-          </div>
+  <div class="w3-section">
+    <label class="w3-text-light-grey">Email Address</label>
+    <input class="w3-input w3-border w3-black" type="email" name="email" required>
+  </div>
 
-          <div class="w3-section">
-            <label class="w3-text-light-grey">Tell us about your request</label>
-            <textarea class="w3-input w3-border w3-black" name="message" rows="5" required
-              placeholder="Share details such as size, style, artist preference, timeline, or the piece you're interested in."></textarea>
-          </div>
+  <div class="w3-section">
+    <label class="w3-text-light-grey">Tell us about your request</label>
+    <textarea class="w3-input w3-border w3-black" name="message" rows="5" required
+      placeholder="Share details such as size, style, artist preference, timeline, or the piece you're interested in."></textarea>
+  </div>
 
-          <button class="w3-button w3-light-grey w3-padding-large" type="submit">
-            <i class="fa fa-paper-plane"></i> Send Enquiry
-          </button>
-        </form>
+  <button class="w3-button w3-light-grey w3-padding-large" type="submit">
+    <i class="fa fa-paper-plane"></i> Send Enquiry
+  </button>
+</form>
       </div>
 
     </div>
