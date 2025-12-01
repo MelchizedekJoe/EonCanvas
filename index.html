@@ -254,8 +254,10 @@
       <div class="w3-col s12 m7">
         <form name="EonCanvasContact"
               method="POST"
-              netlify
-              netlify-honeypot="bot-field">
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              action="/thanks.html">
+          <!-- Netlify form name -->
           <input type="hidden" name="form-name" value="EonCanvasContact">
 
           <!-- Honeypot -->
