@@ -55,7 +55,7 @@
     .partners img.show {
       opacity: 1;
     }
-    a:focus, button:focus, input:focus, textarea:focus {
+    a:focus, button:focus, input:focus, textarea:focus, select:focus {
       outline: 2px solid #00aced;
       outline-offset: 2px;
     }
@@ -69,9 +69,15 @@
   <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black" aria-current="page">
     <i class="fa fa-home w3-xxlarge"></i><p>HOME</p>
   </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><i class="fa fa-user w3-xxlarge"></i><p>ABOUT</p></a>
-  <a href="#artists" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><i class="fa fa-eye w3-xxlarge"></i><p>ARTISTS</p></a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><i class="fa fa-envelope w3-xxlarge"></i><p>CONTACT</p></a>
+  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-user w3-xxlarge"></i><p>ABOUT</p>
+  </a>
+  <a href="#artists" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-eye w3-xxlarge"></i><p>ARTISTS</p>
+  </a>
+  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-envelope w3-xxlarge"></i><p>CONTACT</p>
+  </a>
 </nav>
 
 <!-- Mobile Navbar -->
@@ -123,45 +129,62 @@
     </div>
   </section>
 
-<!-- Customers -->
-<section class="w3-container" id="customers" aria-labelledby="customers-heading">
-  <h3 id="customers-heading" class="w3-padding-16 w3-text-light-grey">Celebrating Our Collectors</h3>
-  <p class="w3-text-grey w3-center w3-large" style="max-width: 600px; margin: 0 auto 40px;">
-    At Echoing Canvas, each collector has a unique story. Discover how these voices connect with Ayomikun Ojoade's powerful visuals and celebrate African creativity in their personal spaces.
-  </p>
-  <div class="w3-row-padding w3-center">
+  <!-- Customers -->
+  <section class="w3-container w3-center" id="customers" aria-labelledby="customers-heading" style="padding-top: 40px;">
+    <h3 id="customers-heading" class="w3-padding-16 w3-text-light-grey">
+      Celebrating Our Collectors
+    </h3>
 
-    <!-- Steve Rackley -->
-    <div class="w3-col s12 m6 l4 w3-margin-bottom">
-      <a href="./SteveRackley.html" class="w3-hover-opacity w3-card w3-black w3-padding w3-hover-shadow"
-         style="text-decoration: none; display: block; border-radius: 12px; transition: all 0.3s ease;"
-         aria-label="View Steve Rackley's custom portrait experience with Echoing Canvas">
-        <img src="./Images/steve-rackley-expandedopt.png" alt="Portrait of Steve Rackley" class="w3-circle" loading="lazy"
-             style="width:120px; height:120px; object-fit: cover; margin-top: 16px; border: 2px solid white;">
-        <div class="w3-container">
-          <h4 class="w3-text-white w3-margin-top">Steve Rackley</h4>
-          <p class="w3-small w3-text-grey">See how a handcrafted portrait by Ayomikun transformed Steve’s space into a story of connection →</p>
-        </div>
-      </a>
+    <p class="w3-text-grey w3-center w3-large"
+       style="max-width: 600px; margin: 0 auto 30px;">
+      At Echoing Canvas, each collector has a unique story. Discover how these voices connect
+      with Ayomikun Ojoade's powerful visuals and celebrate African creativity in their personal spaces.
+    </p>
+
+    <div class="w3-row-padding w3-center" style="margin: 0 auto; max-width: 900px;">
+
+      <!-- Steve Rackley -->
+      <div class="w3-col s12 m6 l6 w3-margin-bottom">
+        <a href="./SteveRackley.html"
+           class="w3-hover-opacity w3-card w3-black w3-padding"
+           style="text-decoration: none; display: block; border-radius: 12px; transition: all 0.3s ease;"
+           aria-label="View Steve Rackley's custom portrait experience with Echoing Canvas">
+          <img src="./Images/steve-rackley-expandedopt.png"
+               alt="Portrait of Steve Rackley"
+               class="w3-circle"
+               loading="lazy"
+               style="width:130px; height:130px; object-fit: cover; margin-top: 12px; border: 2px solid white;">
+          <div class="w3-container">
+            <h4 class="w3-text-white" style="margin-top: 12px;">Steve Rackley</h4>
+            <p class="w3-small w3-text-grey">
+              See how a handcrafted portrait by Ayomikun transformed Steve’s space into a story of connection →
+            </p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Joseph Bradfield -->
+      <div class="w3-col s12 m6 l6 w3-margin-bottom">
+        <a href="./JosephBradfield.html"
+           class="w3-hover-opacity w3-card w3-black w3-padding"
+           style="text-decoration: none; display: block; border-radius: 12px; transition: all 0.3s ease;"
+           aria-label="View Joseph Bradfield's art journey with Echoing Canvas">
+          <img src="./Images/Joseph Brad.jpeg"
+               alt="Portrait of Joseph Bradfield"
+               class="w3-circle"
+               loading="lazy"
+               style="width:130px; height:130px; object-fit: cover; margin-top: 12px; border: 2px solid white;">
+          <div class="w3-container">
+            <h4 class="w3-text-white" style="margin-top: 12px;">Joseph Bradfield</h4>
+            <p class="w3-small w3-text-grey">
+              Discover how Joseph made Echoing Canvas a vibrant conversation piece in his home →
+            </p>
+          </div>
+        </a>
+      </div>
+
     </div>
-
-    <!-- Joseph Bradfield -->
-    <div class="w3-col s12 m6 l4 w3-margin-bottom">
-      <a href="./JosephBradfield.html" class="w3-hover-opacity w3-card w3-black w3-padding w3-hover-shadow"
-         style="text-decoration: none; display: block; border-radius: 12px; transition: all 0.3s ease;"
-         aria-label="View Joseph Bradfield's art journey with Echoing Canvas">
-        <img src="./Images/Joseph Brad.jpeg" alt="Portrait of Joseph Bradfield" class="w3-circle" loading="lazy"
-             style="width:120px; height:120px; object-fit: cover; margin-top: 16px; border: 2px solid white;">
-        <div class="w3-container">
-          <h4 class="w3-text-white w3-margin-top">Joseph Bradfield</h4>
-          <p class="w3-small w3-text-grey">Discover how Joseph made Echoing Canvas a vibrant conversation piece in his home →</p>
-        </div>
-      </a>
-    </div>
-
-  </div>
-</section>
-
+  </section>
 
   <!-- Artists -->
   <section class="w3-padding-64 w3-content" id="artists">
@@ -191,20 +214,91 @@
 
   <!-- Contact -->
   <section class="w3-padding-64 w3-content w3-text-grey" id="contact">
-    <h2 class="w3-text-light-grey">Contact Us</h2>
+    <h2 class="w3-text-light-grey">Let’s Create Something Together</h2>
     <hr style="width:200px" class="w3-opacity">
-    <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> United Kingdom</p>
-    <p><i class="fa fa-building fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
-      <a href="https://www.google.com/maps/search/?api=1&query=Sussex+Innovation+Centre,+Brighton+BN1+9SB" target="_blank" rel="noopener noreferrer" style="color:white;text-decoration:none;">
-        Sussex Innovation Centre, Brighton
-      </a>
+
+    <p class="w3-text-grey w3-large" style="max-width: 700px;">
+      Get in touch to commission a custom artwork, purchase a featured piece, collaborate as an artist,
+      or explore partnership and exhibition opportunities with EonCanvas.
     </p>
-    <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> +(44) 7446 018348</p>
-    <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
-      <a href="mailto:info@eoncanvas.co.uk" style="color:white;text-decoration:none;">
-        info@eoncanvas.co.uk
-      </a>
-    </p>
+
+    <div class="w3-row-padding" style="margin-top:32px;">
+
+      <!-- Left: contact details -->
+      <div class="w3-col s12 m5">
+        <p>
+          <i class="fa fa-map-marker fa-fw w3-text-white w3-xlarge w3-margin-right"></i>
+          United Kingdom
+        </p>
+        <p>
+          <i class="fa fa-building fa-fw w3-text-white w3-xlarge w3-margin-right"></i>
+          <a href="https://www.google.com/maps/search/?api=1&query=Sussex+Innovation+Centre,+Brighton+BN1+9SB" target="_blank" rel="noopener noreferrer" style="color:white;text-decoration:none;">
+            Sussex Innovation Centre, Brighton
+          </a>
+        </p>
+        <p>
+          <i class="fa fa-phone fa-fw w3-text-white w3-xlarge w3-margin-right"></i> +(44) 7446 018348
+        </p>
+        <p>
+          <i class="fa fa-envelope fa-fw w3-text-white w3-xlarge w3-margin-right"></i>
+          <a href="mailto:info@eoncanvas.co.uk" style="color:white;text-decoration:none;">
+            info@eoncanvas.co.uk
+          </a>
+        </p>
+        <p class="w3-small w3-text-grey">
+          We aim to respond within 2–3 business days to all commission, collaboration, and partnership enquiries.
+        </p>
+      </div>
+
+      <!-- Right: enquiry form -->
+      <div class="w3-col s12 m7">
+        <form name="EonCanvasContact"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              action="/thanks.html">
+          <input type="hidden" name="form-name" value="EonCanvasContact">
+
+          <!-- Honeypot -->
+          <p style="display:none;">
+            <label>Don’t fill this out: <input name="bot-field"></label>
+          </p>
+
+          <div class="w3-section">
+            <label class="w3-text-light-grey">What would you like to talk about?</label>
+            <select class="w3-select w3-border w3-black" name="enquiryType" required>
+              <option value="" disabled selected>Select an option</option>
+              <option value="Commission">Commission a custom artwork</option>
+              <option value="Purchase">Purchase an existing artwork</option>
+              <option value="ArtistCollab">Artist collaboration / feature</option>
+              <option value="Partnership">Partnership / event / exhibition</option>
+              <option value="Other">Something else</option>
+            </select>
+          </div>
+
+          <div class="w3-section">
+            <label class="w3-text-light-grey">Your Name</label>
+            <input class="w3-input w3-border w3-black" type="text" name="name" required>
+          </div>
+
+          <div class="w3-section">
+            <label class="w3-text-light-grey">Email Address</label>
+            <input class="w3-input w3-border w3-black" type="email" name="email" required>
+          </div>
+
+          <div class="w3-section">
+            <label class="w3-text-light-grey">Tell us about your request</label>
+            <textarea class="w3-input w3-border w3-black" name="message" rows="5" required
+              placeholder="Share details such as size, style, artist preference, timeline, or the piece you're interested in."></textarea>
+          </div>
+
+          <button class="w3-button w3-light-grey w3-padding-large" type="submit">
+            <i class="fa fa-paper-plane"></i> Send Enquiry
+          </button>
+        </form>
+      </div>
+
+    </div>
   </section>
 
   <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge" aria-label="Footer">
