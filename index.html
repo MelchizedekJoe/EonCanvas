@@ -16,26 +16,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/css/intlTelInput.min.css" />
 
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
-    body, h1, h2, h3, h4, h5, h6 {
-      font-family: "Montserrat", sans-serif;
-    }
-    .w3-row-padding img {
-      margin-bottom: 12px;
-    }
-    .w3-sidebar {
-      width: 120px;
-      background: #222;
-    }
-    #main {
-      margin-left: 120px;
-    }
+    html { scroll-behavior: smooth; }
+    body, h1, h2, h3, h4, h5, h6 { font-family: "Montserrat", sans-serif; }
+    .w3-row-padding img { margin-bottom: 12px; }
+    .w3-sidebar { width: 120px; background: #222; }
+    #main { margin-left: 120px; }
     @media only screen and (max-width: 600px) {
-      #main {
-        margin-left: 0;
-      }
+      #main { margin-left: 0; }
     }
     .partners {
       display: flex;
@@ -49,34 +36,16 @@
       margin: 0 auto;
     }
     .partners img {
-      max-width: 100%;
-      max-height: 100%;
-      position: absolute;
-      opacity: 0;
-      transition: opacity 1s;
+      max-width: 100%; max-height: 100%;
+      position: absolute; opacity: 0; transition: opacity 1s;
     }
-    .partners img.show {
-      opacity: 1;
-    }
+    .partners img.show { opacity: 1; }
     a:focus, button:focus, input:focus, textarea:focus, select:focus {
-      outline: 2px solid #00aced;
-      outline-offset: 2px;
+      outline: 2px solid #00aced; outline-offset: 2px;
     }
-
-    /* Make the phone widget full-width and dark */
-    .iti {
-      width: 100%;
-    }
-    .iti input {
-      background: #000;
-      color: #fff;
-    }
-    /* Remove bullets from country list, keep dropdown behaviour from library */
-    .iti__country-list {
-      list-style: none;
-      background: #000;
-      color: #fff;
-    }
+    .iti { width: 100%; }
+    .iti input { background: #000; color: #fff; }
+    .iti__country-list { list-style: none; background: #000; color: #fff; }
   </style>
 </head>
 <body class="w3-black">
@@ -242,21 +211,16 @@
 
     <div class="w3-row-padding" style="margin-top:32px;">
 
-      <!-- Left: contact details -->
       <div class="w3-col s12 m5">
-        <p>
-          <i class="fa fa-map-marker fa-fw w3-text-white w3-xlarge w3-margin-right"></i>
-          United Kingdom
-        </p>
+        <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xlarge w3-margin-right"></i> United Kingdom</p>
         <p>
           <i class="fa fa-building fa-fw w3-text-white w3-xlarge w3-margin-right"></i>
-          <a href="https://www.google.com/maps/search/?api=1&query=Sussex+Innovation+Centre,+Brighton+BN1+9SB" target="_blank" rel="noopener noreferrer" style="color:white;text-decoration:none;">
+          <a href="https://www.google.com/maps/search/?api=1&query=Sussex+Innovation+Centre,+Brighton+BN1+9SB"
+             target="_blank" rel="noopener noreferrer" style="color:white;text-decoration:none;">
             Sussex Innovation Centre, Brighton
           </a>
         </p>
-        <p>
-          <i class="fa fa-phone fa-fw w3-text-white w3-xlarge w3-margin-right"></i> +(44) 7446 018348
-        </p>
+        <p><i class="fa fa-phone fa-fw w3-text-white w3-xlarge w3-margin-right"></i> +(44) 7446 018348</p>
         <p>
           <i class="fa fa-envelope fa-fw w3-text-white w3-xlarge w3-margin-right"></i>
           <a href="mailto:info@eoncanvas.co.uk" style="color:white;text-decoration:none;">
@@ -268,17 +232,14 @@
         </p>
       </div>
 
-      <!-- Right: enquiry form (Formspree) -->
       <div class="w3-col s12 m7">
         <form
           id="EonCanvasContact"
           name="EonCanvasContact"
           method="POST"
-          action="https://formspree.io/f/mblnyawp"
+          action="https://email-handler.damilolaajiboyelove.workers.dev"
         >
-          <!-- Optional: subject line for your email -->
           <input type="hidden" name="_subject" value="New enquiry from EonCanvas website">
-          <!-- hidden phone that actually gets submitted -->
           <input type="hidden" name="phone">
 
           <div class="w3-section">
@@ -303,7 +264,6 @@
             <input class="w3-input w3-border w3-black" type="email" name="email" required>
           </div>
 
-          <!-- Phone with country code & flag -->
           <div class="w3-section">
             <label class="w3-text-light-grey">Phone (optional)</label>
             <input
@@ -330,17 +290,16 @@
   </section>
 
   <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge" aria-label="Footer">
-    <a href="#"><i class="fa fa-facebook-official w3-hover-opacity" aria-label="Facebook"></i></a>
-    <a href="https://www.instagram.com/e_on_canvas/" target="_blank" rel="noopener noreferrer"><i class="fa fa-instagram w3-hover-opacity" aria-label="Instagram"></i></a>
-    <a href="https://www.linkedin.com/company/eoncanvas/" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin w3-hover-opacity" aria-label="LinkedIn"></i></a>
+    <a href="#"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+    <a href="https://www.instagram.com/e_on_canvas/" target="_blank"><i class="fa fa-instagram w3-hover-opacity"></i></a>
+    <a href="https://www.linkedin.com/company/eoncanvas/" target="_blank"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
     <p class="w3-medium">
-      <img src="./Images/Echoing Canvas.png" alt="EonCanvas Logo" loading="lazy" style="height: 50px; vertical-align: middle;">
+      <img src="./Images/Echoing Canvas.png" alt="EonCanvas Logo" style="height: 50px; vertical-align: middle;">
       2024 EonCanvas. All rights reserved.
     </p>
   </footer>
 </main>
 
-<!-- intl-tel-input JS (single bundle) -->
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js"></script>
 
 <script>
@@ -350,7 +309,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    // partner logo rotation
+
     const images = document.querySelectorAll('.partners img');
     let current = 0;
     function nextImage() {
@@ -377,7 +336,6 @@
       });
     }
 
-    // intercept submit, send via fetch, then redirect to thanks.html
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
 
