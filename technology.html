@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EonCanvas Technology Services | Coming Soon</title>
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/css/intlTelInput.min.css" />
+
+  <style>
+    body {
+      background: #000;
+      color: #ddd;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .w3-sidebar { width: 120px; background: #111; }
+    #main { margin-left: 120px; }
+    @media (max-width: 600px) { #main { margin-left: 0; } }
+
+    .gold { color: #d4af37; }
+    .w3-gold-btn { background:#d4af37!important; color:#000!important; font-weight:600; }
+
+    .coming-container {
+      text-align: center;
+      padding: 140px 20px 80px;
+    }
+
+    .coming-icon {
+      font-size: 80px;
+      color: #d4af37;
+      margin-bottom: 20px;
+    }
+
+    .coming-title {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .coming-subtitle {
+      font-size: 18px;
+      color: #aaa;
+      max-width: 680px;
+      margin: 0 auto 26px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- DESKTOP SIDEBAR -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+  <img src="./Images/Echoing Canvas.png" alt="EonCanvas Logo" style="width:100%">
+  <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-home w3-xxlarge"></i><p>HOME</p>
+  </a>
+  <a href="creativity.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-paint-brush w3-xxlarge"></i><p>CREATIVITY</p>
+  </a>
+  <a href="technology.html" class="w3-bar-item w3-button w3-padding-large w3-black">
+    <i class="fa fa-cogs w3-xxlarge"></i><p>TECH</p>
+  </a>
+  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-envelope w3-xxlarge"></i><p>CONTACT</p>
+  </a>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="w3-top w3-hide-large w3-hide-medium">
+  <button onclick="toggleNav()" class="w3-button w3-black w3-xlarge w3-block">Menu</button>
+  <div id="myNavbar" class="w3-bar w3-black w3-center" style="display:none">
+    <a href="index.html" class="w3-bar-item w3-button">HOME</a>
+    <a href="creativity.html" class="w3-bar-item w3-button">CREATIVITY</a>
+    <a href="technology.html" class="w3-bar-item w3-button">TECHNOLOGY</a>
+    <a href="#contact" class="w3-bar-item w3-button">CONTACT</a>
+  </div>
+</div>
+
+
+<!-- MAIN CONTENT -->
+<main id="main">
+  <div class="coming-container">
+    <i class="fa-solid fa-gears coming-icon"></i>
+
+    <h1 class="coming-title">Technology Services</h1>
+    <p class="coming-subtitle">
+      Our digital platforms and SaaS tools are being reimagined.<br>
+      We’re building something thoughtful, ethical, and powerful for artists, collectors, and organisations.
+    </p>
+
+    <h2 class="w3-text-light-grey" style="margin-top:32px;">Coming Soon</h2>
+
+    <p class="w3-text-grey" style="max-width:650px;margin:16px auto;">
+      From creative dashboards to ownership tools, from discovery systems to productivity apps —
+      The next chapter of EonCanvas Technology is almost here.
+    </p>
+
+    <a href="index.html" class="w3-button w3-gold-btn w3-round-xlarge w3-padding-large" style="margin-top:20px;">
+      ← Back to Home
+    </a>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section class="w3-padding-64" id="contact" style="background:linear-gradient(135deg,#0a0a0a,#000);">
+    <div class="w3-content">
+      <h2 class="w3-text-white w3-xxlarge w3-center">Get in Touch</h2>
+      <p class="w3-text-grey w3-large w3-center">Have a project, idea or partnership in mind?</p>
+
+      <div class="w3-row-padding w3-margin-top">
+        <div class="w3-col m5">
+          <p><i class="fa fa-map-marker fa-fw gold w3-xlarge"></i> Sussex Innovation Centre, Brighton, UK</p>
+          <p><i class="fa fa-phone fa-fw gold w3-xlarge"></i> +44 7446 018348</p>
+          <p><i class="fa fa-envelope fa-fw gold w3-xlarge"></i> info@eoncanvas.co.uk</p>
+        </div>
+
+        <div class="w3-col m7">
+          <form id="EonCanvasContact" name="EonCanvasContact" method="POST"
+                action="https://email-handler.damilolaajiboyelove.workers.dev">
+            <input type="hidden" name="_subject" value="Technology Services Enquiry">
+            <input type="hidden" name="phone">
+
+            <div class="w3-section">
+              <select class="w3-select w3-border w3-black" name="enquiryType" required>
+                <option value="" disabled selected>What would you like to talk about?</option>
+                <option>Technology Services</option>
+                <option>Custom SaaS / Platform Development</option>
+                <option>Ownership & Privacy Tools</option>
+                <option>Collaboration / Partnership</option>
+                <option>General enquiry</option>
+              </select>
+            </div>
+
+            <div class="w3-section">
+              <input class="w3-input w3-border w3-black" type="text" name="name" placeholder="Your Name" required>
+            </div>
+
+            <div class="w3-section">
+              <input class="w3-input w3-border w3-black" type="email" name="email" placeholder="Email" required>
+            </div>
+
+            <div class="w3-section">
+              <input id="phone" type="tel" class="w3-input w3-border w3-black" placeholder="Phone (optional)">
+            </div>
+
+            <div class="w3-section">
+              <textarea class="w3-input w3-border w3-black" name="message" rows="5"
+                        placeholder="Tell us your request…" required></textarea>
+            </div>
+
+            <button class="w3-button w3-gold-btn w3-round-xlarge w3-padding-large">
+              Send Enquiry
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="w3-center w3-padding-48 w3-text-grey">
+    <img src="./Images/Echoing Canvas.png" alt="EonCanvas" style="height:50px;">
+    <p class="w3-medium">© 2024–2025 EonCanvas — Creativity • Technology • Community</p>
+
+    <div class="w3-xlarge w3-margin-top">
+      <a href="https://instagram.com/e_on_canvas" class="w3-hover-opacity"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com/company/eoncanvas" class="w3-hover-opacity"><i class="fab fa-linkedin"></i></a>
+    </div>
+  </footer>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js"></script>
+<script>
+  function toggleNav() {
+    const nav = document.getElementById("myNavbar");
+    nav.style.display = nav.style.display === "block" ? "none" : "block";
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const phoneInput = document.querySelector("#phone");
+    if (phoneInput && window.intlTelInput) {
+      const iti = window.intlTelInput(phoneInput, {
+        initialCountry: "gb",
+        separateDialCode: true,
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js"
+      });
+
+      document.getElementById("EonCanvasContact").addEventListener("submit", e => {
+        e.preventDefault();
+        document.querySelector('input[name="phone"]').value = iti.getNumber();
+        e.target.submit();
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
