@@ -48,6 +48,60 @@
       max-width: 680px;
       margin: 0 auto 26px;
     }
+
+    /* Testimonials */
+    .testimonial-card {
+      background: #05070c;
+      border-radius: 16px;
+      padding: 24px;
+      height: 100%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    }
+
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(212,175,55,0.7);
+    }
+
+    .testimonial-name {
+      font-weight: 600;
+      color: #fff;
+      font-size: 15px;
+    }
+
+    .testimonial-role {
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .testimonial-text {
+      font-size: 14px;
+      color: #ccc;
+      line-height: 1.6;
+      margin-top: 4px;
+    }
+
+    .testimonial-badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #d4af37;
+    }
+
+    .testimonial-badge a {
+      color: #d4af37;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -95,14 +149,76 @@
     <h2 class="w3-text-light-grey" style="margin-top:32px;">Coming Soon</h2>
 
     <p class="w3-text-grey" style="max-width:650px;margin:16px auto;">
-      From creative dashboards to ownership tools, from discovery systems to productivity apps —
-      The next chapter of EonCanvas Technology is almost here.
+      From creative dashboards to ownership tools, from discovery systems to productivity apps — 
+      the next chapter of EonCanvas Technology is almost here.
     </p>
 
     <a href="index.html" class="w3-button w3-gold-btn w3-round-xlarge w3-padding-large" style="margin-top:20px;">
       ← Back to Home
     </a>
   </div>
+
+  <!-- EARLY PARTNERS & FEEDBACK -->
+  <section class="w3-padding-64" style="background:linear-gradient(135deg,#05070c,#020308);">
+    <div class="w3-content">
+      <h2 class="w3-text-white w3-xxlarge w3-center">Early Partners & Feedback</h2>
+      <p class="w3-text-grey w3-large w3-center" style="max-width:720px;margin:12px auto 32px;">
+        While our full technology offering is still in development, EonCanvas has already been trusted to
+        support live client projects — from concept to delivery.
+      </p>
+
+      <div class="w3-row-padding w3-margin-top">
+        <!-- Temitope / Whytemyne Intl / Hairs & Blings -->
+        <div class="w3-col m6 w3-margin-bottom">
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <img src="./Images/WhytemyneIntl.jpeg" alt="WhyteMyne Intl / Hairs & Blings Essentials" class="testimonial-avatar">
+              <div>
+                <div class="testimonial-name">Temitope Amusat</div>
+                <div class="testimonial-role">CEO, WhyteMyne International &amp; Hairs &amp; Blings Essentials</div>
+              </div>
+            </div>
+            <div class="testimonial-text">
+              “I am pleased to recommend EonCanvas for their exceptional support in conceptualising and delivering
+              the Hairs &amp; Blings Essentials digital experience. From translating our brand vision into a clear
+              online journey to advising on content and structure, they brought a thoughtful, customer-first
+              approach that strengthened how our products show up online.”
+            </div>
+            <div class="testimonial-badge" style="margin-top:10px;">
+              Project:
+              <a href="https://hairsandblingsessentials.com/" target="_blank" rel="noopener">
+                hairsandblingsessentials.com
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Elyassir / ET Services -->
+        <div class="w3-col m6 w3-margin-bottom">
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <img src="./Images/Elyssair.jpg" alt="ET Services" class="testimonial-avatar">
+              <div>
+                <div class="testimonial-name">Elyassir</div>
+                <div class="testimonial-role">Founder, ET Services</div>
+              </div>
+            </div>
+            <div class="testimonial-text">
+              “EonCanvas helped bring ET Services online through a clean, functional website that clearly presents
+              our handyman and removals offering. They were attentive, collaborative, and focused on making sure
+              the site felt true to our business while remaining easy for customers to navigate and contact us.”
+            </div>
+            <div class="testimonial-badge" style="margin-top:10px;">
+              Project:
+              <a href="https://www.et-services.co.uk/" target="_blank" rel="noopener">
+                et-services.co.uk
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- CONTACT SECTION -->
   <section class="w3-padding-64" id="contact" style="background:linear-gradient(135deg,#0a0a0a,#000);">
