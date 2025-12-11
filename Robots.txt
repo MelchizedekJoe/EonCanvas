@@ -1,0 +1,7 @@
+# robots.txt for https://www.eoncanvas.co.uk
+User-agent: *
+Disallow: /admin/
+Disallow: /internal/
+Allow: /
+
+Sitemap: https://www.eoncanvas.co.uk/sitemap.xml
