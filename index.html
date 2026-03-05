@@ -959,9 +959,7 @@
       .then(function(json){
         setLoading(false);
         if (json && json.success) {
-          showState('success');
-          form.reset();
-          if (iti) iti.setCountry('gb');
+          window.location.href = 'thank-you.html?from=index';
         } else {
           showState('error');
         }

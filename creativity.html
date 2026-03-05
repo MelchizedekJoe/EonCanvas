@@ -626,12 +626,12 @@
             </div>
             <div class="ec-contact-info__item">
               <div class="ec-contact-info__icon"><i class="fa fa-envelope"></i></div>
-              <div><div class="ec-contact-info__label">Email</div><div class="ec-contact-info__value">info@eoncanvas.co.uk</div></div>
+              <div><div class="ec-contact-info__label">Email</div><div class="ec-contact-info__value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6801060e07280d07060b09061e091b460b07461d03">[email&#160;protected]</a></div></div>
             </div>
           </div>
           <a href="https://www.google.com/maps?q=Sussex+Innovation+Centre,+Brighton" target="_blank" rel="noopener" class="contact-map-link">View on map <i class="fa fa-arrow-right"></i></a>
         </div>
-        <form class="ec-form" id="EonCanvasContact" method="POST" action="https://email-handler.damilolaajiboyelove.workers.dev">
+        <form class="ec-form" id="EonCanvasContact">
           <input type="hidden" name="_subject" value="Creativity Enquiry — EonCanvas">
           <input type="hidden" name="phone" id="phoneHidden">
           <select name="enquiryType" required>
@@ -686,7 +686,7 @@
       <div class="ec-footer__col">
         <h4>Work With Us</h4>
         <a href="https://calendly.com/eoncanvas-info/30min" target="_blank" rel="noopener">Book a 30-min Call</a>
-        <a href="mailto:info@eoncanvas.co.uk">Send an Email</a>
+        <a href="/cdn-cgi/l/email-protection#4e272028210e2b21202d2f20382f3d602d21603b25">Send an Email</a>
         <a href="#commission">Commission Artwork</a>
         <a href="technology.html">Technology Services</a>
         <a href="#contact">Contact Form</a>
@@ -708,7 +708,98 @@
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js">
+  /* ── CONTACT FORM ── */
+  (function(){
+    var form = document.getElementById('EonCanvasContact');
+    if (!form) return;
+
+    // Phone
+    var phoneInput = document.getElementById('phoneInput');
+    var iti = null;
+    if (phoneInput && window.intlTelInput) {
+      iti = window.intlTelInput(phoneInput, {
+        initialCountry: 'gb',
+        separateDialCode: true,
+        utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js'
+      });
+    }
+
+    // Success/Error UI injection
+    function showState(type) {
+      var existing = document.getElementById('ec-form-msg');
+      if (existing) existing.remove();
+      var el = document.createElement('div');
+      el.id = 'ec-form-msg';
+      el.style.cssText = [
+        'margin-top:18px',
+        'padding:18px 22px',
+        'border-radius:3px',
+        'font-size:13px',
+        'font-family:var(--font-body,sans-serif)',
+        'display:flex',
+        'align-items:center',
+        'gap:12px',
+        'border:1px solid',
+        type === 'success'
+          ? 'background:rgba(201,168,76,0.08);border-color:rgba(201,168,76,0.3);color:#c9a84c'
+          : 'background:rgba(200,60,60,0.08);border-color:rgba(200,60,60,0.3);color:#d97070'
+      ].join(';');
+      el.innerHTML = type === 'success'
+        ? '<i class="fa fa-circle-check" style="font-size:18px;flex-shrink:0"></i><span><strong style="display:block;margin-bottom:2px">Message sent!</strong>Thank you — we\'ll be in touch soon.</span>'
+        : '<i class="fa fa-circle-exclamation" style="font-size:18px;flex-shrink:0"></i><span><strong style="display:block;margin-bottom:2px">Something went wrong</strong>Please try again or email us at <a href="mailto:info@eoncanvas.co.uk" style="color:inherit;text-decoration:underline">info@eoncanvas.co.uk</a></span>';
+      form.parentNode.insertBefore(el, form.nextSibling);
+      if (type === 'success') {
+        setTimeout(function(){ el.remove(); }, 8000);
+      }
+    }
+
+    function setLoading(on) {
+      var btn = form.querySelector('button[type="submit"]');
+      if (!btn) return;
+      if (on) {
+        btn.setAttribute('data-orig', btn.innerHTML);
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending…';
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+      } else {
+        btn.innerHTML = btn.getAttribute('data-orig') || 'Send Enquiry';
+        btn.disabled = false;
+        btn.style.opacity = '';
+      }
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var phoneHidden = document.getElementById('phoneHidden');
+      if (iti && phoneHidden) phoneHidden.value = iti.getNumber();
+
+      var data = new FormData(form);
+      setLoading(true);
+      var existing = document.getElementById('ec-form-msg');
+      if (existing) existing.remove();
+
+      fetch('https://email-handler.damilolaajiboyelove.workers.dev', {
+        method: 'POST',
+        body: data
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(json){
+        setLoading(false);
+        if (json && json.success) {
+          window.location.href = 'thank-you.html?from=creativity';
+        } else {
+          showState('error');
+        }
+      })
+      .catch(function(){
+        setLoading(false);
+        showState('error');
+      });
+    });
+  })();
+
+</script>
 <script>
   const nav = document.getElementById('ec-nav');
   window.addEventListener('scroll', () => {
@@ -733,15 +824,4 @@
     if (phoneInput && window.intlTelInput) {
       const iti = window.intlTelInput(phoneInput, {
         initialCountry: 'gb', separateDialCode: true,
-        utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js'
-      });
-      document.getElementById('EonCanvasContact').addEventListener('submit', e => {
-        e.preventDefault();
-        document.getElementById('phoneHidden').value = iti.getNumber();
-        e.target.submit();
-      });
-    }
-  });
-</script>
-</body>
-</html>
+        utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils

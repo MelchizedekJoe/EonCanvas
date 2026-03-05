@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Message Sent — EonCanvas</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --gold: #c9a84c; --gold-light: #e2c97e;
+      --gold-dim: rgba(201,168,76,0.10); --gold-line: rgba(201,168,76,0.22);
+      --bg: #080808; --surface: #0d0d0d; --surface2: #121212;
+      --border: rgba(255,255,255,0.07);
+      --text-bright: #f0ede6; --text: #999; --text-muted: #555;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+      --nav-h: 68px; --ease: cubic-bezier(.4,0,.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: var(--font-body); font-weight: 300;
+      min-height: 100vh; overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* NAV */
+    .ec-nav {
+      position: fixed; inset: 0 0 auto; z-index: 200; height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .ec-nav__logo { display: flex; align-items: center; gap: 11px; }
+    .ec-nav__logo img { height: 34px; width: auto; }
+    .ec-nav__logo-text { font-family: var(--font-display); font-size: 1.35rem; font-weight: 400; color: var(--text-bright); }
+
+    /* PAGE */
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: var(--nav-h);
+    }
+
+    /* LEFT — decorative art panel */
+    .panel-art {
+      position: relative; overflow: hidden;
+      background: var(--surface2);
+    }
+    .panel-art__bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0a0a0a 0%, #111 100%);
+    }
+    .panel-art__pattern {
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(201,168,76,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(201,168,76,0.04) 0%, transparent 50%);
+    }
+    .panel-art__lines {
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        0deg, transparent, transparent 60px,
+        rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px
+      ),
+      repeating-linear-gradient(
+        90deg, transparent, transparent 60px,
+        rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px
+      );
+    }
+    .panel-art__content {
+      position: relative; z-index: 1;
+      height: 100%; display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-start;
+      padding: 80px 60px;
+    }
+    .panel-art__icon {
+      width: 72px; height: 72px;
+      border: 1px solid var(--gold-line); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; color: var(--gold);
+      margin-bottom: 40px;
+      animation: iconPulse 3s ease-in-out infinite;
+    }
+    @keyframes iconPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
+      50%       { box-shadow: 0 0 0 16px rgba(201,168,76,0.06); }
+    }
+    .panel-art__quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 300; font-style: italic;
+      color: var(--text-bright); line-height: 1.2;
+      letter-spacing: -.02em; margin-bottom: 24px;
+    }
+    .panel-art__quote em { color: var(--gold); font-style: normal; }
+    .panel-art__attr {
+      font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .panel-art__logo {
+      position: absolute; bottom: 48px; left: 60px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .panel-art__logo img { height: 28px; opacity: .5; }
+    .panel-art__logo span {
+      font-family: var(--font-display); font-size: 1.1rem;
+      font-weight: 300; color: var(--text-muted);
+    }
+
+    /* RIGHT — confirmation content */
+    .panel-confirm {
+      display: flex; flex-direction: column;
+      justify-content: center; padding: 80px 72px;
+      background: var(--bg);
+      animation: slideIn .7s var(--ease) both;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(32px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .confirm__check {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--gold-dim); border: 1px solid var(--gold-line);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; color: var(--gold); margin-bottom: 32px;
+      animation: checkPop .5s var(--ease) .3s both;
+    }
+    @keyframes checkPop {
+      from { opacity: 0; transform: scale(.5); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .confirm__label {
+      font-size: 10px; font-weight: 500; letter-spacing: .28em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+    }
+    .confirm__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4vw, 3.8rem);
+      font-weight: 300; color: var(--text-bright);
+      line-height: 1.0; letter-spacing: -.02em;
+      margin-bottom: 8px;
+    }
+    .confirm__heading em { font-style: italic; color: var(--gold); }
+    .confirm__subheading {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
+      font-weight: 300; color: var(--text-muted);
+      margin-bottom: 36px; letter-spacing: .02em;
+    }
+
+    .confirm__rule {
+      width: 48px; height: 1px;
+      background: var(--gold); opacity: .4; margin-bottom: 36px;
+    }
+
+    .confirm__body {
+      font-size: 15px; line-height: 1.85; color: var(--text);
+      max-width: 400px; margin-bottom: 48px;
+    }
+    .confirm__body strong { color: var(--text-bright); font-weight: 400; }
+
+    /* What happens next */
+    .confirm__steps { margin-bottom: 52px; display: flex; flex-direction: column; gap: 0; }
+    .confirm__step {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 18px 0; border-bottom: 1px solid var(--border);
+    }
+    .confirm__step:first-child { border-top: 1px solid var(--border); }
+    .confirm__step-num {
+      font-family: var(--font-display); font-size: 1.2rem;
+      font-weight: 300; color: var(--gold); min-width: 28px;
+      line-height: 1; padding-top: 1px;
+    }
+    .confirm__step-title {
+      font-size: 13px; font-weight: 400; color: var(--text-bright);
+      margin-bottom: 3px;
+    }
+    .confirm__step-text { font-size: 12px; line-height: 1.6; color: var(--text-muted); }
+
+    /* CTAs */
+    .confirm__actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+    .ec-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      letter-spacing: .14em; text-transform: uppercase;
+      padding: 14px 28px; border-radius: 2px; border: none; cursor: pointer;
+      transition: background .22s var(--ease), color .22s var(--ease),
+                  border-color .22s var(--ease), transform .18s var(--ease);
+    }
+    .ec-btn:hover { transform: translateY(-2px); }
+    .ec-btn--gold { background: var(--gold); color: #000; }
+    .ec-btn--gold:hover { background: var(--gold-light); }
+    .ec-btn--outline { background: transparent; color: var(--text-bright); border: 1px solid var(--border); }
+    .ec-btn--outline:hover { border-color: var(--gold-line); color: var(--gold); }
+
+    /* Social row */
+    .confirm__socials-label {
+      font-size: 9px; font-weight: 500; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px;
+    }
+    .confirm__socials { display: flex; gap: 10px; flex-wrap: wrap; }
+    .confirm__socials a {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: var(--text-muted);
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .confirm__socials a:hover { border-color: var(--gold-line); color: var(--gold); background: var(--gold-dim); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .ec-nav { padding: 0 20px; }
+      .page { grid-template-columns: 1fr; }
+      .panel-art { display: none; }
+      .panel-confirm { padding: 60px 28px 80px; justify-content: flex-start; padding-top: 52px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="ec-nav">
+  <a href="index.html" class="ec-nav__logo">
+    <img src="./Images/Echoing Canvas.png" alt="EonCanvas">
+    <span class="ec-nav__logo-text">EonCanvas</span>
+  </a>
+</nav>
+
+<div class="page">
+
+  <!-- LEFT PANEL -->
+  <div class="panel-art">
+    <div class="panel-art__bg"></div>
+    <div class="panel-art__pattern"></div>
+    <div class="panel-art__lines"></div>
+    <div class="panel-art__content">
+      <div class="panel-art__icon"><i class="fa fa-envelope-open-text"></i></div>
+      <div class="panel-art__quote">
+        Art is the lie that<br>enables us to realise<br>the <em>truth.</em>
+      </div>
+      <div class="panel-art__attr">&mdash; Pablo Picasso</div>
+    </div>
+    <div class="panel-art__logo">
+      <img src="./Images/Echoing Canvas.png" alt="EonCanvas">
+      <span>EonCanvas</span>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="panel-confirm">
+    <div class="confirm__check"><i class="fa fa-check"></i></div>
+
+    <div class="confirm__label" id="confirm-label">Message Received</div>
+    <h1 class="confirm__heading" id="confirm-heading">
+      Thank<br><em>You.</em>
+    </h1>
+    <div class="confirm__subheading" id="confirm-subheading">We'll be in touch soon.</div>
+
+    <div class="confirm__rule"></div>
+
+    <p class="confirm__body" id="confirm-body">
+      Your enquiry has been sent to the EonCanvas team. We read every message personally and aim to respond within <strong>1–2 business days.</strong>
+    </p>
+
+    <div class="confirm__steps">
+      <div class="confirm__step">
+        <div class="confirm__step-num">1</div>
+        <div>
+          <div class="confirm__step-title">We review your enquiry</div>
+          <div class="confirm__step-text">Our team reads every message and matches it with the right person.</div>
+        </div>
+      </div>
+      <div class="confirm__step">
+        <div class="confirm__step-num">2</div>
+        <div>
+          <div class="confirm__step-title">You hear back within 1–2 days</div>
+          <div class="confirm__step-text">We'll reply via email with next steps, pricing, or availability.</div>
+        </div>
+      </div>
+      <div class="confirm__step">
+        <div class="confirm__step-num">3</div>
+        <div>
+          <div class="confirm__step-title">We bring your vision to life</div>
+          <div class="confirm__step-text">Whether it's a commission, collaboration, or conversation — we're ready.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="confirm__actions">
+      <a href="https://calendly.com/eoncanvas-info/30min" target="_blank" rel="noopener" class="ec-btn ec-btn--gold">
+        <i class="fa fa-calendar"></i> Book a Call Instead
+      </a>
+      <a href="index.html" id="back-btn" class="ec-btn ec-btn--outline">
+        <i class="fa fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+
+    <div class="confirm__socials-label">Follow our journey</div>
+    <div class="confirm__socials">
+      <a href="https://www.instagram.com/e_on_canvas" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@e_on_canvas" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.youtube.com/@E_on_Canvas" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://substack.com/@eoncanvas" target="_blank" rel="noopener" aria-label="Substack"><i class="fas fa-newspaper"></i></a>
+      <a href="https://www.facebook.com/EonCanvas" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.linkedin.com/company/eoncanvas" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://x.com/eoncanvas" target="_blank" rel="noopener" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Personalise content based on ?from= URL param
+  const params = new URLSearchParams(window.location.search);
+  const from = params.get('from') || '';
+
+  const contexts = {
+    ayomikun: {
+      label: 'Commission Enquiry — Ayomikun Ojoade',
+      heading: 'Thank<br><em>You.</em>',
+      subheading: 'Ayomikun will be delighted to hear from you.',
+      body: 'Your commission enquiry has reached the EonCanvas team. Ayomikun reads every message personally and we aim to respond within <strong>1–2 business days</strong> with availability, pricing, and next steps.',
+      back: { href: 'Ayomikun Art Gallery.html', label: 'Back to Ayomikun' }
+    },
+    damola: {
+      label: 'Commission Enquiry — Damola Ayegbayo',
+      heading: 'Thank<br><em>You.</em>',
+      subheading: 'Damola will be delighted to hear from you.',
+      body: 'Your enquiry has reached the EonCanvas team. Damola reads every message personally and we aim to respond within <strong>1–2 business days</strong> with availability, pricing, and next steps.',
+      back: { href: 'Damola Art Gallery.html', label: 'Back to Damola' }
+    },
+    starlex: {
+      label: 'Commission Enquiry — Starlex',
+      heading: 'Thank<br><em>You.</em>',
+      subheading: 'Simi will be delighted to hear from you.',
+      body: 'Your enquiry has reached the EonCanvas team. Simi reads every message personally and we aim to respond within <strong>1–2 business days</strong> with availability, pricing, and next steps.',
+      back: { href: 'Starlex Art Gallery.html', label: 'Back to Starlex' }
+    },
+    technology: {
+      label: 'Technology Enquiry',
+      heading: 'Great,<br><em>Let\'s Build.</em>',
+      subheading: 'Your project enquiry is with us.',
+      body: 'Your technology enquiry has reached the EonCanvas team. We specialise in websites, SaaS tools, and digital strategy for creatives. Expect a response within <strong>1–2 business days.</strong>',
+      back: { href: 'technology.html', label: 'Back to Technology' }
+    },
+    creativity: {
+      label: 'Creative Enquiry',
+      heading: 'Thank<br><em>You.</em>',
+      subheading: 'Your message is with our creative team.',
+      body: 'Your enquiry has reached the EonCanvas creative team. We\'ll be in touch within <strong>1–2 business days</strong> to discuss how we can collaborate.',
+      back: { href: 'creativity.html', label: 'Back to Creativity' }
+    }
+  };
+
+  const ctx = contexts[from] || {
+    label: 'Message Received',
+    heading: 'Thank<br><em>You.</em>',
+    subheading: 'We\'ll be in touch soon.',
+    body: 'Your enquiry has been sent to the EonCanvas team. We read every message personally and aim to respond within <strong>1–2 business days.</strong>',
+    back: { href: 'index.html', label: 'Back to Home' }
+  };
+
+  document.getElementById('confirm-label').textContent = ctx.label;
+  document.getElementById('confirm-heading').innerHTML = ctx.heading;
+  document.getElementById('confirm-subheading').textContent = ctx.subheading;
+  document.getElementById('confirm-body').innerHTML = ctx.body;
+
+  const backBtn = document.getElementById('back-btn');
+  backBtn.href = ctx.back.href;
+  backBtn.innerHTML = '<i class="fa fa-arrow-left"></i> ' + ctx.back.label;
+</script>
+</body>
+</html>
