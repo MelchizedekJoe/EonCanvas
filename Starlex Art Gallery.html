@@ -1,207 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Echoing Canvas: Showcasing African textile artistry and fashion by Starlex and other emerging creatives.">
-  <meta property="og:title" content="Echoing Canvas">
-  <meta property="og:description" content="Featuring Starlex – a fusion of fashion, textile, and storytelling.">
-  <meta property="og:image" content="./Images/Starlex.jpg">
-  <meta property="og:url" content="https://yourdomain.com">
-  <meta name="twitter:card" content="summary_large_image">
-  <title>Echoing Canvas</title>
-  <link rel="icon" href="./Images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Starlex &mdash; Simi Adey &mdash; EonCanvas Artist Gallery</title>
+  <meta name="description" content="Starlex, Simi Adey. Fashion Designer and Textile Artist blending timeless elegance with African heritage." />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/css/intlTelInput.min.css" />
   <style>
-    body, h1, h2, h3, h4, h5, h6 {
-      font-family: "Montserrat", sans-serif;
+    :root{--gold:#c9a84c;--gold-light:#e2c97e;--gold-dim:rgba(201,168,76,0.10);--gold-line:rgba(201,168,76,0.22);--bg:#080808;--surface:#0d0d0d;--surface2:#121212;--border:rgba(255,255,255,0.07);--text-bright:#f0ede6;--text:#999;--text-muted:#555;--font-display:'Cormorant Garamond',Georgia,serif;--font-body:'DM Sans',sans-serif;--nav-h:68px;--ease:cubic-bezier(.4,0,.2,1);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    a{text-decoration:none;color:inherit;} img{display:block;max-width:100%;}
+    .ec-container{width:100%;max-width:1180px;margin:0 auto;padding:0 40px;}
+    .ec-section{padding:100px 0;}
+    .ec-label{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+    .ec-h2{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:var(--text-bright);line-height:1.1;letter-spacing:-.01em;} .ec-h2 em{font-style:italic;color:var(--gold);}
+    .ec-body{font-size:15px;line-height:1.85;color:var(--text);}
+    .ec-divider{border:none;border-top:1px solid var(--border);}
+    .ec-gold-rule{width:48px;height:1px;background:var(--gold);opacity:.45;margin:24px 0;}
+    .ec-btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-body);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:14px 28px;border-radius:2px;border:none;cursor:pointer;transition:background .22s var(--ease),color .22s var(--ease),border-color .22s var(--ease),transform .18s var(--ease);} .ec-btn:hover{transform:translateY(-2px);}
+    .ec-btn--gold{background:var(--gold);color:#000;} .ec-btn--gold:hover{background:var(--gold-light);}
+    .ec-btn--outline{background:transparent;color:var(--text-bright);border:1px solid var(--border);} .ec-btn--outline:hover{border-color:var(--gold-line);color:var(--gold);}
+    .ec-nav{position:fixed;inset:0 0 auto;z-index:200;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s;} .ec-nav.scrolled{background:rgba(8,8,8,0.97);border-bottom-color:var(--border);}
+    .ec-nav__logo{display:flex;align-items:center;gap:11px;flex-shrink:0;} .ec-nav__logo img{height:34px;width:auto;} .ec-nav__logo-text{font-family:var(--font-display);font-size:1.35rem;font-weight:400;color:var(--text-bright);}
+    .ec-nav__links{display:flex;align-items:center;gap:4px;list-style:none;}
+    .ec-nav__links>li>a{display:block;padding:8px 14px;font-size:11px;font-weight:400;letter-spacing:.13em;text-transform:uppercase;color:var(--text-muted);transition:color .2s;white-space:nowrap;} .ec-nav__links>li>a:hover,.ec-nav__links>li>a.active{color:var(--text-bright);}
+    .ec-nav__cta{padding:9px 20px!important;border:1px solid var(--gold-line)!important;border-radius:2px;color:var(--gold)!important;} .ec-nav__cta:hover{background:var(--gold)!important;color:#000!important;}
+    .ec-nav__dropdown{position:relative;}
+    .ec-nav__dropdown-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:210px;background:#111;border:1px solid var(--border);border-radius:4px;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .2s var(--ease),transform .2s var(--ease);} .ec-nav__dropdown:hover .ec-nav__dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);}
+    .ec-nav__dropdown-menu a{display:block;padding:13px 20px;font-size:12px;color:var(--text);letter-spacing:.04em;border-bottom:1px solid var(--border);transition:background .15s,color .15s;} .ec-nav__dropdown-menu a:last-child{border-bottom:none;} .ec-nav__dropdown-menu a:hover,.ec-nav__dropdown-menu a.active{background:var(--gold-dim);color:var(--gold);}
+    .ec-nav__burger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;} .ec-nav__burger span{display:block;width:22px;height:1.5px;background:var(--text-bright);border-radius:1px;transition:transform .3s,opacity .3s;}
+    .ec-nav__burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);} .ec-nav__burger.open span:nth-child(2){opacity:0;} .ec-nav__burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+    .ec-nav__mobile{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:#0d0d0d;border-bottom:1px solid var(--border);z-index:199;padding:12px 0 20px;flex-direction:column;} .ec-nav__mobile.open{display:flex;} .ec-nav__mobile a{padding:13px 40px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);border-bottom:1px solid var(--border);transition:color .2s;} .ec-nav__mobile a:last-child{border-bottom:none;} .ec-nav__mobile a:hover{color:var(--gold);}
+    .ec-page{padding-top:var(--nav-h);}
+
+    /* HERO - Starlex gets a taller, more editorial split */
+    .artist-hero{min-height:calc(100vh - var(--nav-h));display:grid;grid-template-columns:1fr 1fr;align-items:stretch;}
+    .artist-hero__image{position:relative;overflow:hidden;min-height:70vh;}
+    .artist-hero__image img{width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(.88) saturate(1.1);transition:filter 1.4s var(--ease);}
+    .artist-hero:hover .artist-hero__image img{filter:brightness(.98) saturate(1.2);}
+    .artist-hero__image::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent 52%,var(--bg) 100%);pointer-events:none;}
+    .artist-hero__info{display:flex;flex-direction:column;justify-content:flex-end;padding:80px 56px 80px 48px;background:var(--bg);}
+    .artist-hero__back{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:40px;transition:color .2s;width:fit-content;} .artist-hero__back:hover{color:var(--gold);}
+    .artist-hero__alias{font-family:var(--font-display);font-size:clamp(3.5rem,7vw,7rem);font-weight:300;font-style:italic;color:var(--gold);line-height:.88;letter-spacing:-.03em;margin-bottom:12px;}
+    .artist-hero__realname{font-family:var(--font-display);font-size:clamp(1rem,2vw,1.5rem);font-weight:300;color:var(--text-muted);letter-spacing:.08em;margin-bottom:24px;}
+    .artist-hero__medium{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+    .artist-hero__tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+    .artist-hero__tag{font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border:1px solid var(--gold-line);border-radius:2px;color:rgba(201,168,76,.75);}
+    .artist-hero__bio{font-size:15px;line-height:1.85;color:var(--text-muted);max-width:420px;margin-bottom:40px;}
+    .artist-hero__actions{display:flex;gap:12px;flex-wrap:wrap;}
+
+    .about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:start;}
+    .achievement-item{display:flex;align-items:flex-start;gap:20px;padding:22px 0;border-bottom:1px solid var(--border);} .achievement-item:first-child{border-top:1px solid var(--border);}
+    .achievement-item__year{font-family:var(--font-display);font-size:1.3rem;font-weight:300;color:var(--gold);min-width:56px;line-height:1;padding-top:2px;}
+    .achievement-item__title{font-size:14px;font-weight:400;color:var(--text-bright);margin-bottom:4px;}
+    .achievement-item__text{font-size:13px;line-height:1.65;color:var(--text-muted);}
+
+    /* GALLERY - 2 images, large cinematic format */
+    .gallery-section{padding-bottom:100px;}
+    .gallery-header{padding:72px 40px 40px;display:flex;justify-content:space-between;align-items:flex-end;}
+    .gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+    .gallery-item{position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--surface2);cursor:pointer;}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .75s var(--ease),filter .6s;filter:brightness(.9) saturate(1.05);}
+    .gallery-item:hover img{transform:scale(1.06);filter:brightness(1.02) saturate(1.15);}
+    .gallery-item__overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .3s;display:flex;align-items:center;justify-content:center;} .gallery-item:hover .gallery-item__overlay{background:rgba(0,0,0,.2);}
+    .gallery-item__zoom{width:40px;height:40px;border-radius:50%;background:rgba(201,168,76,.9);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:#000;opacity:0;transform:scale(.7);transition:opacity .25s,transform .25s var(--ease);} .gallery-item:hover .gallery-item__zoom{opacity:1;transform:scale(1);}
+    .gallery-item__caption{position:absolute;bottom:0;left:0;right:0;padding:20px 24px;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%);opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s var(--ease);}
+    .gallery-item:hover .gallery-item__caption{opacity:1;transform:translateY(0);}
+    .gallery-item__caption-text{font-family:var(--font-display);font-size:1.1rem;font-weight:300;color:#fff;font-style:italic;}
+
+    /* LIGHTBOX */
+    .lightbox{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s var(--ease);} .lightbox.open{opacity:1;pointer-events:all;}
+    .lightbox__img{max-width:88vw;max-height:88vh;object-fit:contain;border-radius:2px;transform:scale(.96);transition:transform .35s var(--ease);} .lightbox.open .lightbox__img{transform:scale(1);}
+    .lightbox__close{position:absolute;top:24px;right:28px;background:none;border:none;cursor:pointer;font-size:20px;color:rgba(255,255,255,.5);transition:color .2s;} .lightbox__close:hover{color:var(--gold);}
+    .lightbox__prev,.lightbox__next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.06);border:1px solid var(--border);width:48px;height:48px;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.5);font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;} .lightbox__prev{left:24px;} .lightbox__next{right:24px;} .lightbox__prev:hover,.lightbox__next:hover{background:var(--gold-dim);color:var(--gold);}
+
+    .other-artists-section{background:var(--surface);border-top:1px solid var(--border);}
+    .other-artists-header{padding:64px 40px 32px;}
+    .other-artists-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
+    .other-artist-card{position:relative;overflow:hidden;aspect-ratio:16/8;display:block;background:var(--surface2);}
+    .other-artist-card img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease),filter .5s;filter:grayscale(20%) brightness(.85);} .other-artist-card:hover img{transform:scale(1.05);filter:grayscale(0%) brightness(.95);}
+    .other-artist-card__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:32px 36px;}
+    .other-artist-card__label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+    .other-artist-card__name{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.6rem);font-weight:300;color:#fff;line-height:1.1;}
+    .other-artist-card__arrow{margin-top:14px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);opacity:0;transform:translateY(6px);transition:opacity .3s var(--ease),transform .3s var(--ease);} .other-artist-card:hover .other-artist-card__arrow{opacity:1;transform:translateY(0);}
+
+    .contact-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:start;}
+    .ec-contact-info{display:flex;flex-direction:column;} .ec-contact-info__item{display:flex;align-items:flex-start;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);} .ec-contact-info__item:first-child{border-top:1px solid var(--border);}
+    .ec-contact-info__icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:14px;flex-shrink:0;border:1px solid var(--gold-line);border-radius:2px;margin-top:2px;}
+    .ec-contact-info__label{font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;} .ec-contact-info__value{font-size:14px;color:var(--text-bright);font-weight:300;}
+    .ec-form{display:flex;flex-direction:column;gap:14px;}
+    .ec-form select,.ec-form input,.ec-form textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:2px;padding:14px 16px;font-family:var(--font-body);font-size:13px;font-weight:300;color:var(--text-bright);outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none;}
+    .ec-form select{color:var(--text-muted);} .ec-form select:focus,.ec-form input:focus,.ec-form textarea:focus{border-color:var(--gold-line);background:rgba(201,168,76,.04);} .ec-form select option{background:#1a1a1a;color:var(--text-bright);} .ec-form textarea{resize:vertical;min-height:130px;} .ec-form input::placeholder,.ec-form textarea::placeholder{color:var(--text-muted);}
+    .iti{width:100%;} .iti__flag-container{border-right:1px solid var(--border);} .iti__selected-flag{background:transparent!important;} .iti__country-list{background:#141414;border-color:var(--border);}
+    .ec-footer{background:var(--surface);border-top:1px solid var(--border);}
+    .ec-footer__top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;padding:72px 40px 56px;border-bottom:1px solid var(--border);}
+    .ec-footer__brand img{height:32px;margin-bottom:18px;} .ec-footer__brand p{font-size:13px;color:var(--text-muted);line-height:1.8;max-width:260px;}
+    .ec-footer__brand .ec-footer__linktree{display:inline-flex;align-items:center;gap:7px;margin-top:22px;padding:9px 16px;border:1px solid var(--border);border-radius:2px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);transition:border-color .2s,color .2s;} .ec-footer__brand .ec-footer__linktree:hover{border-color:var(--gold-line);color:var(--gold);}
+    .ec-footer__col h4{font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);margin-bottom:24px;} .ec-footer__col a{display:block;font-size:13px;color:var(--text);margin-bottom:13px;transition:color .2s;} .ec-footer__col a:hover{color:var(--gold);}
+    .ec-footer__bottom{display:flex;align-items:center;justify-content:space-between;padding:24px 40px;gap:20px;flex-wrap:wrap;}
+    .ec-footer__copy{font-size:11px;color:var(--text-muted);}
+    .ec-footer__socials{display:flex;gap:12px;} .ec-footer__socials a{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s;} .ec-footer__socials a:hover{border-color:var(--gold-line);color:var(--gold);background:var(--gold-dim);}
+    @media(max-width:900px){
+      .ec-nav__links{display:none;} .ec-nav__burger{display:flex;}
+      .artist-hero{grid-template-columns:1fr;} .artist-hero__image{min-height:65vw;max-height:80vw;} .artist-hero__image::after{background:linear-gradient(to top,var(--bg) 0%,transparent 60%);} .artist-hero__info{padding:44px 28px 60px;}
+      .about-grid{grid-template-columns:1fr;gap:52px;}
+      .gallery-grid{grid-template-columns:1fr;} .other-artists-grid{grid-template-columns:1fr;} .contact-grid{grid-template-columns:1fr;gap:52px;}
+      .gallery-header{padding:52px 20px 28px;flex-direction:column;gap:16px;align-items:flex-start;}
+      .ec-footer__top{grid-template-columns:1fr 1fr;gap:40px;}
     }
-    .w3-sidebar {
-      width: 120px;
-      background: #222;
-    }
-    #main {
-      margin-left: 120px;
-    }
-    @media only screen and (max-width: 600px) {
-      #main {
-        margin-left: 0;
-      }
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-    .photo img {
-      cursor: pointer;
-      border-radius: 8px;
-      transition: transform 0.3s ease;
-    }
-    .photo img:hover {
-      transform: scale(1.05);
-    }
-    .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 8px;
-    }
-    .back-to-top {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #555;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      z-index: 999;
-    }
-    .back-to-top:hover {
-      background: #333;
-    }
+    @media(max-width:600px){.ec-container{padding:0 20px;} .ec-nav{padding:0 20px;} .ec-section{padding:64px 0;} .ec-footer__top{grid-template-columns:1fr;padding:48px 20px;} .ec-footer__bottom{flex-direction:column;align-items:center;text-align:center;padding:24px 20px;}}
   </style>
 </head>
+<body>
+<nav class="ec-nav" id="ec-nav">
+  <a href="index.html" class="ec-nav__logo"><img src="./Images/Echoing Canvas.png" alt="EonCanvas"><span class="ec-nav__logo-text">EonCanvas</span></a>
+  <ul class="ec-nav__links">
+    <li><a href="index.html">Home</a></li><li><a href="creativity.html">Creativity</a></li><li><a href="technology.html">Technology</a></li>
+    <li class="ec-nav__dropdown">
+      <a href="#" class="active">Artists &#9662;</a>
+      <div class="ec-nav__dropdown-menu">
+        <a href="Ayomikun Art Gallery.html">Ayomikun Ojoade</a>
+        <a href="Damola Art Gallery.html">Damola Ayegbayo</a>
+        <a href="Starlex Art Gallery.html" class="active">Starlex &mdash; Simi Adey</a>
+      </div>
+    </li>
+    <li><a href="#contact" class="ec-nav__cta">Get in Touch</a></li>
+  </ul>
+  <button class="ec-nav__burger" id="ec-burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+</nav>
+<nav class="ec-nav__mobile" id="ec-mobile-menu">
+  <a href="index.html">Home</a><a href="creativity.html">Creativity</a><a href="technology.html">Technology</a>
+  <a href="Ayomikun Art Gallery.html">Ayomikun Ojoade</a><a href="Damola Art Gallery.html">Damola Ayegbayo</a><a href="Starlex Art Gallery.html">Starlex</a>
+  <a href="#contact">Get in Touch</a>
+</nav>
+<div class="ec-page">
 
-<body class="w3-black">
-
-  <!-- Sidebar -->
-  <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-    <img src="/Images/Echoing Canvas (2).png" style="width:100%" alt="Echoing Canvas Logo">
-    <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-black"><i class="fa fa-home w3-xxlarge"></i><p>HOME</p></a>
-    <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><i class="fa fa-user w3-xxlarge"></i><p>ABOUT</p></a>
-    <a href="#artworks" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><i class="fa fa-eye w3-xxlarge"></i><p>ARTWORKS</p></a>
-    <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><i class="fa fa-envelope w3-xxlarge"></i><p>CONTACT</p></a>
-  </nav>
-
-  <!-- Top nav for mobile -->
-  <header class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-    <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-      <a href="index.html" class="w3-bar-item w3-button" style="width:25%">HOME</a>
-      <a href="#about" class="w3-bar-item w3-button" style="width:25%">ABOUT</a>
-      <a href="#artworks" class="w3-bar-item w3-button" style="width:25%">ARTWORKS</a>
-      <a href="#contact" class="w3-bar-item w3-button" style="width:25%">CONTACT</a>
+  <section class="artist-hero">
+    <div class="artist-hero__image"><img src="./Images/Starlex.jpg" alt="Starlex - Simi Adey"></div>
+    <div class="artist-hero__info">
+      <a href="creativity.html" class="artist-hero__back"><i class="fa fa-arrow-left"></i> All Artists</a>
+      <div class="artist-hero__alias">Starlex</div>
+      <div class="artist-hero__realname">Simi Adey</div>
+      <div class="artist-hero__medium">Fashion &middot; Textile Art &middot; African Heritage</div>
+      <div class="artist-hero__tags">
+        <span class="artist-hero__tag">Fashion Design</span>
+        <span class="artist-hero__tag">Textile Art</span>
+        <span class="artist-hero__tag">Lagos</span>
+        <span class="artist-hero__tag">Commissions Open</span>
+      </div>
+      <p class="artist-hero__bio">A Fashion Designer and Textile Artist blending timeless elegance with African heritage &mdash; creating work where culture, craft, and storytelling meet in every stitch.</p>
+      <div class="artist-hero__actions">
+        <a href="#gallery" class="ec-btn ec-btn--gold"><i class="fa fa-images"></i> View Works</a>
+        <a href="#contact" class="ec-btn ec-btn--outline">Commission a Work</a>
+      </div>
     </div>
-  </header>
+  </section>
 
-  <!-- Main -->
-  <div class="w3-padding-large" id="main">
+  <hr class="ec-divider">
 
-    <!-- Hero -->
-    <section class="w3-container w3-padding-64 w3-center" id="home">
-      <h1 class="w3-xxxlarge w3-animate-bottom">Echoing Canvas</h1>
-      <p class="w3-large w3-opacity">Listen to the Echoing Canvas.</p>
-      <div class="w3-display-container w3-padding-16">
-        <img src="./Images/Starlex.jpg" alt="Canvas by Starlex" class="w3-image w3-round-large" style="max-height:600px; object-fit:cover;" loading="lazy">
-      </div>
-    </section>
-
-    <!-- About Starlex -->
-    <section class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
-      <h2 class="w3-text-light-grey">About Starlex</h2>
-      <hr style="width:200px" class="w3-opacity">
-      <p><strong>Simi Adey</strong>, known as <strong>Starlex</strong>, is a Fashion Designer and Textile Artist blending timeless elegance with African heritage...</p>
-      <h3>Educational Background</h3>
-      <p>Trained in fashion design through formal education, hands-on experience, and mentorship.</p>
-      <h3>Events</h3>
-      <p>- Styled by Starlex Launch Showcase<br>- Textile Art Exhibition at The Metaphor, Lagos<br>- Creative collaborations with The Peaks.</p>
-      <h3>New Projects</h3>
-      <p>Exploring bold textile techniques and sustainable materials for a new portrait series.</p>
-    </section>
-
-    <!-- Featured Artworks -->
-    <section class="w3-container w3-padding-64 w3-light-grey" id="artworks">
-      <h2 class="w3-text-black w3-center">Featured Artworks</h2>
-      <div class="w3-row-padding w3-center">
-        <div class="w3-col l4 m6 s12 w3-margin-bottom">
-          <div class="w3-card-4 w3-hover-shadow photo">
-            <img src="./Images/Starlex/371742549_1234079397273471_5614060028200103371_n.jpg" alt="Textile Elegance" style="width:100%; height:400px; object-fit:cover;" loading="lazy">
-            <div class="w3-container"><h5>Textile Elegance</h5></div>
-          </div>
+  <section class="ec-section" id="about">
+    <div class="ec-container">
+      <div class="about-grid">
+        <div>
+          <span class="ec-label">About the Artist</span>
+          <h2 class="ec-h2" style="margin-bottom:0;">Where Culture<br><em>Meets Craft</em></h2>
+          <div class="ec-gold-rule"></div>
+          <p class="ec-body" style="margin-bottom:20px;"><strong style="color:var(--text-bright);">Simi Adey</strong>, known as <strong style="color:var(--text-bright);">Starlex</strong>, is a Fashion Designer and Textile Artist whose work fuses timeless elegance with the richness of African heritage. Each piece is a meditation on identity, culture, and beauty.</p>
+          <p class="ec-body" style="margin-bottom:20px;">Trained through formal education, hands-on experience, and mentorship, Simi brings a sophisticated eye and deep cultural literacy to every creation &mdash; from bespoke garments to large-scale textile installations.</p>
+          <p class="ec-body" style="margin-bottom:20px;">She is currently exploring bold textile techniques and sustainable materials for a new portrait series that pushes the boundary between fashion and fine art.</p>
+          <p class="ec-body"><strong style="color:var(--text-bright);">Education:</strong> Trained in fashion design through formal education, hands-on experience, and industry mentorship.</p>
         </div>
-        <div class="w3-col l4 m6 s12 w3-margin-bottom">
-          <div class="w3-card-4 w3-hover-shadow photo">
-            <img src="./Images/Starlex/391594172_1806937503087730_1882012132132485150_n.jpg" alt="Cultural Fusion" style="width:100%; height:400px; object-fit:cover;" loading="lazy">
-            <div class="w3-container"><h5>Cultural Fusion</h5></div>
+        <div>
+          <span class="ec-label">Events &amp; Projects</span>
+          <div style="margin-top:24px;">
+            <div class="achievement-item"><div class="achievement-item__year">&mdash;</div><div><div class="achievement-item__title">Styled by Starlex Launch Showcase</div><div class="achievement-item__text">Brand debut showcase event</div></div></div>
+            <div class="achievement-item"><div class="achievement-item__year">&mdash;</div><div><div class="achievement-item__title">Textile Art Exhibition</div><div class="achievement-item__text">The Metaphor, Lagos</div></div></div>
+            <div class="achievement-item"><div class="achievement-item__year">&mdash;</div><div><div class="achievement-item__title">Creative Collaborations</div><div class="achievement-item__text">The Peaks &amp; other creative partners</div></div></div>
+            <div class="achievement-item"><div class="achievement-item__year">Now</div><div><div class="achievement-item__title">New Portrait Series</div><div class="achievement-item__text">Bold textile techniques &amp; sustainable materials &mdash; in progress</div></div></div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Contact -->
-    <section class="w3-content w3-padding-64 w3-text-grey" id="contact">
-      <h2 class="w3-text-light-grey">Contact Us</h2>
-      <hr style="width:200px" class="w3-opacity">
-      <div class="w3-section">
-        <p><i class="fa fa-map-marker fa-fw w3-text-white"></i> United Kingdom</p>
-        <p><i class="fa fa-building fa-fw w3-text-white"></i> <a href="https://www.google.com/maps?q=Sussex+Innovation+Centre,+Brighton" target="_blank" style="color:white;">Sussex Innovation Centre, Brighton</a></p>
-        <p><i class="fa fa-phone fa-fw w3-text-white"></i> +44 7446018348</p>
-        <p><i class="fa fa-envelope fa-fw w3-text-white"></i> info@eoncanvas.co.uk</p>
+  <hr class="ec-divider">
+
+  <section class="gallery-section" id="gallery">
+    <div class="gallery-header">
+      <div><span class="ec-label">Featured Works</span><h2 class="ec-h2">Gallery</h2></div>
+      <a href="#contact" class="ec-btn ec-btn--outline">Commission a Piece</a>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="./Images/Starlex/371742549_1234079397273471_5614060028200103371_n.jpg" alt="Textile Elegance" loading="lazy">
+        <div class="gallery-item__overlay"><button class="gallery-item__zoom"><i class="fa fa-expand"></i></button></div>
+        <div class="gallery-item__caption"><div class="gallery-item__caption-text">Textile Elegance</div></div>
       </div>
-      <form action="#" method="POST">
-        <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" name="Name" required></p>
-        <p><input class="w3-input w3-padding-16" type="email" placeholder="Email" name="Email" required></p>
-        <p><input class="w3-input w3-padding-16" type="text" placeholder="Subject" name="Subject" required></p>
-        <p><textarea class="w3-input w3-padding-16" placeholder="Message" name="Message" required></textarea></p>
-        <p><button class="w3-button w3-light-grey w3-padding-large" type="submit"><i class="fa fa-paper-plane"></i> SEND MESSAGE</button></p>
-      </form>
-    </section>
+      <div class="gallery-item">
+        <img src="./Images/Starlex/391594172_1806937503087730_1882012132132485150_n.jpg" alt="Cultural Fusion" loading="lazy">
+        <div class="gallery-item__overlay"><button class="gallery-item__zoom"><i class="fa fa-expand"></i></button></div>
+        <div class="gallery-item__caption"><div class="gallery-item__caption-text">Cultural Fusion</div></div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-      <a href="https://www.instagram.com/e_on_canvas/" target="_blank"><i class="fa fa-instagram w3-hover-opacity"></i></a>
-      <a href="https://www.linkedin.com/company/eoncanvas/" target="_blank"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
-      <p class="w3-medium">
-        <img src="./Images/Echoing Canvas.png" alt="Echoing Canvas Logo" style="height:50px; vertical-align:middle;"> 2024 Echoing Canvas. All rights reserved.
-      </p>
-    </footer>
-
-    <!-- Back to top -->
-    <button class="back-to-top" id="backToTopBtn" title="Go to top">↑</button>
-
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" id="lightbox-close"><i class="fa fa-times"></i></button>
+    <button class="lightbox__prev" id="lightbox-prev"><i class="fa fa-chevron-left"></i></button>
+    <img class="lightbox__img" id="lightbox-img" src="" alt="Artwork">
+    <button class="lightbox__next" id="lightbox-next"><i class="fa fa-chevron-right"></i></button>
   </div>
 
-  <!-- JS Lightbox + Back to Top -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Lightbox
-      const photos = document.querySelectorAll('.photo img');
-      photos.forEach(photo => {
-        photo.addEventListener('click', () => {
-          const lightbox = document.createElement('div');
-          lightbox.className = 'lightbox';
-          const img = document.createElement('img');
-          img.src = photo.src;
-          lightbox.appendChild(img);
-          document.body.appendChild(lightbox);
-          lightbox.addEventListener('click', () => document.body.removeChild(lightbox));
-        });
-      });
-      // Back to top
-      const topBtn = document.getElementById('backToTopBtn');
-      window.onscroll = () => {
-        topBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-      };
-      topBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    });
-  </script>
+  <section class="other-artists-section">
+    <div class="other-artists-header"><span class="ec-label">Explore More</span><h2 class="ec-h2">Other <em>Artists</em></h2></div>
+    <div class="other-artists-grid">
+      <a href="Ayomikun Art Gallery.html" class="other-artist-card">
+        <img src="./Images/Ayomikun Profile/176050752_155386409841645_899981766682875081_n.jpg" alt="Ayomikun Ojoade" loading="lazy">
+        <div class="other-artist-card__overlay"><div class="other-artist-card__label">Charcoal &amp; Oil &middot; Realism</div><div class="other-artist-card__name">Ayomikun Ojoade</div><div class="other-artist-card__arrow">View Gallery &rarr;</div></div>
+      </a>
+      <a href="Damola Art Gallery.html" class="other-artist-card">
+        <img src="./Images/Damola Profile/421813853_18414766663059019_408253133761223442_n.jpg" alt="Damola Ayegbayo" loading="lazy">
+        <div class="other-artist-card__overlay"><div class="other-artist-card__label">&#192;B&#200;F&#201; &middot; Colour &amp; Texture</div><div class="other-artist-card__name">Damola Ayegbayo</div><div class="other-artist-card__arrow">View Gallery &rarr;</div></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="ec-section" id="contact" style="background:var(--surface);border-top:1px solid var(--border);">
+    <div class="ec-container">
+      <span class="ec-label">Get in Touch</span>
+      <h2 class="ec-h2" style="margin-bottom:64px;">Commission a <em>Work</em></h2>
+      <div class="contact-grid">
+        <div>
+          <p class="ec-body" style="margin-bottom:40px;">Interested in commissioning a textile piece or collaborating with Starlex? Reach out via the form or <a href="https://calendly.com/eoncanvas-info/30min" target="_blank" rel="noopener" style="color:var(--gold);">book a call here.</a></p>
+          <div class="ec-contact-info">
+            <div class="ec-contact-info__item"><div class="ec-contact-info__icon"><i class="fa fa-location-dot"></i></div><div><div class="ec-contact-info__label">Location</div><div class="ec-contact-info__value">Sussex Innovation Centre, Brighton, UK</div></div></div>
+            <div class="ec-contact-info__item"><div class="ec-contact-info__icon"><i class="fa fa-phone"></i></div><div><div class="ec-contact-info__label">Phone</div><div class="ec-contact-info__value">+44 7446 018348</div></div></div>
+            <div class="ec-contact-info__item"><div class="ec-contact-info__icon"><i class="fa fa-envelope"></i></div><div><div class="ec-contact-info__label">Email</div><div class="ec-contact-info__value">info@eoncanvas.co.uk</div></div></div>
+          </div>
+        </div>
+        <form class="ec-form" id="EonCanvasContact" method="POST" action="https://email-handler.damilolaajiboyelove.workers.dev">
+          <input type="hidden" name="_subject" value="Enquiry: Starlex (Simi Adey) - EonCanvas">
+          <input type="hidden" name="phone" id="phoneHidden">
+          <select name="enquiryType" required><option value="" disabled selected>What would you like to discuss?</option><option>Commission a textile / fashion piece</option><option>Styling collaboration</option><option>Exhibition / showcase</option><option>General enquiry</option></select>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;"><input type="text" name="name" placeholder="Your Name" required><input type="email" name="email" placeholder="Email Address" required></div>
+          <input id="phoneInput" type="tel" placeholder="Phone (optional)">
+          <textarea name="message" rows="5" placeholder="Tell us about what you have in mind..." required></textarea>
+          <div><button type="submit" class="ec-btn ec-btn--gold">Send Enquiry <i class="fa fa-paper-plane"></i></button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="ec-footer">
+    <div class="ec-footer__top">
+      <div class="ec-footer__brand"><img src="./Images/Echoing Canvas.png" alt="EonCanvas"><p>Empowering African and diasporan creatives through art, storytelling, and thoughtful technology.</p><a href="https://linktr.ee/E_on_Canvas" target="_blank" rel="noopener" class="ec-footer__linktree"><i class="fa fa-link"></i> All our links</a></div>
+      <div class="ec-footer__col"><h4>Navigate</h4><a href="index.html">Home</a><a href="creativity.html">Creativity</a><a href="technology.html">Technology</a><a href="Ayomikun Art Gallery.html">Ayomikun Ojoade</a><a href="Damola Art Gallery.html">Damola Ayegbayo</a><a href="Starlex Art Gallery.html">Starlex</a></div>
+      <div class="ec-footer__col"><h4>Social Media</h4><a href="https://www.instagram.com/e_on_canvas" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@e_on_canvas" target="_blank" rel="noopener">TikTok</a><a href="https://www.youtube.com/@E_on_Canvas" target="_blank" rel="noopener">YouTube</a><a href="https://substack.com/@eoncanvas" target="_blank" rel="noopener">Substack</a><a href="https://www.facebook.com/EonCanvas" target="_blank" rel="noopener">Facebook</a><a href="https://www.linkedin.com/company/eoncanvas" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/eoncanvas" target="_blank" rel="noopener">X / Twitter</a></div>
+      <div class="ec-footer__col"><h4>Work With Us</h4><a href="https://calendly.com/eoncanvas-info/30min" target="_blank" rel="noopener">Book a 30-min Call</a><a href="mailto:info@eoncanvas.co.uk">Send an Email</a><a href="#contact">Commission Artwork</a><a href="technology.html">Technology Services</a></div>
+    </div>
+    <div class="ec-footer__bottom">
+      <div class="ec-footer__copy">&copy; 2024&ndash;2025 EonCanvas &mdash; Creativity &middot; Technology &middot; Community</div>
+      <div class="ec-footer__socials">
+        <a href="https://www.instagram.com/e_on_canvas" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@e_on_canvas" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.youtube.com/@E_on_Canvas" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.facebook.com/EonCanvas" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://x.com/eoncanvas" target="_blank" rel="noopener" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://www.linkedin.com/company/eoncanvas" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js"></script>
+<script>
+  const nav=document.getElementById('ec-nav');
+  window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>24);},{passive:true});
+  const burger=document.getElementById('ec-burger'),mobileMenu=document.getElementById('ec-mobile-menu');
+  burger.addEventListener('click',()=>{burger.classList.toggle('open');mobileMenu.classList.toggle('open');});
+  mobileMenu.querySelectorAll('a').forEach(a=>{a.addEventListener('click',()=>{burger.classList.remove('open');mobileMenu.classList.remove('open');});});
+  document.addEventListener('DOMContentLoaded',()=>{
+    const pi=document.getElementById('phoneInput');
+    if(pi&&window.intlTelInput){const iti=window.intlTelInput(pi,{initialCountry:'gb',separateDialCode:true,utilsScript:'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js'});document.getElementById('EonCanvasContact').addEventListener('submit',e=>{e.preventDefault();document.getElementById('phoneHidden').value=iti.getNumber();e.target.submit();});}
+  });
+  const items=Array.from(document.querySelectorAll('.gallery-item')),lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightbox-img');let cur=0;
+  function openLB(i){cur=i;lbImg.src=items[cur].querySelector('img').src;lb.classList.add('open');document.body.style.overflow='hidden';}
+  function closeLB(){lb.classList.remove('open');document.body.style.overflow='';}
+  function next(){cur=(cur+1)%items.length;lbImg.src=items[cur].querySelector('img').src;}
+  function prev(){cur=(cur-1+items.length)%items.length;lbImg.src=items[cur].querySelector('img').src;}
+  items.forEach((item,i)=>{item.querySelector('.gallery-item__zoom').addEventListener('click',e=>{e.stopPropagation();openLB(i);});item.addEventListener('click',()=>openLB(i));});
+  document.getElementById('lightbox-close').addEventListener('click',closeLB);
+  document.getElementById('lightbox-next').addEventListener('click',next);
+  document.getElementById('lightbox-prev').addEventListener('click',prev);
+  lb.addEventListener('click',e=>{if(e.target===lb)closeLB();});
+  document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLB();if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev();});
+</script>
 </body>
 </html>

@@ -3,215 +3,769 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EonCanvas Technology Services | Coming Soon</title>
+  <title>Technology Services | EonCanvas</title>
+  <meta name="description" content="EonCanvas builds websites, SaaS platforms, and digital tools for clients across healthcare, e-commerce, events and more. Based in Brighton, UK." />
 
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/css/intlTelInput.min.css" />
 
   <style>
+    /* ══════════════════════════════════════
+       TOKENS
+    ══════════════════════════════════════ */
+    :root {
+      --gold:        #c9a84c;
+      --gold-light:  #e2c97e;
+      --gold-dim:    rgba(201,168,76,0.10);
+      --gold-line:   rgba(201,168,76,0.22);
+      --bg:          #080808;
+      --surface:     #0d0d0d;
+      --surface2:    #121212;
+      --border:      rgba(255,255,255,0.07);
+      --text-bright: #f0ede6;
+      --text:        #999;
+      --text-muted:  #555;
+      --font-display:'Cormorant Garamond', Georgia, serif;
+      --font-body:   'DM Sans', sans-serif;
+      --nav-h:       68px;
+      --ease:        cubic-bezier(.4,0,.2,1);
+      --blue-dim:    rgba(30,80,180,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      background: #000;
-      color: #ddd;
-      font-family: "Montserrat", sans-serif;
+      background: var(--bg); color: var(--text);
+      font-family: var(--font-body); font-weight: 300;
+      line-height: 1.6; overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ══════════════════════════════════════
+       UTILITIES
+    ══════════════════════════════════════ */
+    .ec-container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+    .ec-section   { padding: 100px 0; }
+    .ec-label {
+      display: inline-block; font-size: 10px; font-weight: 500;
+      letter-spacing: .28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 18px;
+    }
+    .ec-h2 {
+      font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300; color: var(--text-bright); line-height: 1.1; letter-spacing: -.01em;
+    }
+    .ec-h2 em { font-style: italic; color: var(--gold); }
+    .ec-body { font-size: 15px; line-height: 1.85; color: var(--text); }
+    .ec-divider { border: none; border-top: 1px solid var(--border); }
+
+    .ec-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      letter-spacing: .14em; text-transform: uppercase;
+      padding: 14px 28px; border-radius: 2px; border: none; cursor: pointer;
+      transition: background .22s var(--ease), color .22s var(--ease),
+                  border-color .22s var(--ease), transform .18s var(--ease);
+    }
+    .ec-btn:hover { transform: translateY(-2px); }
+    .ec-btn--gold  { background: var(--gold); color: #000; }
+    .ec-btn--gold:hover { background: var(--gold-light); }
+    .ec-btn--outline {
+      background: transparent; color: var(--text-bright);
+      border: 1px solid var(--border);
+    }
+    .ec-btn--outline:hover { border-color: var(--gold-line); color: var(--gold); }
+
+    /* ══════════════════════════════════════
+       NAV
+    ══════════════════════════════════════ */
+    .ec-nav {
+      position: fixed; inset: 0 0 auto; z-index: 200;
+      height: var(--nav-h); display: flex; align-items: center;
+      justify-content: space-between; padding: 0 40px;
+      background: rgba(8,8,8,0.88); backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s, background .3s;
+    }
+    .ec-nav.scrolled { background: rgba(8,8,8,0.97); border-bottom-color: var(--border); }
+    .ec-nav__logo { display: flex; align-items: center; gap: 11px; flex-shrink: 0; }
+    .ec-nav__logo img { height: 34px; width: auto; }
+    .ec-nav__logo-text { font-family: var(--font-display); font-size: 1.35rem; font-weight: 400; color: var(--text-bright); }
+    .ec-nav__links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .ec-nav__links > li > a {
+      display: block; padding: 8px 14px; font-size: 11px; font-weight: 400;
+      letter-spacing: .13em; text-transform: uppercase; color: var(--text-muted);
+      transition: color .2s; white-space: nowrap;
+    }
+    .ec-nav__links > li > a:hover, .ec-nav__links > li > a.active { color: var(--text-bright); }
+    .ec-nav__cta { padding: 9px 20px !important; border: 1px solid var(--gold-line) !important; border-radius: 2px; color: var(--gold) !important; }
+    .ec-nav__cta:hover { background: var(--gold) !important; color: #000 !important; }
+    .ec-nav__dropdown { position: relative; }
+    .ec-nav__dropdown-menu {
+      position: absolute; top: calc(100% + 10px); left: 50%;
+      transform: translateX(-50%) translateY(-6px); min-width: 210px;
+      background: #111; border: 1px solid var(--border); border-radius: 4px;
+      overflow: hidden; opacity: 0; pointer-events: none;
+      transition: opacity .2s var(--ease), transform .2s var(--ease);
+    }
+    .ec-nav__dropdown:hover .ec-nav__dropdown-menu { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+    .ec-nav__dropdown-menu a {
+      display: block; padding: 13px 20px; font-size: 12px; color: var(--text);
+      letter-spacing: .04em; border-bottom: 1px solid var(--border); transition: background .15s, color .15s;
+    }
+    .ec-nav__dropdown-menu a:last-child { border-bottom: none; }
+    .ec-nav__dropdown-menu a:hover { background: var(--gold-dim); color: var(--gold); }
+    .ec-nav__burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; cursor: pointer; }
+    .ec-nav__burger span { display: block; width: 22px; height: 1.5px; background: var(--text-bright); border-radius: 1px; transition: transform .3s, opacity .3s; }
+    .ec-nav__burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .ec-nav__burger.open span:nth-child(2) { opacity: 0; }
+    .ec-nav__burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .ec-nav__mobile { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: #0d0d0d; border-bottom: 1px solid var(--border); z-index: 199; padding: 12px 0 20px; flex-direction: column; }
+    .ec-nav__mobile.open { display: flex; }
+    .ec-nav__mobile a { padding: 13px 40px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--text); border-bottom: 1px solid var(--border); transition: color .2s; }
+    .ec-nav__mobile a:last-child { border-bottom: none; }
+    .ec-nav__mobile a:hover { color: var(--gold); }
+    .ec-page { padding-top: var(--nav-h); }
+
+    /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+    .tech-hero {
+      min-height: 88vh;
+      display: flex; align-items: flex-end;
+      padding: 140px 0 80px;
+      position: relative; overflow: hidden;
+      background: linear-gradient(148deg, #040a18 0%, #00112a 55%, #060608 100%);
+    }
+    .tech-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.035) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
+    }
+    .tech-hero::after {
+      content: ''; position: absolute;
+      bottom: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(30,80,200,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .tech-hero__inner { position: relative; z-index: 2; }
+    .tech-hero__back {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 36px; transition: color .2s;
+    }
+    .tech-hero__back:hover { color: var(--gold); }
+    .tech-hero__eyebrow {
+      font-size: 10px; font-weight: 500; letter-spacing: .28em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 24px;
+    }
+    .tech-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 7.5rem);
+      font-weight: 300; line-height: .9;
+      color: var(--text-bright); letter-spacing: -.025em; margin-bottom: 36px;
+    }
+    .tech-hero__title em { font-style: italic; color: var(--gold); }
+    .tech-hero__sub {
+      font-size: 16px; line-height: 1.85; color: var(--text-muted);
+      max-width: 580px; margin-bottom: 48px;
+    }
+    .tech-hero__actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* Hero stats bar */
+    .tech-hero__stats {
+      margin-top: 80px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .tech-hero__stat {
+      padding: 32px 0; border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .tech-hero__stat:last-child { border-right: none; }
+    .tech-hero__stat-num {
+      font-family: var(--font-display); font-size: 2.8rem; font-weight: 300;
+      color: var(--gold); line-height: 1; margin-bottom: 6px;
+    }
+    .tech-hero__stat-label {
+      font-size: 10px; font-weight: 500; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--text-muted);
     }
 
-    .w3-sidebar { width: 120px; background: #111; }
-    #main { margin-left: 120px; }
-    @media (max-width: 600px) { #main { margin-left: 0; } }
-
-    .gold { color: #d4af37; }
-    .w3-gold-btn { background:#d4af37!important; color:#000!important; font-weight:600; }
-
-    .coming-container {
-      text-align: center;
-      padding: 140px 20px 80px;
+    /* ══════════════════════════════════════
+       WHAT WE BUILD
+    ══════════════════════════════════════ */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; background: var(--border);
+    }
+    .service-tile {
+      padding: 48px 40px; background: var(--surface);
+      border-top: 2px solid transparent;
+      transition: border-color .25s, background .25s;
+    }
+    .service-tile:hover { border-top-color: var(--gold); background: var(--surface2); }
+    .service-tile__icon { font-size: 28px; color: var(--gold); margin-bottom: 24px; opacity: .75; }
+    .service-tile__title {
+      font-family: var(--font-display); font-size: 1.35rem; font-weight: 400;
+      color: var(--text-bright); margin-bottom: 12px;
+    }
+    .service-tile__desc { font-size: 13px; line-height: 1.8; color: var(--text-muted); margin-bottom: 20px; }
+    .service-tile__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .service-tile__tag {
+      font-size: 9px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+      padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; color: var(--text-muted);
     }
 
-    .coming-icon {
-      font-size: 80px;
-      color: #d4af37;
-      margin-bottom: 20px;
+    /* ══════════════════════════════════════
+       PARTNER SPOTLIGHT
+    ══════════════════════════════════════ */
+    .partner-section {
+      padding: 100px 0;
+      background: linear-gradient(148deg, #040a18 0%, #001020 60%, #060608 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
     }
-
-    .coming-title {
-      font-size: 40px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: white;
+    .partner-section::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.025) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
     }
-
-    .coming-subtitle {
-      font-size: 18px;
-      color: #aaa;
-      max-width: 680px;
-      margin: 0 auto 26px;
+    .partner-inner { position: relative; z-index: 1; }
+    .partner-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
     }
+    .partner-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 16px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid var(--gold-line);
+      border-radius: 2px;
+      font-size: 10px; font-weight: 500; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 28px;
+    }
+    .partner-badge i { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+    .partner-title {
+      font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 300; color: var(--text-bright); line-height: 1.05;
+      letter-spacing: -.01em; margin-bottom: 20px;
+    }
+    .partner-title em { font-style: italic; color: var(--gold); }
+    .partner-body { font-size: 15px; line-height: 1.85; color: var(--text-muted); margin-bottom: 36px; }
+    .partner-card {
+      background: rgba(8,8,8,0.7);
+      border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden;
+    }
+    .partner-card__header {
+      padding: 28px 32px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 16px;
+    }
+    .partner-card__logo {
+      width: 44px; height: 44px; border-radius: 8px;
+      background: #fff; object-fit: contain; padding: 6px;
+    }
+    .partner-card__name {
+      font-family: var(--font-display); font-size: 1.2rem; color: var(--text-bright); font-weight: 400;
+    }
+    .partner-card__tagline { font-size: 12px; color: var(--text-muted); }
+    .partner-card__body { padding: 28px 32px; }
+    .partner-card__desc { font-size: 13px; line-height: 1.8; color: var(--text-muted); margin-bottom: 24px; }
+    .partner-card__features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .partner-card__feature {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; color: var(--text);
+    }
+    .partner-card__feature i { color: var(--gold); font-size: 10px; }
+    .partner-card__link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--gold); transition: gap .2s;
+    }
+    .partner-card__link:hover { gap: 14px; }
 
-    /* Testimonials */
+    /* ══════════════════════════════════════
+       CLIENT WORK
+    ══════════════════════════════════════ */
+    .clients-section {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .clients-section__header {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; margin-bottom: 60px;
+    }
+    .clients-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; background: var(--border);
+    }
+    .client-card {
+      background: var(--surface); padding: 0;
+      display: flex; flex-direction: column;
+      border-top: 2px solid transparent;
+      transition: border-color .25s, background .25s;
+      text-decoration: none;
+    }
+    .client-card:hover { border-top-color: var(--gold); background: var(--surface2); }
+    .client-card__thumb {
+      width: 100%; aspect-ratio: 16/9;
+      background: var(--surface2);
+      display: flex; align-items: center; justify-content: center;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden; position: relative;
+    }
+    .client-card__thumb-inner {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 2.5rem; font-weight: 300;
+      color: rgba(255,255,255,0.08); letter-spacing: -.02em;
+    }
+    .client-card__industry {
+      position: absolute; top: 14px; left: 14px;
+      font-size: 9px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
+      padding: 5px 10px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 2px; color: var(--text-muted);
+    }
+    .client-card__body { padding: 32px 28px; flex: 1; display: flex; flex-direction: column; }
+    .client-card__name {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 400;
+      color: var(--text-bright); margin-bottom: 8px;
+    }
+    .client-card__desc { font-size: 13px; line-height: 1.75; color: var(--text-muted); flex: 1; margin-bottom: 20px; }
+    .client-card__deliverables { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .client-card__tag {
+      font-size: 9px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; color: var(--text-muted);
+    }
+    .client-card__link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--gold); transition: gap .2s; margin-top: auto;
+    }
+    .client-card:hover .client-card__link { gap: 13px; }
+
+    /* ══════════════════════════════════════
+       TESTIMONIALS
+    ══════════════════════════════════════ */
+    .testimonials-section {
+      padding: 100px 0; background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .testimonials-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; background: var(--border); margin-top: 56px;
+    }
     .testimonial-card {
-      background: #05070c;
-      border-radius: 16px;
-      padding: 24px;
-      height: 100%;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      background: var(--bg); padding: 48px 44px;
+      display: flex; flex-direction: column; gap: 0;
     }
-
-    .testimonial-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 12px;
+    .testimonial-card__quote {
+      font-family: var(--font-display); font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 300; font-style: italic; color: var(--text-bright);
+      line-height: 1.6; letter-spacing: -.01em; margin-bottom: 36px; flex: 1;
     }
-
-    .testimonial-avatar {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(212,175,55,0.7);
+    .testimonial-card__quote::before {
+      content: '\201C'; font-size: 3rem; color: var(--gold); opacity: .4;
+      line-height: 0; vertical-align: -0.5em; margin-right: 6px;
     }
-
-    .testimonial-name {
-      font-weight: 600;
-      color: #fff;
-      font-size: 15px;
+    .testimonial-card__footer {
+      display: flex; align-items: center; gap: 16px;
+      padding-top: 28px; border-top: 1px solid var(--border);
     }
-
-    .testimonial-role {
-      font-size: 12px;
-      color: #aaa;
+    .testimonial-card__avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      object-fit: cover; border: 2px solid var(--gold-line); flex-shrink: 0;
     }
-
-    .testimonial-text {
-      font-size: 14px;
-      color: #ccc;
-      line-height: 1.6;
-      margin-top: 4px;
+    .testimonial-card__name {
+      font-size: 14px; font-weight: 400; color: var(--text-bright); margin-bottom: 3px;
     }
-
-    .testimonial-badge {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #d4af37;
+    .testimonial-card__role { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
+    .testimonial-card__project {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 500; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gold);
     }
+    .testimonial-card__project:hover { text-decoration: underline; }
 
-    .testimonial-badge a {
-      color: #d4af37;
-      text-decoration: underline;
+    /* ══════════════════════════════════════
+       PROCESS
+    ══════════════════════════════════════ */
+    .process-section {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 2px; background: var(--border); margin-top: 56px;
+    }
+    .process-step {
+      padding: 40px 28px; background: var(--bg);
+      transition: background .25s;
+    }
+    .process-step:hover { background: var(--surface2); }
+    .process-step__num {
+      font-family: var(--font-display); font-size: 4rem; font-weight: 300;
+      color: rgba(201,168,76,0.08); line-height: 1; margin-bottom: 16px; letter-spacing: -.04em;
+    }
+    .process-step i { font-size: 20px; color: var(--gold); margin-bottom: 16px; opacity: .8; display: block; }
+    .process-step h4 {
+      font-family: var(--font-display); font-size: 1.05rem; font-weight: 400;
+      color: var(--text-bright); margin-bottom: 10px;
+    }
+    .process-step p { font-size: 12px; line-height: 1.75; color: var(--text-muted); }
+
+    /* ══════════════════════════════════════
+       SAAS CTA BANNER
+    ══════════════════════════════════════ */
+    .saas-banner {
+      padding: 100px 0;
+      background: linear-gradient(148deg, #04060c 0%, #000810 60%, #04040a 100%);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden; text-align: center;
+    }
+    .saas-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.025) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
+    }
+    .saas-banner__inner { position: relative; z-index: 1; }
+    .saas-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 18px; background: rgba(201,168,76,0.08);
+      border: 1px solid var(--gold-line); border-radius: 2px;
+      font-size: 10px; font-weight: 500; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 28px;
+    }
+    .saas-badge i { animation: pulse 2s infinite; }
+    .saas-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 6rem);
+      font-weight: 300; color: var(--text-bright); line-height: .9;
+      letter-spacing: -.03em; margin-bottom: 28px;
+    }
+    .saas-title em { font-style: italic; color: var(--gold); }
+    .saas-body {
+      font-size: 15px; line-height: 1.85; color: var(--text-muted);
+      max-width: 620px; margin: 0 auto 48px;
+    }
+    .saas-features {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; background: var(--border);
+      margin-bottom: 56px; text-align: left;
+    }
+    .saas-feature {
+      padding: 36px 32px; background: rgba(8,8,8,0.8);
+      border-top: 2px solid transparent;
+      transition: border-color .25s, background .25s;
+    }
+    .saas-feature:hover { border-top-color: var(--gold); background: rgba(12,12,12,0.9); }
+    .saas-feature i { font-size: 22px; color: var(--gold); margin-bottom: 18px; opacity: .75; display: block; }
+    .saas-feature h4 {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 400;
+      color: var(--text-bright); margin-bottom: 10px;
+    }
+    .saas-feature p { font-size: 13px; line-height: 1.75; color: var(--text-muted); }
+
+    /* ══════════════════════════════════════
+       CONTACT
+    ══════════════════════════════════════ */
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.55fr;
+      gap: 80px; align-items: start;
+    }
+    .calendly-block {
+      display: flex; align-items: center; gap: 14px;
+      padding: 20px 24px; background: var(--gold-dim);
+      border: 1px solid var(--gold-line); border-radius: 3px;
+      margin-bottom: 36px; transition: background .2s;
+      text-decoration: none;
+    }
+    .calendly-block:hover { background: rgba(201,168,76,0.16); }
+    .calendly-block i { color: var(--gold); font-size: 22px; flex-shrink: 0; }
+    .calendly-block__text strong { display: block; font-size: 14px; color: var(--text-bright); font-weight: 400; margin-bottom: 3px; }
+    .calendly-block__text span { font-size: 12px; color: var(--text-muted); }
+    .calendly-block__arrow { margin-left: auto; color: var(--gold); font-size: 12px; }
+
+    .ec-contact-info { display: flex; flex-direction: column; }
+    .ec-contact-info__item { display: flex; align-items: flex-start; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .ec-contact-info__item:first-child { border-top: 1px solid var(--border); }
+    .ec-contact-info__icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 14px; flex-shrink: 0; border: 1px solid var(--gold-line); border-radius: 2px; margin-top: 2px; }
+    .ec-contact-info__label { font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+    .ec-contact-info__value { font-size: 14px; color: var(--text-bright); font-weight: 300; }
+
+    .ec-form { display: flex; flex-direction: column; gap: 14px; }
+    .ec-form select, .ec-form input, .ec-form textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 2px; padding: 14px 16px; font-family: var(--font-body); font-size: 13px; font-weight: 300; color: var(--text-bright); outline: none; transition: border-color .2s, background .2s; -webkit-appearance: none; }
+    .ec-form select { color: var(--text-muted); }
+    .ec-form select:focus, .ec-form input:focus, .ec-form textarea:focus { border-color: var(--gold-line); background: rgba(201,168,76,.04); }
+    .ec-form select option { background: #1a1a1a; color: var(--text-bright); }
+    .ec-form textarea { resize: vertical; min-height: 130px; }
+    .ec-form input::placeholder, .ec-form textarea::placeholder { color: var(--text-muted); }
+    .iti { width: 100%; }
+    .iti__flag-container { border-right: 1px solid var(--border); }
+    .iti__selected-flag { background: transparent !important; }
+    .iti__country-list { background: #141414; border-color: var(--border); }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    .ec-footer { background: var(--surface); border-top: 1px solid var(--border); }
+    .ec-footer__top { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; padding: 72px 40px 56px; border-bottom: 1px solid var(--border); }
+    .ec-footer__brand img { height: 32px; margin-bottom: 18px; }
+    .ec-footer__brand p { font-size: 13px; color: var(--text-muted); line-height: 1.8; max-width: 260px; }
+    .ec-footer__brand .ec-footer__linktree { display: inline-flex; align-items: center; gap: 7px; margin-top: 22px; padding: 9px 16px; border: 1px solid var(--border); border-radius: 2px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); transition: border-color .2s, color .2s; }
+    .ec-footer__brand .ec-footer__linktree:hover { border-color: var(--gold-line); color: var(--gold); }
+    .ec-footer__col h4 { font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 24px; }
+    .ec-footer__col a { display: block; font-size: 13px; color: var(--text); margin-bottom: 13px; transition: color .2s; }
+    .ec-footer__col a:hover { color: var(--gold); }
+    .ec-footer__bottom { display: flex; align-items: center; justify-content: space-between; padding: 24px 40px; gap: 20px; flex-wrap: wrap; }
+    .ec-footer__copy { font-size: 11px; color: var(--text-muted); }
+    .ec-footer__socials { display: flex; gap: 12px; }
+    .ec-footer__socials a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--text-muted); transition: border-color .2s, color .2s, background .2s; }
+    .ec-footer__socials a:hover { border-color: var(--gold-line); color: var(--gold); background: var(--gold-dim); }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .process-steps { grid-template-columns: repeat(3, 1fr); }
+      .ec-footer__top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 900px) {
+      .ec-nav__links { display: none; }
+      .ec-nav__burger { display: flex; }
+      .services-grid { grid-template-columns: 1fr; }
+      .partner-layout { grid-template-columns: 1fr; gap: 48px; }
+      .clients-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .saas-features { grid-template-columns: 1fr; }
+      .clients-section__header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 52px; }
+      .tech-hero__stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .ec-container { padding: 0 20px; }
+      .ec-nav { padding: 0 20px; }
+      .tech-hero { padding: 100px 0 60px; min-height: auto; }
+      .tech-hero__stats { grid-template-columns: 1fr 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .ec-section { padding: 64px 0; }
+      .clients-section { padding: 64px 0; }
+      .testimonials-section { padding: 64px 0; }
+      .process-section { padding: 64px 0; }
+      .saas-banner { padding: 72px 0; }
+      .ec-footer__top { grid-template-columns: 1fr; padding: 48px 20px; }
+      .ec-footer__bottom { flex-direction: column; align-items: center; text-align: center; padding: 24px 20px; }
     }
   </style>
 </head>
+
 <body>
 
-<!-- DESKTOP SIDEBAR -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <img src="./Images/Echoing Canvas.png" alt="EonCanvas Logo" style="width:100%">
-  <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-home w3-xxlarge"></i><p>HOME</p>
+<!-- NAV -->
+<nav class="ec-nav" id="ec-nav">
+  <a href="index.html" class="ec-nav__logo">
+    <img src="./Images/Echoing Canvas.png" alt="EonCanvas">
+    <span class="ec-nav__logo-text">EonCanvas</span>
   </a>
-  <a href="creativity.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-paint-brush w3-xxlarge"></i><p>CREATIVITY</p>
-  </a>
-  <a href="technology.html" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <i class="fa fa-cogs w3-xxlarge"></i><p>TECH</p>
-  </a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-envelope w3-xxlarge"></i><p>CONTACT</p>
-  </a>
+  <ul class="ec-nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="creativity.html">Creativity</a></li>
+    <li><a href="technology.html" class="active">Technology</a></li>
+    <li class="ec-nav__dropdown">
+      <a href="#">Artists ▾</a>
+      <div class="ec-nav__dropdown-menu">
+        <a href="Ayomikun Art Gallery.html">Ayomikun Ojoade</a>
+        <a href="Damola Art Gallery.html">Damola Ayegbayo</a>
+        <a href="Starlex Art Gallery.html">Starlex — Simi Adey</a>
+      </div>
+    </li>
+    <li><a href="#contact" class="ec-nav__cta">Get in Touch</a></li>
+  </ul>
+  <button class="ec-nav__burger" id="ec-burger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<nav class="ec-nav__mobile" id="ec-mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="creativity.html">Creativity</a>
+  <a href="technology.html">Technology</a>
+  <a href="Ayomikun Art Gallery.html">Ayomikun Ojoade</a>
+  <a href="Damola Art Gallery.html">Damola Ayegbayo</a>
+  <a href="Starlex Art Gallery.html">Starlex — Simi Adey</a>
+  <a href="#contact">Get in Touch</a>
 </nav>
 
-<!-- MOBILE MENU -->
-<div class="w3-top w3-hide-large w3-hide-medium">
-  <button onclick="toggleNav()" class="w3-button w3-black w3-xlarge w3-block">Menu</button>
-  <div id="myNavbar" class="w3-bar w3-black w3-center" style="display:none">
-    <a href="index.html" class="w3-bar-item w3-button">HOME</a>
-    <a href="creativity.html" class="w3-bar-item w3-button">CREATIVITY</a>
-    <a href="technology.html" class="w3-bar-item w3-button">TECHNOLOGY</a>
-    <a href="#contact" class="w3-bar-item w3-button">CONTACT</a>
-  </div>
-</div>
+<div class="ec-page">
 
-
-<!-- MAIN CONTENT -->
-<main id="main">
-  <div class="coming-container">
-    <i class="fa-solid fa-gears coming-icon"></i>
-
-    <h1 class="coming-title">Technology Services</h1>
-    <p class="coming-subtitle">
-      Our digital platforms and SaaS tools are being reimagined.<br>
-      We’re building something thoughtful, ethical, and powerful for artists, collectors, and organisations.
-    </p>
-
-    <h2 class="w3-text-light-grey" style="margin-top:32px;">Coming Soon</h2>
-
-    <p class="w3-text-grey" style="max-width:650px;margin:16px auto;">
-      From creative dashboards to ownership tools, from discovery systems to productivity apps — 
-      the next chapter of EonCanvas Technology is almost here.
-    </p>
-
-    <a href="index.html" class="w3-button w3-gold-btn w3-round-xlarge w3-padding-large" style="margin-top:20px;">
-      ← Back to Home
-    </a>
-  </div>
-
-  <!-- EARLY PARTNERS & FEEDBACK -->
-  <section class="w3-padding-64" style="background:linear-gradient(135deg,#05070c,#020308);">
-    <div class="w3-content">
-      <h2 class="w3-text-white w3-xxlarge w3-center">Early Partners & Feedback</h2>
-      <p class="w3-text-grey w3-large w3-center" style="max-width:720px;margin:12px auto 32px;">
-        While our full technology offering is still in development, EonCanvas has already been trusted to
-        support live client projects — from concept to delivery.
-      </p>
-
-      <div class="w3-row-padding w3-margin-top">
-        <!-- Temitope / Whytemyne Intl / Hairs & Blings -->
-        <div class="w3-col m6 w3-margin-bottom">
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <img src="./Images/WhytemyneIntl.jpeg" alt="WhyteMyne Intl / Hairs & Blings Essentials" class="testimonial-avatar">
-              <div>
-                <div class="testimonial-name">Temitope Amusat</div>
-                <div class="testimonial-role">CEO, WhyteMyne International &amp; Hairs &amp; Blings Essentials</div>
-              </div>
-            </div>
-            <div class="testimonial-text">
-              “I am pleased to recommend EonCanvas for their exceptional support in conceptualising and delivering
-              the Hairs &amp; Blings Essentials digital experience. From translating our brand vision into a clear
-              online journey to advising on content and structure, they brought a thoughtful, customer-first
-              approach that strengthened how our products show up online.”
-            </div>
-            <div class="testimonial-badge" style="margin-top:10px;">
-              Project:
-              <a href="https://hairsandblingsessentials.com/" target="_blank" rel="noopener">
-                hairsandblingsessentials.com
-              </a>
-            </div>
-          </div>
+  <!-- HERO -->
+  <section class="tech-hero">
+    <div class="ec-container">
+      <div class="tech-hero__inner">
+        <a href="index.html" class="tech-hero__back"><i class="fa fa-arrow-left"></i> Back to Home</a>
+        <div class="tech-hero__eyebrow">Technology Services</div>
+        <h1 class="tech-hero__title">
+          Built for creatives,<br>not just <em>companies</em>
+        </h1>
+        <p class="tech-hero__sub">
+          We design websites, SaaS platforms, and digital tools for ambitious organisations — with a sharp focus on clarity, ownership, and reaching the right audience. From idea to launch, we build things that work.
+        </p>
+        <div class="tech-hero__actions">
+          <a href="#contact" class="ec-btn ec-btn--gold"><i class="fa fa-paper-plane"></i> Start a Project</a>
+          <a href="https://calendly.com/eoncanvas-info/30min" target="_blank" rel="noopener" class="ec-btn ec-btn--outline"><i class="fa fa-calendar-alt"></i> Book a 30-min Call</a>
         </div>
 
-        <!-- Elyassir / ET Services -->
-        <div class="w3-col m6 w3-margin-bottom">
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <img src="./Images/Elyssair.jpg" alt="ET Services" class="testimonial-avatar">
+        <div class="tech-hero__stats">
+          <div class="tech-hero__stat">
+            <div class="tech-hero__stat-num">3+</div>
+            <div class="tech-hero__stat-label">Live Client Sites</div>
+          </div>
+          <div class="tech-hero__stat" style="padding-left:40px;">
+            <div class="tech-hero__stat-num">1</div>
+            <div class="tech-hero__stat-label">SaaS Partner</div>
+          </div>
+          <div class="tech-hero__stat" style="padding-left:40px;">
+            <div class="tech-hero__stat-num">UK</div>
+            <div class="tech-hero__stat-label">Based in Brighton</div>
+          </div>
+          <div class="tech-hero__stat" style="padding-left:40px;">
+            <div class="tech-hero__stat-num">∞</div>
+            <div class="tech-hero__stat-label">Ideas to Build</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="ec-divider">
+
+  <!-- WHAT WE BUILD -->
+  <section class="ec-section">
+    <div class="ec-container">
+      <span class="ec-label">What We Build</span>
+      <h2 class="ec-h2" style="margin-bottom:56px;">Technology that <em>reaches</em></h2>
+      <div class="services-grid">
+        <div class="service-tile">
+          <div class="service-tile__icon"><i class="fa fa-globe"></i></div>
+          <div class="service-tile__title">Websites & Digital Presence</div>
+          <p class="service-tile__desc">Clean, fast, purpose-built websites for businesses, creatives, and organisations. Designed to convert visitors into customers.</p>
+          <div class="service-tile__tags">
+            <span class="service-tile__tag">E-commerce</span>
+            <span class="service-tile__tag">Portfolio</span>
+            <span class="service-tile__tag">Corporate</span>
+            <span class="service-tile__tag">Landing Pages</span>
+          </div>
+        </div>
+        <div class="service-tile">
+          <div class="service-tile__icon"><i class="fa fa-layer-group"></i></div>
+          <div class="service-tile__title">SaaS Platform Development</div>
+          <p class="service-tile__desc">From concept to working product — we design and build software tools that serve real user needs, ethically and at scale.</p>
+          <div class="service-tile__tags">
+            <span class="service-tile__tag">Event Tools</span>
+            <span class="service-tile__tag">Dashboards</span>
+            <span class="service-tile__tag">Booking Systems</span>
+            <span class="service-tile__tag">Community</span>
+          </div>
+        </div>
+        <div class="service-tile">
+          <div class="service-tile__icon"><i class="fa fa-shield-halved"></i></div>
+          <div class="service-tile__title">Ownership & Privacy Tools</div>
+          <p class="service-tile__desc">Rights-first digital infrastructure — tools that put creators and clients in control of their work, data, and income.</p>
+          <div class="service-tile__tags">
+            <span class="service-tile__tag">Artist Tools</span>
+            <span class="service-tile__tag">Data Consent</span>
+            <span class="service-tile__tag">IP Protection</span>
+          </div>
+        </div>
+        <div class="service-tile">
+          <div class="service-tile__icon"><i class="fa fa-chart-line"></i></div>
+          <div class="service-tile__title">Smart Dashboards</div>
+          <p class="service-tile__desc">Analytics and reporting tools that surface what matters — without invasive tracking or overwhelming data dumps.</p>
+          <div class="service-tile__tags">
+            <span class="service-tile__tag">Analytics</span>
+            <span class="service-tile__tag">Reporting</span>
+            <span class="service-tile__tag">Insights</span>
+          </div>
+        </div>
+        <div class="service-tile">
+          <div class="service-tile__icon"><i class="fa fa-bullhorn"></i></div>
+          <div class="service-tile__title">Digital Strategy & Reach</div>
+          <p class="service-tile__desc">Helping organisations grow their online footprint — from SEO and content structure to platform selection and audience targeting.</p>
+          <div class="service-tile__tags">
+            <span class="service-tile__tag">SEO</span>
+            <span class="service-tile__tag">Content Structure</span>
+            <span class="service-tile__tag">Growth</span>
+          </div>
+        </div>
+        <div class="service-tile">
+          <div class="service-tile__icon"><i class="fa fa-people-group"></i></div>
+          <div class="service-tile__title">Community Platform Design</div>
+          <p class="service-tile__desc">Building digital spaces where communities can connect, collaborate, and grow — designed around the people, not the algorithm.</p>
+          <div class="service-tile__tags">
+            <span class="service-tile__tag">Community</span>
+            <span class="service-tile__tag">Forums</span>
+            <span class="service-tile__tag">Memberships</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNER SPOTLIGHT: EVENTPADI -->
+  <section class="partner-section">
+    <div class="ec-container">
+      <div class="partner-inner">
+        <div class="partner-layout">
+          <div>
+            <div class="partner-badge"><i class="fa fa-circle-dot"></i> Main Technology Partner</div>
+            <h2 class="partner-title">Building with<br><em>Eventpadi</em></h2>
+            <p class="partner-body">
+              EonCanvas is proud to work alongside Eventpadi — a one-stop event management SaaS platform built for modern creators, organisers, and teams. Together, we're exploring how thoughtful technology can serve the creative and events sector globally.
+            </p>
+            <p class="partner-body" style="margin-bottom:36px;">
+              Eventpadi handles everything from ticketing to attendee management, giving event organisers a powerful, simple platform that actually works. Our collaboration spans product strategy, design thinking, and community reach.
+            </p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <a href="https://eventpadi.com/" target="_blank" rel="noopener" class="ec-btn ec-btn--gold">
+                Visit Eventpadi <i class="fa fa-arrow-up-right-from-square"></i>
+              </a>
+              <a href="#contact" class="ec-btn ec-btn--outline">Work With Us</a>
+            </div>
+          </div>
+          <div class="partner-card">
+            <div class="partner-card__header">
+              <div style="width:44px;height:44px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <i class="fa fa-calendar-check" style="color:#000;font-size:20px;"></i>
+              </div>
               <div>
-                <div class="testimonial-name">Elyassir</div>
-                <div class="testimonial-role">Founder, ET Services</div>
+                <div class="partner-card__name">Eventpadi</div>
+                <div class="partner-card__tagline">Your One-stop Event Management Solution</div>
               </div>
             </div>
-            <div class="testimonial-text">
-              “EonCanvas helped bring ET Services online through a clean, functional website that clearly presents
-              our handyman and removals offering. They were attentive, collaborative, and focused on making sure
-              the site felt true to our business while remaining easy for customers to navigate and contact us.”
-            </div>
-            <div class="testimonial-badge" style="margin-top:10px;">
-              Project:
-              <a href="https://www.et-services.co.uk/" target="_blank" rel="noopener">
-                et-services.co.uk
+            <div class="partner-card__body">
+              <p class="partner-card__desc">Built for modern creators, organizers, and teams — Eventpadi is an all-in-one platform for managing events from start to finish.</p>
+              <div class="partner-card__features">
+                <div class="partner-card__feature"><i class="fa fa-check"></i> Ticketing & registration management</div>
+                <div class="partner-card__feature"><i class="fa fa-check"></i> Attendee experience tools</div>
+                <div class="partner-card__feature"><i class="fa fa-check"></i> Event analytics & reporting</div>
+                <div class="partner-card__feature"><i class="fa fa-check"></i> Community & networking features</div>
+                <div class="partner-card__feature"><i class="fa fa-check"></i> Global reach — serving creators worldwide</div>
+              </div>
+              <a href="https://eventpadi.com/" target="_blank" rel="noopener" class="partner-card__link">
+                Explore Eventpadi <i class="fa fa-arrow-right"></i>
               </a>
             </div>
           </div>
@@ -220,111 +774,330 @@
     </div>
   </section>
 
-  <!-- CONTACT SECTION -->
-  <section class="w3-padding-64" id="contact" style="background:linear-gradient(135deg,#0a0a0a,#000);">
-    <div class="w3-content">
-      <h2 class="w3-text-white w3-xxlarge w3-center">Get in Touch</h2>
-      <p class="w3-text-grey w3-large w3-center">Have a project, idea or partnership in mind?</p>
-
-      <!-- Calendly call-to-action -->
-      <div class="w3-center w3-margin-top">
-        <a href="https://calendly.com/eoncanvas-info/30min"
-           target="_blank"
-           rel="noopener"
-           class="w3-button w3-gold-btn w3-round-xlarge w3-padding-large">
-          <i class="fa fa-calendar-alt" style="margin-right:8px;"></i>
-          Book a 30-minute call about your product
-        </a>
+  <!-- CLIENT WORK -->
+  <section class="clients-section" id="clients">
+    <div class="ec-container">
+      <div class="clients-section__header">
+        <div>
+          <span class="ec-label">Client Work</span>
+          <h2 class="ec-h2">Projects we've <em>launched</em></h2>
+        </div>
+        <a href="#contact" class="ec-btn ec-btn--outline">Start Your Project</a>
       </div>
+      <div class="clients-grid">
 
-      <div class="w3-row-padding w3-margin-top">
-        <div class="w3-col m5">
-          <p><i class="fa fa-map-marker fa-fw gold w3-xlarge"></i> Sussex Innovation Centre, Brighton, UK</p>
-          <p><i class="fa fa-phone fa-fw gold w3-xlarge"></i> +44 7446 018348</p>
-          <p><i class="fa fa-envelope fa-fw gold w3-xlarge"></i> info@eoncanvas.co.uk</p>
+        <!-- Hairs & Blings -->
+        <a href="https://hairsandblingsessentials.com/" target="_blank" rel="noopener" class="client-card">
+          <div class="client-card__thumb">
+            <div class="client-card__thumb-inner">H&B</div>
+            <span class="client-card__industry">E-Commerce</span>
+          </div>
+          <div class="client-card__body">
+            <div class="client-card__name">Hairs & Blings Essentials</div>
+            <p class="client-card__desc">An e-commerce platform for hair extensions and beauty essentials — designed to showcase products clearly and convert global customers with confidence.</p>
+            <div class="client-card__deliverables">
+              <span class="client-card__tag">E-Commerce</span>
+              <span class="client-card__tag">Brand Strategy</span>
+              <span class="client-card__tag">Product UX</span>
+            </div>
+            <div class="client-card__link">Visit Site <i class="fa fa-arrow-up-right-from-square" style="font-size:9px;"></i></div>
+          </div>
+        </a>
+
+        <!-- ET Services -->
+        <a href="https://www.et-services.co.uk/" target="_blank" rel="noopener" class="client-card">
+          <div class="client-card__thumb">
+            <div class="client-card__thumb-inner">ET</div>
+            <span class="client-card__industry">Local Services</span>
+          </div>
+          <div class="client-card__body">
+            <div class="client-card__name">ET Services</div>
+            <p class="client-card__desc">A clean, fast website for a handyman and removals business in Sussex — built to drive local enquiries and reflect the professionalism of the team.</p>
+            <div class="client-card__deliverables">
+              <span class="client-card__tag">Website</span>
+              <span class="client-card__tag">Local SEO</span>
+              <span class="client-card__tag">Booking Flow</span>
+            </div>
+            <div class="client-card__link">Visit Site <i class="fa fa-arrow-up-right-from-square" style="font-size:9px;"></i></div>
+          </div>
+        </a>
+
+        <!-- Cognivive -->
+        <a href="https://www.cogniviveltd.co.uk/" target="_blank" rel="noopener" class="client-card">
+          <div class="client-card__thumb">
+            <div class="client-card__thumb-inner">CV</div>
+            <span class="client-card__industry">Healthcare</span>
+          </div>
+          <div class="client-card__body">
+            <div class="client-card__name">Cognivive Limited</div>
+            <p class="client-card__desc">A professional website for a UK healthcare HR and compliance consultancy — designed to build trust with NHS trusts and private sector clients.</p>
+            <div class="client-card__deliverables">
+              <span class="client-card__tag">Corporate Site</span>
+              <span class="client-card__tag">Healthcare</span>
+              <span class="client-card__tag">Professional</span>
+            </div>
+            <div class="client-card__link">Visit Site <i class="fa fa-arrow-up-right-from-square" style="font-size:9px;"></i></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="ec-container">
+      <span class="ec-label">Client Feedback</span>
+      <h2 class="ec-h2">What clients <em>say</em></h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <p class="testimonial-card__quote">
+            EonCanvas brought a thoughtful, customer-first approach that strengthened how our products show up online — from brand vision to clear online journey, content and structure.
+          </p>
+          <div class="testimonial-card__footer">
+            <img src="./Images/WhytemyneIntl.jpeg" alt="Temitope Amusat" class="testimonial-card__avatar">
+            <div>
+              <div class="testimonial-card__name">Temitope Amusat</div>
+              <div class="testimonial-card__role">CEO, WhyteMyne International & Hairs & Blings Essentials</div>
+              <a href="https://hairsandblingsessentials.com/" target="_blank" rel="noopener" class="testimonial-card__project">
+                <i class="fa fa-arrow-up-right-from-square" style="font-size:9px;"></i> hairsandblingsessentials.com
+              </a>
+            </div>
+          </div>
         </div>
-
-        <div class="w3-col m7">
-          <form id="EonCanvasContact" name="EonCanvasContact" method="POST"
-                action="https://email-handler.damilolaajiboyelove.workers.dev">
-            <input type="hidden" name="_subject" value="Technology Services Enquiry">
-            <input type="hidden" name="phone">
-
-            <div class="w3-section">
-              <select class="w3-select w3-border w3-black" name="enquiryType" required>
-                <option value="" disabled selected>What would you like to talk about?</option>
-                <option>Technology Services</option>
-                <option>Custom SaaS / Platform Development</option>
-                <option>Ownership & Privacy Tools</option>
-                <option>Collaboration / Partnership</option>
-                <option>General enquiry</option>
-              </select>
+        <div class="testimonial-card">
+          <p class="testimonial-card__quote">
+            EonCanvas helped bring ET Services online through a clean, functional website — attentive, collaborative, focused on making sure the site felt true to our business while remaining easy for customers to navigate.
+          </p>
+          <div class="testimonial-card__footer">
+            <img src="./Images/Elyssair.jpg" alt="Elyassir" class="testimonial-card__avatar">
+            <div>
+              <div class="testimonial-card__name">Elyassir</div>
+              <div class="testimonial-card__role">Founder, ET Services</div>
+              <a href="https://www.et-services.co.uk/" target="_blank" rel="noopener" class="testimonial-card__project">
+                <i class="fa fa-arrow-up-right-from-square" style="font-size:9px;"></i> et-services.co.uk
+              </a>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            <div class="w3-section">
-              <input class="w3-input w3-border w3-black" type="text" name="name" placeholder="Your Name" required>
+  <!-- PROCESS -->
+  <section class="process-section">
+    <div class="ec-container">
+      <span class="ec-label">How We Work</span>
+      <h2 class="ec-h2">From idea to <em>live</em></h2>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="process-step__num">01</div>
+          <i class="fa fa-comments"></i>
+          <h4>Discovery Call</h4>
+          <p>We start by understanding your goals, audience, and constraints — before touching a single pixel.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">02</div>
+          <i class="fa fa-pencil-ruler"></i>
+          <h4>Strategy & Design</h4>
+          <p>We map out the structure, user journey, and visual direction — grounded in your brand and the people you serve.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">03</div>
+          <i class="fa fa-code"></i>
+          <h4>Build</h4>
+          <p>Clean, fast, and maintainable — we build with the technologies that best fit your project's needs and future.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">04</div>
+          <i class="fa fa-vial"></i>
+          <h4>Test & Refine</h4>
+          <p>We test across devices and browsers, gather feedback, and iterate until everything is right.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">05</div>
+          <i class="fa fa-rocket"></i>
+          <h4>Launch & Support</h4>
+          <p>We launch with you — and remain available for updates, improvements, and ongoing growth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAAS CTA -->
+  <section class="saas-banner">
+    <div class="ec-container">
+      <div class="saas-banner__inner">
+        <div class="saas-badge"><i class="fa fa-circle-dot"></i> In Development</div>
+        <h2 class="saas-title">SaaS is <em>coming</em></h2>
+        <p class="saas-body">
+          Our own suite of digital tools for creative organisations is in development — ownership platforms, discovery systems, and community tools designed around African and diasporan creatives. Register your interest early.
+        </p>
+        <div class="saas-features">
+          <div class="saas-feature">
+            <i class="fa fa-palette"></i>
+            <h4>Artist Ownership Platform</h4>
+            <p>A tool for artists to register, protect, and monetise their creative work — without losing control.</p>
+          </div>
+          <div class="saas-feature">
+            <i class="fa fa-magnifying-glass"></i>
+            <h4>Creative Discovery System</h4>
+            <p>A curated directory connecting collectors, commissioners, and galleries with underrepresented artists worldwide.</p>
+          </div>
+          <div class="saas-feature">
+            <i class="fa fa-chart-bar"></i>
+            <h4>Ethical Analytics Dashboard</h4>
+            <p>Performance insights for creative organisations — built on consent, transparency, and data you actually own.</p>
+          </div>
+        </div>
+        <a href="#contact" class="ec-btn ec-btn--gold"><i class="fa fa-envelope"></i> Register Interest</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="ec-section" id="contact" style="background:var(--surface); border-top:1px solid var(--border);">
+    <div class="ec-container">
+      <span class="ec-label">Get in Touch</span>
+      <h2 class="ec-h2" style="margin-bottom:64px;">Have a project <em>in mind?</em></h2>
+      <div class="contact-grid">
+        <div>
+          <a href="https://calendly.com/eoncanvas-info/30min" target="_blank" rel="noopener" class="calendly-block">
+            <i class="fa fa-calendar-check"></i>
+            <div class="calendly-block__text">
+              <strong>Book a free 30-minute call</strong>
+              <span>Talk through your website, platform, or product idea</span>
             </div>
-
-            <div class="w3-section">
-              <input class="w3-input w3-border w3-black" type="email" name="email" placeholder="Email" required>
+            <i class="fa fa-arrow-right calendly-block__arrow"></i>
+          </a>
+          <div class="ec-contact-info">
+            <div class="ec-contact-info__item">
+              <div class="ec-contact-info__icon"><i class="fa fa-location-dot"></i></div>
+              <div><div class="ec-contact-info__label">Location</div><div class="ec-contact-info__value">Sussex Innovation Centre, Brighton, UK</div></div>
             </div>
-
-            <div class="w3-section">
-              <input id="phone" type="tel" class="w3-input w3-border w3-black" placeholder="Phone (optional)">
+            <div class="ec-contact-info__item">
+              <div class="ec-contact-info__icon"><i class="fa fa-phone"></i></div>
+              <div><div class="ec-contact-info__label">Phone</div><div class="ec-contact-info__value">+44 7446 018348</div></div>
             </div>
-
-            <div class="w3-section">
-              <textarea class="w3-input w3-border w3-black" name="message" rows="5"
-                        placeholder="Tell us your request…" required></textarea>
+            <div class="ec-contact-info__item">
+              <div class="ec-contact-info__icon"><i class="fa fa-envelope"></i></div>
+              <div><div class="ec-contact-info__label">Email</div><div class="ec-contact-info__value">info@eoncanvas.co.uk</div></div>
             </div>
-
-            <button class="w3-button w3-gold-btn w3-round-xlarge w3-padding-large">
-              Send Enquiry
+          </div>
+        </div>
+        <form class="ec-form" id="EonCanvasContact" method="POST" action="https://email-handler.damilolaajiboyelove.workers.dev">
+          <input type="hidden" name="_subject" value="Technology Services Enquiry — EonCanvas">
+          <input type="hidden" name="phone" id="phoneHidden">
+          <select name="enquiryType" required>
+            <option value="" disabled selected>What would you like to talk about?</option>
+            <option>Website Design & Build</option>
+            <option>Custom SaaS / Platform Development</option>
+            <option>Ownership & Privacy Tools</option>
+            <option>Digital Strategy & Reach</option>
+            <option>Partnership / Collaboration</option>
+            <option>General Enquiry</option>
+          </select>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+          </div>
+          <input id="phoneInput" type="tel" placeholder="Phone (optional)">
+          <textarea name="message" rows="5" placeholder="Tell us about your project or idea…" required></textarea>
+          <div>
+            <button type="submit" class="ec-btn ec-btn--gold">
+              Send Enquiry <i class="fa fa-paper-plane"></i>
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="w3-center w3-padding-48 w3-text-grey">
-    <img src="./Images/Echoing Canvas.png" alt="EonCanvas" style="height:50px;">
-    <p class="w3-medium">© 2024–2025 EonCanvas — Creativity • Technology • Community</p>
-
-    <div class="w3-xlarge w3-margin-top">
-      <a href="https://instagram.com/e_on_canvas" class="w3-hover-opacity"><i class="fab fa-instagram"></i></a>
-      <a href="https://x.com/eoncanvas" class="w3-hover-opacity"><i class="fab fa-x-twitter"></i></a>
-      <a href="https://linkedin.com/company/eoncanvas" class="w3-hover-opacity"><i class="fab fa-linkedin"></i></a>
+  <footer class="ec-footer">
+    <div class="ec-footer__top">
+      <div class="ec-footer__brand">
+        <img src="./Images/Echoing Canvas.png" alt="EonCanvas">
+        <p>A social enterprise empowering African and diasporan creatives through art, storytelling, and thoughtful technology. Based in Brighton, UK.</p>
+        <a href="https://linktr.ee/E_on_Canvas" target="_blank" rel="noopener" class="ec-footer__linktree"><i class="fa fa-link"></i> All our links</a>
+      </div>
+      <div class="ec-footer__col">
+        <h4>Navigate</h4>
+        <a href="index.html">Home</a>
+        <a href="creativity.html">Creativity</a>
+        <a href="technology.html">Technology</a>
+        <a href="Ayomikun Art Gallery.html">Ayomikun Ojoade</a>
+        <a href="Damola Art Gallery.html">Damola Ayegbayo</a>
+        <a href="Starlex Art Gallery.html">Starlex</a>
+      </div>
+      <div class="ec-footer__col">
+        <h4>Social Media</h4>
+        <a href="https://www.instagram.com/e_on_canvas" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@e_on_canvas" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.youtube.com/@E_on_Canvas" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://substack.com/@eoncanvas" target="_blank" rel="noopener">Substack</a>
+        <a href="https://www.facebook.com/EonCanvas" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.linkedin.com/company/eoncanvas" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/eoncanvas" target="_blank" rel="noopener">X / Twitter</a>
+      </div>
+      <div class="ec-footer__col">
+        <h4>Work With Us</h4>
+        <a href="https://calendly.com/eoncanvas-info/30min" target="_blank" rel="noopener">Book a 30-min Call</a>
+        <a href="mailto:info@eoncanvas.co.uk">Send an Email</a>
+        <a href="https://eventpadi.com/" target="_blank" rel="noopener">Eventpadi Partner</a>
+        <a href="creativity.html#commission">Commission Artwork</a>
+        <a href="#contact">Contact Form</a>
+      </div>
+    </div>
+    <div class="ec-footer__bottom">
+      <div class="ec-footer__copy">© 2024–2025 EonCanvas — Creativity · Technology · Community</div>
+      <div class="ec-footer__socials">
+        <a href="https://www.instagram.com/e_on_canvas" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@e_on_canvas" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.youtube.com/@E_on_Canvas" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.facebook.com/EonCanvas" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://x.com/eoncanvas" target="_blank" rel="noopener" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://www.linkedin.com/company/eoncanvas" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
     </div>
   </footer>
 
-</main>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js"></script>
 <script>
-  function toggleNav() {
-    const nav = document.getElementById("myNavbar");
-    nav.style.display = nav.style.display === "block" ? "none" : "block";
-  }
+  const nav = document.getElementById('ec-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 24);
+  }, { passive: true });
+
+  const burger = document.getElementById('ec-burger');
+  const mobileMenu = document.getElementById('ec-mobile-menu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
 
   document.addEventListener('DOMContentLoaded', () => {
-    const phoneInput = document.querySelector("#phone");
+    const phoneInput = document.getElementById('phoneInput');
     if (phoneInput && window.intlTelInput) {
       const iti = window.intlTelInput(phoneInput, {
-        initialCountry: "gb",
-        separateDialCode: true,
-        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js"
+        initialCountry: 'gb', separateDialCode: true,
+        utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js'
       });
-
-      document.getElementById("EonCanvasContact").addEventListener("submit", e => {
+      document.getElementById('EonCanvasContact').addEventListener('submit', e => {
         e.preventDefault();
-        document.querySelector('input[name="phone"]').value = iti.getNumber();
+        document.getElementById('phoneHidden').value = iti.getNumber();
         e.target.submit();
       });
     }
   });
 </script>
-
 </body>
 </html>

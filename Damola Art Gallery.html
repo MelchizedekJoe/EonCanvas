@@ -1,348 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Echoing Canvas</title>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Damola Ayegbayo — EonCanvas Artist Gallery</title>
+  <meta name="description" content="Damola Ayegbayo — ABEFE style visual art from Lagos. Vibrant colour, texture and cultural richness in every piece." />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/css/intlTelInput.min.css" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root{--gold:#c9a84c;--gold-light:#e2c97e;--gold-dim:rgba(201,168,76,0.10);--gold-line:rgba(201,168,76,0.22);--bg:#080808;--surface:#0d0d0d;--surface2:#121212;--border:rgba(255,255,255,0.07);--text-bright:#f0ede6;--text:#999;--text-muted:#555;--font-display:'Cormorant Garamond',Georgia,serif;--font-body:'DM Sans',sans-serif;--nav-h:68px;--ease:cubic-bezier(.4,0,.2,1);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    a{text-decoration:none;color:inherit;}
+    img{display:block;max-width:100%;}
+    .ec-container{width:100%;max-width:1180px;margin:0 auto;padding:0 40px;}
+    .ec-section{padding:100px 0;}
+    .ec-label{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+    .ec-h2{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:var(--text-bright);line-height:1.1;letter-spacing:-.01em;}
+    .ec-h2 em{font-style:italic;color:var(--gold);}
+    .ec-body{font-size:15px;line-height:1.85;color:var(--text);}
+    .ec-divider{border:none;border-top:1px solid var(--border);}
+    .ec-gold-rule{width:48px;height:1px;background:var(--gold);opacity:.45;margin:24px 0;}
+    .ec-btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-body);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:14px 28px;border-radius:2px;border:none;cursor:pointer;transition:background .22s var(--ease),color .22s var(--ease),border-color .22s var(--ease),transform .18s var(--ease);}
+    .ec-btn:hover{transform:translateY(-2px);}
+    .ec-btn--gold{background:var(--gold);color:#000;} .ec-btn--gold:hover{background:var(--gold-light);}
+    .ec-btn--outline{background:transparent;color:var(--text-bright);border:1px solid var(--border);} .ec-btn--outline:hover{border-color:var(--gold-line);color:var(--gold);}
+    .ec-nav{position:fixed;inset:0 0 auto;z-index:200;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s;}
+    .ec-nav.scrolled{background:rgba(8,8,8,0.97);border-bottom-color:var(--border);}
+    .ec-nav__logo{display:flex;align-items:center;gap:11px;flex-shrink:0;}
+    .ec-nav__logo img{height:34px;width:auto;}
+    .ec-nav__logo-text{font-family:var(--font-display);font-size:1.35rem;font-weight:400;color:var(--text-bright);}
+    .ec-nav__links{display:flex;align-items:center;gap:4px;list-style:none;}
+    .ec-nav__links>li>a{display:block;padding:8px 14px;font-size:11px;font-weight:400;letter-spacing:.13em;text-transform:uppercase;color:var(--text-muted);transition:color .2s;white-space:nowrap;}
+    .ec-nav__links>li>a:hover,.ec-nav__links>li>a.active{color:var(--text-bright);}
+    .ec-nav__cta{padding:9px 20px!important;border:1px solid var(--gold-line)!important;border-radius:2px;color:var(--gold)!important;} .ec-nav__cta:hover{background:var(--gold)!important;color:#000!important;}
+    .ec-nav__dropdown{position:relative;}
+    .ec-nav__dropdown-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:210px;background:#111;border:1px solid var(--border);border-radius:4px;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .2s var(--ease),transform .2s var(--ease);}
+    .ec-nav__dropdown:hover .ec-nav__dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);}
+    .ec-nav__dropdown-menu a{display:block;padding:13px 20px;font-size:12px;color:var(--text);letter-spacing:.04em;border-bottom:1px solid var(--border);transition:background .15s,color .15s;}
+    .ec-nav__dropdown-menu a:last-child{border-bottom:none;} .ec-nav__dropdown-menu a:hover,.ec-nav__dropdown-menu a.active{background:var(--gold-dim);color:var(--gold);}
+    .ec-nav__burger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;}
+    .ec-nav__burger span{display:block;width:22px;height:1.5px;background:var(--text-bright);border-radius:1px;transition:transform .3s,opacity .3s;}
+    .ec-nav__burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);} .ec-nav__burger.open span:nth-child(2){opacity:0;} .ec-nav__burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+    .ec-nav__mobile{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:#0d0d0d;border-bottom:1px solid var(--border);z-index:199;padding:12px 0 20px;flex-direction:column;}
+    .ec-nav__mobile.open{display:flex;} .ec-nav__mobile a{padding:13px 40px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);border-bottom:1px solid var(--border);transition:color .2s;} .ec-nav__mobile a:last-child{border-bottom:none;} .ec-nav__mobile a:hover{color:var(--gold);}
+    .ec-page{padding-top:var(--nav-h);}
+    .artist-hero{min-height:calc(100vh - var(--nav-h));display:grid;grid-template-columns:1fr 1fr;align-items:stretch;}
+    .artist-hero__image{position:relative;overflow:hidden;min-height:70vh;}
+    .artist-hero__image img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(.88);transition:filter 1.2s var(--ease);}
+    .artist-hero:hover .artist-hero__image img{filter:brightness(.98);}
+    .artist-hero__image::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent 55%,var(--bg) 100%);pointer-events:none;}
+    .artist-hero__info{display:flex;flex-direction:column;justify-content:flex-end;padding:80px 56px 80px 48px;background:var(--bg);}
+    .artist-hero__back{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:40px;transition:color .2s;width:fit-content;} .artist-hero__back:hover{color:var(--gold);}
+    .artist-hero__medium{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+    .artist-hero__name{font-family:var(--font-display);font-size:clamp(3rem,6vw,6rem);font-weight:300;color:var(--text-bright);line-height:.92;letter-spacing:-.025em;margin-bottom:28px;}
+    .artist-hero__tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+    .artist-hero__tag{font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border:1px solid var(--gold-line);border-radius:2px;color:rgba(201,168,76,.75);}
+    .artist-hero__bio{font-size:15px;line-height:1.85;color:var(--text-muted);max-width:420px;margin-bottom:40px;}
+    .artist-hero__actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .abefe-banner{margin:0 0 32px;padding:24px 28px;background:linear-gradient(135deg,rgba(201,168,76,0.07) 0%,rgba(201,168,76,0.02) 100%);border:1px solid var(--gold-line);border-radius:3px;}
+    .abefe-banner__word{font-family:var(--font-display);font-size:2rem;font-weight:300;font-style:italic;color:var(--gold);line-height:1;margin-bottom:6px;}
+    .abefe-banner__def{font-size:12px;letter-spacing:.06em;color:var(--text-muted);}
+    .about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:start;}
+    .achievement-item{display:flex;align-items:flex-start;gap:20px;padding:22px 0;border-bottom:1px solid var(--border);}
+    .achievement-item:first-child{border-top:1px solid var(--border);}
+    .achievement-item__year{font-family:var(--font-display);font-size:1.3rem;font-weight:300;color:var(--gold);min-width:56px;line-height:1;padding-top:2px;}
+    .achievement-item__title{font-size:14px;font-weight:400;color:var(--text-bright);margin-bottom:4px;}
+    .achievement-item__text{font-size:13px;line-height:1.65;color:var(--text-muted);}
+    .media-strip{margin-top:32px;padding:24px 28px;background:var(--surface2);border:1px solid var(--border);border-radius:3px;}
+    .media-strip__label{font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+    .media-strip__items{display:flex;flex-wrap:wrap;gap:8px;}
+    .media-strip__item{font-size:12px;color:var(--text);padding:5px 12px;border:1px solid var(--border);border-radius:2px;transition:border-color .2s,color .2s;} .media-strip__item:hover{border-color:var(--gold-line);color:var(--gold);}
+    .gallery-section{padding-bottom:100px;}
+    .gallery-header{padding:72px 40px 40px;display:flex;justify-content:space-between;align-items:flex-end;}
+    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+    .gallery-item{position:relative;overflow:hidden;aspect-ratio:1/1;background:var(--surface2);cursor:pointer;}
+    .gallery-item:nth-child(1){grid-column:span 2;aspect-ratio:2/1;} .gallery-item:nth-child(7){grid-column:span 2;aspect-ratio:2/1;}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease),filter .5s;filter:brightness(.9);} .gallery-item:hover img{transform:scale(1.07);filter:brightness(1.05);}
+    .gallery-item__overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .3s;display:flex;align-items:center;justify-content:center;} .gallery-item:hover .gallery-item__overlay{background:rgba(0,0,0,.25);}
+    .gallery-item__zoom{width:40px;height:40px;border-radius:50%;background:rgba(201,168,76,.9);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:#000;opacity:0;transform:scale(.7);transition:opacity .25s,transform .25s var(--ease);} .gallery-item:hover .gallery-item__zoom{opacity:1;transform:scale(1);}
+    .lightbox{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s var(--ease);} .lightbox.open{opacity:1;pointer-events:all;}
+    .lightbox__img{max-width:88vw;max-height:88vh;object-fit:contain;border-radius:2px;transform:scale(.96);transition:transform .35s var(--ease);} .lightbox.open .lightbox__img{transform:scale(1);}
+    .lightbox__close{position:absolute;top:24px;right:28px;background:none;border:none;cursor:pointer;font-size:20px;color:rgba(255,255,255,.5);transition:color .2s;} .lightbox__close:hover{color:var(--gold);}
+    .lightbox__prev,.lightbox__next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.06);border:1px solid var(--border);width:48px;height:48px;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.5);font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;} .lightbox__prev{left:24px;} .lightbox__next{right:24px;} .lightbox__prev:hover,.lightbox__next:hover{background:var(--gold-dim);color:var(--gold);}
+    .other-artists-section{background:var(--surface);border-top:1px solid var(--border);}
+    .other-artists-header{padding:64px 40px 32px;}
+    .other-artists-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
+    .other-artist-card{position:relative;overflow:hidden;aspect-ratio:16/8;display:block;background:var(--surface2);}
+    .other-artist-card img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease),filter .5s;filter:grayscale(20%) brightness(.85);} .other-artist-card:hover img{transform:scale(1.05);filter:grayscale(0%) brightness(.95);}
+    .other-artist-card__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:32px 36px;}
+    .other-artist-card__label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+    .other-artist-card__name{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.6rem);font-weight:300;color:#fff;line-height:1.1;}
+    .other-artist-card__arrow{margin-top:14px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);opacity:0;transform:translateY(6px);transition:opacity .3s var(--ease),transform .3s var(--ease);} .other-artist-card:hover .other-artist-card__arrow{opacity:1;transform:translateY(0);}
+    .contact-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:start;}
+    .ec-contact-info{display:flex;flex-direction:column;}
+    .ec-contact-info__item{display:flex;align-items:flex-start;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);} .ec-contact-info__item:first-child{border-top:1px solid var(--border);}
+    .ec-contact-info__icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:14px;flex-shrink:0;border:1px solid var(--gold-line);border-radius:2px;margin-top:2px;}
+    .ec-contact-info__label{font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+    .ec-contact-info__value{font-size:14px;color:var(--text-bright);font-weight:300;}
+    .ec-form{display:flex;flex-direction:column;gap:14px;}
+    .ec-form select,.ec-form input,.ec-form textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:2px;padding:14px 16px;font-family:var(--font-body);font-size:13px;font-weight:300;color:var(--text-bright);outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none;}
+    .ec-form select{color:var(--text-muted);} .ec-form select:focus,.ec-form input:focus,.ec-form textarea:focus{border-color:var(--gold-line);background:rgba(201,168,76,.04);} .ec-form select option{background:#1a1a1a;color:var(--text-bright);} .ec-form textarea{resize:vertical;min-height:130px;} .ec-form input::placeholder,.ec-form textarea::placeholder{color:var(--text-muted);}
+    .iti{width:100%;} .iti__flag-container{border-right:1px solid var(--border);} .iti__selected-flag{background:transparent!important;} .iti__country-list{background:#141414;border-color:var(--border);}
+    .ec-footer{background:var(--surface);border-top:1px solid var(--border);}
+    .ec-footer__top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;padding:72px 40px 56px;border-bottom:1px solid var(--border);}
+    .ec-footer__brand img{height:32px;margin-bottom:18px;} .ec-footer__brand p{font-size:13px;color:var(--text-muted);line-height:1.8;max-width:260px;}
+    .ec-footer__brand .ec-footer__linktree{display:inline-flex;align-items:center;gap:7px;margin-top:22px;padding:9px 16px;border:1px solid var(--border);border-radius:2px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);transition:border-color .2s,color .2s;} .ec-footer__brand .ec-footer__linktree:hover{border-color:var(--gold-line);color:var(--gold);}
+    .ec-footer__col h4{font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);margin-bottom:24px;}
+    .ec-footer__col a{display:block;font-size:13px;color:var(--text);margin-bottom:13px;transition:color .2s;} .ec-footer__col a:hover{color:var(--gold);}
+    .ec-footer__bottom{display:flex;align-items:center;justify-content:space-between;padding:24px 40px;gap:20px;flex-wrap:wrap;}
+    .ec-footer__copy{font-size:11px;color:var(--text-muted);}
+    .ec-footer__socials{display:flex;gap:12px;} .ec-footer__socials a{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s;} .ec-footer__socials a:hover{border-color:var(--gold-line);color:var(--gold);background:var(--gold-dim);}
+    @media(max-width:900px){
+      .ec-nav__links{display:none;} .ec-nav__burger{display:flex;}
+      .artist-hero{grid-template-columns:1fr;} .artist-hero__image{min-height:55vw;max-height:70vw;} .artist-hero__image::after{background:linear-gradient(to top,var(--bg) 0%,transparent 60%);} .artist-hero__info{padding:44px 28px 60px;}
+      .about-grid{grid-template-columns:1fr;gap:52px;}
+      .gallery-grid{grid-template-columns:repeat(2,1fr);} .gallery-item:nth-child(1),.gallery-item:nth-child(7){grid-column:span 1;aspect-ratio:1/1;}
+      .other-artists-grid{grid-template-columns:1fr;} .contact-grid{grid-template-columns:1fr;gap:52px;}
+      .gallery-header{padding:52px 20px 28px;flex-direction:column;gap:16px;align-items:flex-start;}
+      .ec-footer__top{grid-template-columns:1fr 1fr;gap:40px;}
     }
-
-    body, html {
-      height: 100%;
-      font-family: 'Montserrat', sans-serif;
-      color: white;
-      overflow-x: hidden;
-    }
-
-    .background-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: url('./Images/Damola%20Profile/421813853_18414766663059019_408253133761223442_n.jpg') no-repeat center center fixed;
-      background-size: cover;
-      z-index: -2;
-      transform: scale(1.05);
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: -1;
-    }
-
-    .w3-sidebar {
-      width: 160px;
-      background-color: transparent;
-      position: fixed;
-      height: 100%;
-      overflow: auto;
-      z-index: 10;
-      text-align: center;
-    }
-
-    .w3-sidebar img {
-      width: 80%;
-      border-radius: 50%;
-      margin-top: 20px;
-    }
-
-    .w3-sidebar a {
-      display: block;
-      padding: 16px;
-      color: white;
-      text-decoration: none;
-    }
-
-    .w3-sidebar a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .w3-top {
-      display: none;
-    }
-
-    @media screen and (max-width: 768px) {
-      .w3-top {
-        display: block !important;
-      }
-      .w3-sidebar {
-        display: none;
-      }
-      .site-content {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-    }
-
-    .site-content {
-      padding-left: 180px;
-      padding-right: 40px;
-      padding-top: 40px;
-      position: relative;
-      z-index: 1;
-      backdrop-filter: blur(4px);
-    }
-
-    .hero {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-      margin-bottom: 80px;
-      animation: fadeInUp 1.5s ease-out;
-    }
-
-    .hero-logo {
-      height: 80px;
-      border-radius: 12px;
-    }
-
-    .hero-content h1 {
-      font-size: 3em;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .hero-content p {
-      font-size: 1.2em;
-      opacity: 0.9;
-    }
-
-    .hero-img {
-      width: 300px;
-      max-width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .photo img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      transition: transform 0.3s ease;
-    }
-
-    .photo img:hover {
-      transform: scale(1.03);
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      font-size: 1.2em;
-      background: rgba(0, 0, 0, 0.6);
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .footer-logo {
-      height: 50px;
-      vertical-align: middle;
-      margin-right: 10px;
-    }
-
-    .footer-icons i {
-      margin: 0 10px;
-      transition: transform 0.3s;
-    }
-
-    .footer-icons i:hover {
-      transform: scale(1.2);
-    }
-
-    h2 {
-      margin-top: 40px;
-      color: #fff;
-    }
-
-    p, li {
-      font-size: 1.1em;
-      line-height: 1.6em;
-    }
-
-    a {
-      color: white;
-      text-decoration: none;
-    }
-
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(10px); }
-      60% { transform: translateY(5px); }
-    }
-
-    .creative-about {
-      animation: fadeInUp 1.2s ease-out;
-      background: rgba(255,255,255,0.05);
-      padding: 40px;
-      border-radius: 12px;
-    }
-
-    .explore-arrow {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 30px;
-      font-size: 1.2em;
-      color: #fff;
-      flex-direction: column;
-      text-align: center;
-      cursor: pointer;
-      text-decoration: none;
-      animation: fadeInUp 1.5s ease-out;
-    }
-
-    .explore-arrow i {
-      font-size: 2.5em;
-      margin-top: 10px;
-      animation: bounce 2s infinite;
-    }
+    @media(max-width:600px){.ec-container{padding:0 20px;} .ec-nav{padding:0 20px;} .ec-section{padding:64px 0;} .ec-footer__top{grid-template-columns:1fr;padding:48px 20px;} .ec-footer__bottom{flex-direction:column;align-items:center;text-align:center;padding:24px 20px;}}
   </style>
 </head>
-
 <body>
-  <div class="background-container"></div>
-  <div class="overlay"></div>
+<nav class="ec-nav" id="ec-nav">
+  <a href="index.html" class="ec-nav__logo"><img src="./Images/Echoing Canvas.png" alt="EonCanvas"><span class="ec-nav__logo-text">EonCanvas</span></a>
+  <ul class="ec-nav__links">
+    <li><a href="index.html">Home</a></li><li><a href="creativity.html">Creativity</a></li><li><a href="technology.html">Technology</a></li>
+    <li class="ec-nav__dropdown">
+      <a href="#" class="active">Artists &#9662;</a>
+      <div class="ec-nav__dropdown-menu">
+        <a href="Ayomikun Art Gallery.html">Ayomikun Ojoade</a>
+        <a href="Damola Art Gallery.html" class="active">Damola Ayegbayo</a>
+        <a href="Starlex Art Gallery.html">Starlex &mdash; Simi Adey</a>
+      </div>
+    </li>
+    <li><a href="#contact" class="ec-nav__cta">Get in Touch</a></li>
+  </ul>
+  <button class="ec-nav__burger" id="ec-burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+</nav>
+<nav class="ec-nav__mobile" id="ec-mobile-menu">
+  <a href="index.html">Home</a><a href="creativity.html">Creativity</a><a href="technology.html">Technology</a>
+  <a href="Ayomikun Art Gallery.html">Ayomikun Ojoade</a><a href="Damola Art Gallery.html">Damola Ayegbayo</a><a href="Starlex Art Gallery.html">Starlex</a>
+  <a href="#contact">Get in Touch</a>
+</nav>
+<div class="ec-page">
 
-  <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-    <img src="./Images/Damola%20Profile/422310439_18414766672059019_4766391432607743275_n.jpg" alt="Damola">
-    <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-black"><i class="fa fa-home w3-xxlarge"></i><p>HOME</p></a>
-    <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><i class="fa fa-user w3-xxlarge"></i><p>ABOUT</p></a>
-    <a href="#gallery" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><i class="fa fa-eye w3-xxlarge"></i><p>GALLERY</p></a>
-    <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><i class="fa fa-envelope w3-xxlarge"></i><p>CONTACT</p></a>
-  </nav>
-
-  <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-    <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-      <a href="index.html" class="w3-bar-item w3-button" style="width:25%">HOME</a>
-      <a href="#about" class="w3-bar-item w3-button" style="width:25%">ABOUT</a>
-      <a href="#gallery" class="w3-bar-item w3-button" style="width:25%">GALLERY</a>
-      <a href="#contact" class="w3-bar-item w3-button" style="width:25%">CONTACT</a>
-    </div>
-  </div>
-
-  <div class="site-content">
-    <div class="hero">
-      <img src="./Images/Echoing Canvas.png" alt="Echoing Canvas Logo" class="hero-logo">
-      <div class="hero-content">
-        <h1>Echoing Canvas</h1>
-        <p>Listen to the Echoing Canvas</p>
+  <section class="artist-hero">
+    <div class="artist-hero__image"><img src="./Images/Damola Profile/421813853_18414766663059019_408253133761223442_n.jpg" alt="Damola Ayegbayo"></div>
+    <div class="artist-hero__info">
+      <a href="creativity.html" class="artist-hero__back"><i class="fa fa-arrow-left"></i> All Artists</a>
+      <div class="artist-hero__medium">&#192;B&#200;F&#201; &middot; Colour &middot; Texture &middot; Story</div>
+      <h1 class="artist-hero__name">Damola<br>Ayegbayo</h1>
+      <div class="artist-hero__tags">
+        <span class="artist-hero__tag">&#192;B&#200;F&#201;</span>
+        <span class="artist-hero__tag">Portrait</span>
+        <span class="artist-hero__tag">Lagos</span>
+        <span class="artist-hero__tag">Live Painting</span>
+        <span class="artist-hero__tag">Commissions Open</span>
+      </div>
+      <p class="artist-hero__bio">A passionate visual artist whose vibrant style &mdash; &#192;B&#200;F&#201;, meaning &ldquo;pleaded to be loved&rdquo; in Yoruba &mdash; breathes life into every portrait through colour, texture, and cultural richness.</p>
+      <div class="artist-hero__actions">
+        <a href="#gallery" class="ec-btn ec-btn--gold"><i class="fa fa-images"></i> View Gallery</a>
+        <a href="#contact" class="ec-btn ec-btn--outline">Commission a Work</a>
       </div>
     </div>
-    <div style="text-align:center;">
-      <img src="./Images/Damola%20Profile.jpg" alt="Damola Profile" class="hero-img">
-    </div>
+  </section>
 
-      <!-- About Section -->
-      <section id="about" class="creative-about">
-        <h2>About the Artist</h2>
-        <p><strong>Damola Ayegbayo</strong> is a passionate and experienced visual artist with a deep-rooted history in the arts and crafts industry. His vibrant style breathes life into portraits and compositions through colour, texture, and story.</p>
-        <p>His unique style, <strong>ÀBÈFÉ</strong> — meaning "pleaded to be loved" in Yoruba — evokes emotional connection, reverence, and cultural richness.</p>
-        <p>Damola’s inspiration comes from his grandfather, a renowned painter, sculptor, and ceramist, whose legacy now echoes through Damola’s evolving work.</p>
-  
-        <h3>🎓 Education</h3>
-        <p>Bachelor's in Education, Obafemi Awolowo University, Ile-Ife.</p>
-  
-        <h3>🎤 Notable Appearances</h3>
-        <ul>
-          <li>🎨 KPMG Live Stage Painting, 2019</li>
-          <li>📺 Supersports TV Feature, Lagos</li>
-          <li>🏦 Standard Chartered Bank Stage Painting</li>
-          <li>🍷 Sip and Paint at The Metaphor</li>
-        </ul>
-  
-        <h3>📰 Featured In</h3>
-        <ul>
-          <li>In The City Magazine, Atlanta</li>
-          <li>The Sun Newspaper, Nigeria</li>
-          <li>The Nation Newspaper, Nigeria</li>
-        </ul>
-  
-        <h3>🖼️ Exhibitions</h3>
-        <ul>
-          <li><strong>The Adventure</strong> (Joint Exhibition) – Feb 2020</li>
-          <li><strong>Virtual Showcase</strong>, Hansford and Sons, London – Jun 2020</li>
-          <li><strong>Arts from the Mother Land</strong>, Thames Art Center, New York – Aug 2022</li>
-        </ul>
-      <a href="#gallery" class="explore-arrow">
-        <span>Experience Damola’s Art</span>
-        <i class="fa fa-arrow-down"></i>
+  <hr class="ec-divider">
+
+  <section class="ec-section" id="about">
+    <div class="ec-container">
+      <div class="about-grid">
+        <div>
+          <span class="ec-label">About the Artist</span>
+          <h2 class="ec-h2" style="margin-bottom:0;">Passion, Colour<br><em>&amp; Heritage</em></h2>
+          <div class="ec-gold-rule"></div>
+          <div class="abefe-banner">
+            <div class="abefe-banner__word">&#192;B&#200;F&#201;</div>
+            <div class="abefe-banner__def">&ldquo;Pleaded to be loved&rdquo; &mdash; Yoruba</div>
+          </div>
+          <p class="ec-body" style="margin-bottom:20px;">Damola Ayegbayo is a passionate and experienced visual artist with a deep-rooted history in the arts and crafts industry. His vibrant style breathes life into portraits and compositions through colour, texture, and story &mdash; each piece an emotional conversation.</p>
+          <p class="ec-body" style="margin-bottom:20px;">His inspiration flows from his grandfather &mdash; a renowned painter, sculptor, and ceramist &mdash; whose legacy now echoes through Damola&apos;s evolving work across canvas and live performance.</p>
+          <p class="ec-body"><strong style="color:var(--text-bright);">Education:</strong> Bachelor&apos;s in Education, Obafemi Awolowo University, Ile-Ife.</p>
+          <div class="media-strip">
+            <div class="media-strip__label">Featured In</div>
+            <div class="media-strip__items">
+              <span class="media-strip__item">In The City Magazine, Atlanta</span>
+              <span class="media-strip__item">The Sun Newspaper, Nigeria</span>
+              <span class="media-strip__item">The Nation Newspaper, Nigeria</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="ec-label">Exhibitions &amp; Appearances</span>
+          <div style="margin-top:24px;">
+            <div class="achievement-item"><div class="achievement-item__year">2019</div><div><div class="achievement-item__title">KPMG Live Stage Painting</div><div class="achievement-item__text">Featured live performance painting</div></div></div>
+            <div class="achievement-item"><div class="achievement-item__year">2019</div><div><div class="achievement-item__title">Standard Chartered Bank Stage Painting</div><div class="achievement-item__text">Live commissioned performance</div></div></div>
+            <div class="achievement-item"><div class="achievement-item__year">2020</div><div><div class="achievement-item__title">The Adventure</div><div class="achievement-item__text">Joint Exhibition &mdash; February 2020</div></div></div>
+            <div class="achievement-item"><div class="achievement-item__year">2020</div><div><div class="achievement-item__title">Hansford &amp; Sons Virtual Showcase</div><div class="achievement-item__text">London &mdash; June 2020</div></div></div>
+            <div class="achievement-item"><div class="achievement-item__year">2022</div><div><div class="achievement-item__title">Arts From the Mother Land</div><div class="achievement-item__text">Thames Art Center, New York &mdash; August 2022</div></div></div>
+            <div class="achievement-item"><div class="achievement-item__year">&mdash;</div><div><div class="achievement-item__title">Supersports TV Feature</div><div class="achievement-item__text">Television feature, Lagos</div></div></div>
+            <div class="achievement-item"><div class="achievement-item__year">&mdash;</div><div><div class="achievement-item__title">Sip and Paint &mdash; The Metaphor</div><div class="achievement-item__text">Community art experience, Lagos</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="ec-divider">
+
+  <section class="gallery-section" id="gallery">
+    <div class="gallery-header">
+      <div><span class="ec-label">Artworks</span><h2 class="ec-h2">Gallery</h2></div>
+      <a href="#contact" class="ec-btn ec-btn--outline">Commission a Piece</a>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="./Images/Damola Profile/405544866_18403408609059019_443893947920474504_n.jpg" alt="Damola artwork" loading="lazy"><div class="gallery-item__overlay"><button class="gallery-item__zoom"><i class="fa fa-expand"></i></button></div></div>
+      <div class="gallery-item"><img src="./Images/Damola Profile/406483513_18406615282059019_659963491799768536_n.jpg" alt="Damola artwork" loading="lazy"><div class="gallery-item__overlay"><button class="gallery-item__zoom"><i class="fa fa-expand"></i></button></div></div>
+      <div class="gallery-item"><img src="./Images/Damola Profile/409544787_18406615264059019_3504241333748315029_n.jpg" alt="Damola artwork" loading="lazy"><div class="gallery-item__overlay"><button class="gallery-item__zoom"><i class="fa fa-expand"></i></button></div></div>
+      <div class="gallery-item"><img src="./Images/Damola Profile/415285434_18409991815059019_2667105058615193228_n.jpg" alt="Damola artwork" loading="lazy"><div class="gallery-item__overlay"><button class="gallery-item__zoom"><i class="fa fa-expand"></i></button></div></div>
+      <div class="gallery-item"><img src="./Images/Damola Profile/415283546_18409991827059019_7440412573772289746_n.jpg" alt="Damola artwork" loading="lazy"><div class="gallery-item__overlay"><button class="gallery-item__zoom"><i class="fa fa-expand"></i></button></div></div>
+      <div class="gallery-item"><img src="./Images/Damola Profile/421274368_18414347716059019_3272971437949679470_n.jpg" alt="Damola artwork" loading="lazy"><div class="gallery-item__overlay"><button class="gallery-item__zoom"><i class="fa fa-expand"></i></button></div></div>
+      <div class="gallery-item"><img src="./Images/Damola Profile/421813853_18414766663059019_408253133761223442_n.jpg" alt="Damola artwork" loading="lazy"><div class="gallery-item__overlay"><button class="gallery-item__zoom"><i class="fa fa-expand"></i></button></div></div>
+      <div class="gallery-item"><img src="./Images/Damola Profile/422310439_18414766672059019_4766391432607743275_n.jpg" alt="Damola artwork" loading="lazy"><div class="gallery-item__overlay"><button class="gallery-item__zoom"><i class="fa fa-expand"></i></button></div></div>
+      <div class="gallery-item"><img src="./Images/Damola Profile/405493873_18403408597059019_5137120614992330485_n.jpg" alt="Damola artwork" loading="lazy"><div class="gallery-item__overlay"><button class="gallery-item__zoom"><i class="fa fa-expand"></i></button></div></div>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" id="lightbox-close"><i class="fa fa-times"></i></button>
+    <button class="lightbox__prev" id="lightbox-prev"><i class="fa fa-chevron-left"></i></button>
+    <img class="lightbox__img" id="lightbox-img" src="" alt="Artwork">
+    <button class="lightbox__next" id="lightbox-next"><i class="fa fa-chevron-right"></i></button>
+  </div>
+
+  <section class="other-artists-section">
+    <div class="other-artists-header"><span class="ec-label">Explore More</span><h2 class="ec-h2">Other <em>Artists</em></h2></div>
+    <div class="other-artists-grid">
+      <a href="Ayomikun Art Gallery.html" class="other-artist-card">
+        <img src="./Images/Ayomikun Profile/176050752_155386409841645_899981766682875081_n.jpg" alt="Ayomikun Ojoade" loading="lazy">
+        <div class="other-artist-card__overlay"><div class="other-artist-card__label">Charcoal &amp; Oil &middot; Realism</div><div class="other-artist-card__name">Ayomikun Ojoade</div><div class="other-artist-card__arrow">View Gallery &rarr;</div></div>
       </a>
-    </section>
+      <a href="Starlex Art Gallery.html" class="other-artist-card">
+        <img src="./Images/Starlex.jpg" alt="Starlex" loading="lazy">
+        <div class="other-artist-card__overlay"><div class="other-artist-card__label">Starlex &middot; Fashion &amp; Textile</div><div class="other-artist-card__name">Simi Adey</div><div class="other-artist-card__arrow">View Gallery &rarr;</div></div>
+      </a>
+    </div>
+  </section>
 
-    <!-- Gallery -->
-    <section class="section" id="gallery">
-      <h2>Gallery</h2>
-      <div class="gallery">
-        <div class="photo"><img src="./Images/Damola%20Profile/405544866_18403408609059019_443893947920474504_n.jpg" alt="Art 1"></div>
-        <div class="photo"><img src="./Images/Damola%20Profile/406483513_18406615282059019_659963491799768536_n.jpg" alt="Art 2"></div>
-        <div class="photo"><img src="./Images/Damola%20Profile/409544787_18406615264059019_3504241333748315029_n.jpg" alt="Art 3"></div>
-        <div class="photo"><img src="./Images/Damola%20Profile/415285434_18409991815059019_2667105058615193228_n.jpg" alt="Art 4"></div>
-        <div class="photo"><img src="./Images/Damola%20Profile/415283546_18409991827059019_7440412573772289746_n.jpg" alt="Art 5"></div>
-        <div class="photo"><img src="./Images/Damola%20Profile/421274368_18414347716059019_3272971437949679470_n.jpg" alt="Art 6"></div>
-        <div class="photo"><img src="./Images/Damola%20Profile/421813853_18414766663059019_408253133761223442_n.jpg" alt="Art 7"></div>
-        <div class="photo"><img src="./Images/Damola%20Profile/422310439_18414766672059019_4766391432607743275_n.jpg" alt="Art 8"></div>
-        <div class="photo"><img src="./Images/Damola%20Profile/405493873_18403408597059019_5137120614992330485_n.jpg" alt="Art 9"></div>
+  <section class="ec-section" id="contact" style="background:var(--surface);border-top:1px solid var(--border);">
+    <div class="ec-container">
+      <span class="ec-label">Get in Touch</span>
+      <h2 class="ec-h2" style="margin-bottom:64px;">Commission a <em>Work</em></h2>
+      <div class="contact-grid">
+        <div>
+          <p class="ec-body" style="margin-bottom:40px;">Interested in commissioning a painting or booking Damola for a live performance? Reach out via the form or <a href="https://calendly.com/eoncanvas-info/30min" target="_blank" rel="noopener" style="color:var(--gold);">book a call here.</a></p>
+          <div class="ec-contact-info">
+            <div class="ec-contact-info__item"><div class="ec-contact-info__icon"><i class="fa fa-location-dot"></i></div><div><div class="ec-contact-info__label">Location</div><div class="ec-contact-info__value">Sussex Innovation Centre, Brighton, UK</div></div></div>
+            <div class="ec-contact-info__item"><div class="ec-contact-info__icon"><i class="fa fa-phone"></i></div><div><div class="ec-contact-info__label">Phone</div><div class="ec-contact-info__value">+44 7446 018348</div></div></div>
+            <div class="ec-contact-info__item"><div class="ec-contact-info__icon"><i class="fa fa-envelope"></i></div><div><div class="ec-contact-info__label">Email</div><div class="ec-contact-info__value">info@eoncanvas.co.uk</div></div></div>
+          </div>
+        </div>
+        <form class="ec-form" id="EonCanvasContact" method="POST" action="https://email-handler.damilolaajiboyelove.workers.dev">
+          <input type="hidden" name="_subject" value="Enquiry: Damola Ayegbayo - EonCanvas">
+          <input type="hidden" name="phone" id="phoneHidden">
+          <select name="enquiryType" required><option value="" disabled selected>What would you like to discuss?</option><option>Commission a painting</option><option>Purchase existing artwork</option><option>Live painting / event performance</option><option>Collaboration / exhibition</option><option>General enquiry</option></select>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;"><input type="text" name="name" placeholder="Your Name" required><input type="email" name="email" placeholder="Email Address" required></div>
+          <input id="phoneInput" type="tel" placeholder="Phone (optional)">
+          <textarea name="message" rows="5" placeholder="Tell us about what you have in mind..." required></textarea>
+          <div><button type="submit" class="ec-btn ec-btn--gold">Send Enquiry <i class="fa fa-paper-plane"></i></button></div>
+        </form>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Contact -->
-    <section class="section" id="contact">
-      <h2>Contact</h2>
-      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-margin-right"></i> United Kingdom</p>
-      <p><i class="fa fa-building fa-fw w3-text-white w3-margin-right"></i>
-        <a href="https://www.google.com/maps/search/?api=1&query=Sussex+Innovation+Centre,+Brighton" target="_blank">Sussex Innovation Centre, Brighton</a>
-      </p>
-      <p><i class="fa fa-phone fa-fw w3-text-white w3-margin-right"></i> +(44) 7446018348</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-white w3-margin-right"></i> info@eoncanvas.co.uk</p>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-      <div class="footer-icons">
-        <a href="https://www.instagram.com/e_on_canvas/" target="_blank"><i class="fa fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/company/eoncanvas/" target="_blank"><i class="fa fa-linkedin"></i></a>
+  <footer class="ec-footer">
+    <div class="ec-footer__top">
+      <div class="ec-footer__brand">
+        <img src="./Images/Echoing Canvas.png" alt="EonCanvas">
+        <p>Empowering African and diasporan creatives through art, storytelling, and thoughtful technology.</p>
+        <a href="https://linktr.ee/E_on_Canvas" target="_blank" rel="noopener" class="ec-footer__linktree"><i class="fa fa-link"></i> All our links</a>
       </div>
-      <p>
-        <img src="./Images/Echoing Canvas.png" alt="Echoing Canvas Logo" class="footer-logo" />
-        2024 Echoing Canvas. All rights reserved.
-      </p>
-    </footer>
-  </div>
-
-  <script>
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-  </script>
+      <div class="ec-footer__col"><h4>Navigate</h4><a href="index.html">Home</a><a href="creativity.html">Creativity</a><a href="technology.html">Technology</a><a href="Ayomikun Art Gallery.html">Ayomikun Ojoade</a><a href="Damola Art Gallery.html">Damola Ayegbayo</a><a href="Starlex Art Gallery.html">Starlex</a></div>
+      <div class="ec-footer__col"><h4>Social Media</h4><a href="https://www.instagram.com/e_on_canvas" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@e_on_canvas" target="_blank" rel="noopener">TikTok</a><a href="https://www.youtube.com/@E_on_Canvas" target="_blank" rel="noopener">YouTube</a><a href="https://substack.com/@eoncanvas" target="_blank" rel="noopener">Substack</a><a href="https://www.facebook.com/EonCanvas" target="_blank" rel="noopener">Facebook</a><a href="https://www.linkedin.com/company/eoncanvas" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/eoncanvas" target="_blank" rel="noopener">X / Twitter</a></div>
+      <div class="ec-footer__col"><h4>Work With Us</h4><a href="https://calendly.com/eoncanvas-info/30min" target="_blank" rel="noopener">Book a 30-min Call</a><a href="mailto:info@eoncanvas.co.uk">Send an Email</a><a href="#contact">Commission Artwork</a><a href="technology.html">Technology Services</a></div>
+    </div>
+    <div class="ec-footer__bottom">
+      <div class="ec-footer__copy">&copy; 2024&ndash;2025 EonCanvas &mdash; Creativity &middot; Technology &middot; Community</div>
+      <div class="ec-footer__socials">
+        <a href="https://www.instagram.com/e_on_canvas" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@e_on_canvas" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.youtube.com/@E_on_Canvas" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.facebook.com/EonCanvas" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://x.com/eoncanvas" target="_blank" rel="noopener" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://www.linkedin.com/company/eoncanvas" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js"></script>
+<script>
+  const nav=document.getElementById('ec-nav');
+  window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>24);},{passive:true});
+  const burger=document.getElementById('ec-burger'),mobileMenu=document.getElementById('ec-mobile-menu');
+  burger.addEventListener('click',()=>{burger.classList.toggle('open');mobileMenu.classList.toggle('open');});
+  mobileMenu.querySelectorAll('a').forEach(a=>{a.addEventListener('click',()=>{burger.classList.remove('open');mobileMenu.classList.remove('open');});});
+  document.addEventListener('DOMContentLoaded',()=>{
+    const pi=document.getElementById('phoneInput');
+    if(pi&&window.intlTelInput){const iti=window.intlTelInput(pi,{initialCountry:'gb',separateDialCode:true,utilsScript:'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js'});document.getElementById('EonCanvasContact').addEventListener('submit',e=>{e.preventDefault();document.getElementById('phoneHidden').value=iti.getNumber();e.target.submit();});}
+  });
+  const items=Array.from(document.querySelectorAll('.gallery-item')),lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightbox-img');let cur=0;
+  function openLB(i){cur=i;lbImg.src=items[cur].querySelector('img').src;lb.classList.add('open');document.body.style.overflow='hidden';}
+  function closeLB(){lb.classList.remove('open');document.body.style.overflow='';}
+  function next(){cur=(cur+1)%items.length;lbImg.src=items[cur].querySelector('img').src;}
+  function prev(){cur=(cur-1+items.length)%items.length;lbImg.src=items[cur].querySelector('img').src;}
+  items.forEach((item,i)=>{item.querySelector('.gallery-item__zoom').addEventListener('click',e=>{e.stopPropagation();openLB(i);});item.addEventListener('click',()=>openLB(i));});
+  document.getElementById('lightbox-close').addEventListener('click',closeLB);
+  document.getElementById('lightbox-next').addEventListener('click',next);
+  document.getElementById('lightbox-prev').addEventListener('click',prev);
+  lb.addEventListener('click',e=>{if(e.target===lb)closeLB();});
+  document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLB();if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev();});
+</script>
 </body>
 </html>
