@@ -242,7 +242,7 @@
             <div class="ec-contact-info__item"><div class="ec-contact-info__icon"><i class="fa fa-envelope"></i></div><div><div class="ec-contact-info__label">Email</div><div class="ec-contact-info__value">info@eoncanvas.co.uk</div></div></div>
           </div>
         </div>
-        <form class="ec-form" id="EonCanvasContact" method="POST" action="https://email-handler.damilolaajiboyelove.workers.dev">
+        <form class="ec-form" id="EonCanvasContact" method="POST">
           <input type="hidden" name="_subject" value="Enquiry: Starlex (Simi Adey) - EonCanvas">
           <input type="hidden" name="phone" id="phoneHidden">
           <select name="enquiryType" required><option value="" disabled selected>What would you like to discuss?</option><option>Commission a textile / fashion piece</option><option>Styling collaboration</option><option>Exhibition / showcase</option><option>General enquiry</option></select>
@@ -284,7 +284,7 @@
   mobileMenu.querySelectorAll('a').forEach(a=>{a.addEventListener('click',()=>{burger.classList.remove('open');mobileMenu.classList.remove('open');});});
   document.addEventListener('DOMContentLoaded',()=>{
     const pi=document.getElementById('phoneInput');
-    if(pi&&window.intlTelInput){const iti=window.intlTelInput(pi,{initialCountry:'gb',separateDialCode:true,utilsScript:'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js'});document.getElementById('EonCanvasContact').addEventListener('submit',e=>{e.preventDefault();document.getElementById('phoneHidden').value=iti.getNumber();e.target.submit();});}
+    if(pi&&window.intlTelInput){const iti=window.intlTelInput(pi,{initialCountry:'gb',separateDialCode:true,utilsScript:'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js'});
   });
   const items=Array.from(document.querySelectorAll('.gallery-item')),lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightbox-img');let cur=0;
   function openLB(i){cur=i;lbImg.src=items[cur].querySelector('img').src;lb.classList.add('open');document.body.style.overflow='hidden';}
@@ -297,6 +297,54 @@
   document.getElementById('lightbox-prev').addEventListener('click',prev);
   lb.addEventListener('click',e=>{if(e.target===lb)closeLB();});
   document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLB();if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev();});
+</script>
+
+<script>
+(function() {
+  // Create hidden iframe for form submission (worker POST goes here, not main window)
+  var fr = document.createElement('iframe');
+  fr.name = 'ec-hidden-post';
+  fr.style.cssText = 'display:none;position:absolute;';
+  document.body.appendChild(fr);
+
+  var form = document.getElementById('EonCanvasContact');
+  if (!form) return;
+
+  // Set form to post into the hidden iframe
+  form.setAttribute('action', 'https://email-handler.damilolaajiboyelove.workers.dev');
+  form.setAttribute('method', 'POST');
+  form.setAttribute('target', 'ec-hidden-post');
+
+  // Phone init
+  var phoneInput = document.getElementById('phoneInput');
+  var iti = null;
+  if (phoneInput && window.intlTelInput) {
+    iti = window.intlTelInput(phoneInput, {
+      initialCountry: 'gb',
+      separateDialCode: true,
+      utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js'
+    });
+  }
+
+  form.addEventListener('submit', function(e) {
+    // Populate phone hidden field
+    var ph = document.getElementById('phoneHidden');
+    if (iti && ph) ph.value = iti.getNumber();
+
+    // Show loading state
+    var btn = form.querySelector('button[type="submit"]');
+    if (btn) {
+      btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i>&nbsp;Sending&hellip;';
+      btn.disabled = true;
+    }
+
+    // Let the form POST natively into the iframe (email gets sent)
+    // Then redirect the main window to thank-you after brief delay
+    setTimeout(function() {
+      window.location.href = 'thank-you.html?from=starlex';
+    }, 800);
+  });
+})();
 </script>
 </body>
 </html>

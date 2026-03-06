@@ -40,7 +40,6 @@
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
 
-    /* ── UTILITIES ── */
     .ec-container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 40px; }
     .ec-section   { padding: 100px 0; }
     .ec-label {
@@ -82,7 +81,7 @@
     .ec-animate--d5 { animation-delay: .70s; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* ── NAV ── */
+    /* NAV */
     .ec-nav {
       position: fixed; inset: 0 0 auto; z-index: 200;
       height: var(--nav-h); display: flex; align-items: center;
@@ -95,74 +94,41 @@
     .ec-nav.scrolled { background: rgba(8,8,8,0.97); border-bottom-color: var(--border); }
     .ec-nav__logo { display: flex; align-items: center; gap: 11px; flex-shrink: 0; }
     .ec-nav__logo img { height: 34px; width: auto; }
-    .ec-nav__logo-text {
-      font-family: var(--font-display); font-size: 1.35rem;
-      font-weight: 400; color: var(--text-bright);
-    }
+    .ec-nav__logo-text { font-family: var(--font-display); font-size: 1.35rem; font-weight: 400; color: var(--text-bright); }
     .ec-nav__links { display: flex; align-items: center; gap: 4px; list-style: none; }
     .ec-nav__links > li > a {
       display: block; padding: 8px 14px; font-size: 11px; font-weight: 400;
       letter-spacing: .13em; text-transform: uppercase; color: var(--text-muted);
       transition: color .2s; white-space: nowrap;
     }
-    .ec-nav__links > li > a:hover,
-    .ec-nav__links > li > a.active { color: var(--text-bright); }
-    .ec-nav__cta {
-      padding: 9px 20px !important;
-      border: 1px solid var(--gold-line) !important;
-      border-radius: 2px; color: var(--gold) !important;
-    }
+    .ec-nav__links > li > a:hover, .ec-nav__links > li > a.active { color: var(--text-bright); }
+    .ec-nav__cta { padding: 9px 20px !important; border: 1px solid var(--gold-line) !important; border-radius: 2px; color: var(--gold) !important; }
     .ec-nav__cta:hover { background: var(--gold) !important; color: #000 !important; }
-
     .ec-nav__dropdown { position: relative; }
     .ec-nav__dropdown-menu {
       position: absolute; top: calc(100% + 10px); left: 50%;
-      transform: translateX(-50%) translateY(-6px);
-      min-width: 210px; background: #111;
-      border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
-      opacity: 0; pointer-events: none;
+      transform: translateX(-50%) translateY(-6px); min-width: 210px;
+      background: #111; border: 1px solid var(--border); border-radius: 4px;
+      overflow: hidden; opacity: 0; pointer-events: none;
       transition: opacity .2s var(--ease), transform .2s var(--ease);
     }
-    .ec-nav__dropdown:hover .ec-nav__dropdown-menu {
-      opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0);
-    }
-    .ec-nav__dropdown-menu a {
-      display: block; padding: 13px 20px; font-size: 12px; color: var(--text);
-      letter-spacing: .04em; border-bottom: 1px solid var(--border);
-      transition: background .15s, color .15s;
-    }
+    .ec-nav__dropdown:hover .ec-nav__dropdown-menu { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+    .ec-nav__dropdown-menu a { display: block; padding: 13px 20px; font-size: 12px; color: var(--text); letter-spacing: .04em; border-bottom: 1px solid var(--border); transition: background .15s, color .15s; }
     .ec-nav__dropdown-menu a:last-child { border-bottom: none; }
     .ec-nav__dropdown-menu a:hover { background: var(--gold-dim); color: var(--gold); }
-
-    .ec-nav__burger {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; padding: 4px; cursor: pointer;
-    }
-    .ec-nav__burger span {
-      display: block; width: 22px; height: 1.5px;
-      background: var(--text-bright); border-radius: 1px;
-      transition: transform .3s, opacity .3s;
-    }
+    .ec-nav__burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; cursor: pointer; }
+    .ec-nav__burger span { display: block; width: 22px; height: 1.5px; background: var(--text-bright); border-radius: 1px; transition: transform .3s, opacity .3s; }
     .ec-nav__burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .ec-nav__burger.open span:nth-child(2) { opacity: 0; }
     .ec-nav__burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-    .ec-nav__mobile {
-      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
-      background: #0d0d0d; border-bottom: 1px solid var(--border);
-      z-index: 199; padding: 12px 0 20px; flex-direction: column;
-    }
+    .ec-nav__mobile { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: #0d0d0d; border-bottom: 1px solid var(--border); z-index: 199; padding: 12px 0 20px; flex-direction: column; }
     .ec-nav__mobile.open { display: flex; }
-    .ec-nav__mobile a {
-      padding: 13px 40px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--text); border-bottom: 1px solid var(--border); transition: color .2s;
-    }
+    .ec-nav__mobile a { padding: 13px 40px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--text); border-bottom: 1px solid var(--border); transition: color .2s; }
     .ec-nav__mobile a:last-child { border-bottom: none; }
     .ec-nav__mobile a:hover { color: var(--gold); }
-
     .ec-page { padding-top: var(--nav-h); }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero {
       min-height: calc(100vh - var(--nav-h));
       display: flex; flex-direction: column;
@@ -172,9 +138,7 @@
     }
     .hero::before {
       content: ''; position: absolute; inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
       background-size: 72px 72px;
       mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 100%);
       -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 100%);
@@ -193,8 +157,7 @@
       margin-bottom: 28px; display: flex; align-items: center; gap: 14px;
     }
     .hero__eyebrow::before, .hero__eyebrow::after {
-      content: ''; display: block; width: 36px; height: 1px;
-      background: var(--gold); opacity: .45;
+      content: ''; display: block; width: 36px; height: 1px; background: var(--gold); opacity: .45;
     }
     .hero__title {
       position: relative; z-index: 1; font-family: var(--font-display);
@@ -208,30 +171,20 @@
     }
     .hero__actions {
       position: relative; z-index: 1;
-      display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
-      margin-bottom: 32px;
+      display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px;
     }
-
-    /* Social pills */
     .hero__socials {
       position: relative; z-index: 1;
-      display: flex; align-items: center; gap: 8px;
-      flex-wrap: wrap; justify-content: center;
-      margin-bottom: 64px;
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 64px;
     }
     .hero__social-pill {
       display: inline-flex; align-items: center; gap: 7px;
-      padding: 8px 16px; border-radius: 999px;
-      border: 1px solid var(--border);
-      font-size: 10px; font-weight: 400; letter-spacing: .06em;
-      color: var(--text-muted); transition: border-color .2s, color .2s, background .2s;
+      padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border);
+      font-size: 10px; font-weight: 400; letter-spacing: .06em; color: var(--text-muted);
+      transition: border-color .2s, color .2s, background .2s;
     }
-    .hero__social-pill:hover {
-      border-color: var(--gold-line); color: var(--gold);
-      background: var(--gold-dim);
-    }
+    .hero__social-pill:hover { border-color: var(--gold-line); color: var(--gold); background: var(--gold-dim); }
     .hero__social-pill i { font-size: 12px; }
-
     .hero__banner {
       position: relative; z-index: 1; width: 100%; max-width: 1060px;
       aspect-ratio: 16/7; background: var(--surface2);
@@ -240,17 +193,15 @@
     .hero__banner img { width: 100%; height: 100%; object-fit: cover; }
     .hero__banner::before, .hero__banner::after {
       content: ''; position: absolute; width: 18px; height: 18px;
-      border-color: var(--gold); border-style: solid; opacity: .5; z-index: 2;
-      pointer-events: none;
+      border-color: var(--gold); border-style: solid; opacity: .5; z-index: 2; pointer-events: none;
     }
     .hero__banner::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
     .hero__banner::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
 
-    /* ── STATS ── */
+    /* STATS */
     .stats {
       display: grid; grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
       background: var(--surface);
     }
     .stats__item {
@@ -263,16 +214,10 @@
       font-family: var(--font-display); font-size: 50px; font-weight: 300;
       color: var(--gold); line-height: 1; margin-bottom: 10px; letter-spacing: -.02em;
     }
-    .stats__label {
-      font-size: 10px; font-weight: 500; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--text-muted);
-    }
+    .stats__label { font-size: 10px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--text-muted); }
 
-    /* ── SERVICE CARDS ── */
-    .services {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 2px; background: var(--border);
-    }
+    /* SERVICES */
+    .services { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
     .service-card {
       position: relative; padding: 72px 56px; overflow: hidden;
       display: block; transition: filter .3s;
@@ -289,13 +234,9 @@
     .service-card__icon { font-size: 32px; color: var(--gold); margin-bottom: 32px; opacity: .75; }
     .service-card__title {
       font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem);
-      font-weight: 300; color: var(--text-bright); line-height: 1.05;
-      margin-bottom: 18px; letter-spacing: -.01em;
+      font-weight: 300; color: var(--text-bright); line-height: 1.05; margin-bottom: 18px; letter-spacing: -.01em;
     }
-    .service-card__desc {
-      font-size: 14px; line-height: 1.85; color: var(--text-muted);
-      margin-bottom: 32px; max-width: 380px;
-    }
+    .service-card__desc { font-size: 14px; line-height: 1.85; color: var(--text-muted); margin-bottom: 32px; max-width: 380px; }
     .service-card__pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
     .service-card__pill {
       font-size: 9px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
@@ -309,42 +250,20 @@
     }
     .service-card:hover .service-card__arrow { gap: 16px; }
 
-    /* ── ARTISTS ── */
-    .artists-strip {
-      padding: 96px 0; background: var(--surface);
-      border-top: 1px solid var(--border);
-    }
-    .artists-strip__header {
-      display: flex; justify-content: space-between;
-      align-items: flex-end; margin-bottom: 52px;
-    }
-    .artists-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2px; background: var(--border);
-    }
-    .artist-card {
-      position: relative; overflow: hidden;
-      aspect-ratio: 3/4; background: var(--surface2); display: block;
-    }
-    .artist-card img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform .65s var(--ease), filter .65s var(--ease);
-      filter: grayscale(15%) brightness(.9);
-    }
+    /* ARTISTS */
+    .artists-strip { padding: 96px 0; background: var(--surface); border-top: 1px solid var(--border); }
+    .artists-strip__header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 52px; }
+    .artists-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); }
+    .artist-card { position: relative; overflow: hidden; aspect-ratio: 3/4; background: var(--surface2); display: block; }
+    .artist-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .65s var(--ease), filter .65s var(--ease); filter: grayscale(15%) brightness(.9); }
     .artist-card:hover img { transform: scale(1.06); filter: grayscale(0%) brightness(1); }
     .artist-card__overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.25) 45%, transparent 100%);
       display: flex; flex-direction: column; justify-content: flex-end; padding: 32px 28px;
     }
-    .artist-card__name {
-      font-family: var(--font-display); font-size: 26px; font-weight: 400;
-      color: #fff; line-height: 1.15; margin-bottom: 5px;
-    }
-    .artist-card__medium {
-      font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 18px;
-    }
+    .artist-card__name { font-family: var(--font-display); font-size: 26px; font-weight: 400; color: #fff; line-height: 1.15; margin-bottom: 5px; }
+    .artist-card__medium { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
     .artist-card__link {
       font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
       color: rgba(255,255,255,.45); opacity: 0; transform: translateY(8px);
@@ -352,101 +271,36 @@
     }
     .artist-card:hover .artist-card__link { opacity: 1; transform: translateY(0); }
 
-    /* ── COMMUNITY / SOCIALS ── */
-    .community-section {
-      padding: 96px 0;
-      border-top: 1px solid var(--border);
-      background: var(--bg);
-    }
-    .community-section__header {
-      display: flex; justify-content: space-between;
-      align-items: flex-end; margin-bottom: 52px;
-    }
-    .socials-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 2px; background: var(--border);
-    }
+    /* COMMUNITY */
+    .community-section { padding: 96px 0; border-top: 1px solid var(--border); background: var(--bg); }
+    .community-section__header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 52px; }
+    .socials-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--border); }
     .social-card {
-      display: flex; flex-direction: column;
-      padding: 40px 32px; background: var(--surface);
-      border-top: 2px solid transparent;
-      transition: border-color .25s, background .25s;
-      text-decoration: none;
+      display: flex; flex-direction: column; padding: 40px 32px; background: var(--surface);
+      border-top: 2px solid transparent; transition: border-color .25s, background .25s; text-decoration: none;
     }
     .social-card:hover { border-top-color: var(--gold); background: var(--surface2); }
     .social-card__icon { font-size: 24px; color: var(--gold); margin-bottom: 20px; opacity: .75; }
-    .social-card__platform {
-      font-size: 9px; font-weight: 500; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;
-    }
-    .social-card__title {
-      font-family: var(--font-display); font-size: 1.2rem; font-weight: 400;
-      color: var(--text-bright); margin-bottom: 10px; line-height: 1.2;
-    }
-    .social-card__desc {
-      font-size: 12px; line-height: 1.75; color: var(--text-muted); flex: 1;
-    }
-    .social-card__handle {
-      margin-top: 20px; font-size: 10px; letter-spacing: .1em;
-      color: var(--gold); display: flex; align-items: center; gap: 6px;
-      transition: gap .2s;
-    }
+    .social-card__platform { font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .social-card__title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--text-bright); margin-bottom: 10px; line-height: 1.2; }
+    .social-card__desc { font-size: 12px; line-height: 1.75; color: var(--text-muted); flex: 1; }
+    .social-card__handle { margin-top: 20px; font-size: 10px; letter-spacing: .1em; color: var(--gold); display: flex; align-items: center; gap: 6px; transition: gap .2s; }
     .social-card:hover .social-card__handle { gap: 10px; }
 
-    /* Calendly CTA */
-    .calendly-cta {
-      margin-top: 2px; background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 52px 56px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 40px; flex-wrap: wrap;
-    }
-    .calendly-cta__text h3 {
-      font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 300; color: var(--text-bright); line-height: 1.15; margin-bottom: 8px;
-    }
-    .calendly-cta__text h3 em { font-style: italic; color: var(--gold); }
-    .calendly-cta__text p { font-size: 14px; color: var(--text-muted); }
-
-    /* ── CONTACT ── */
-    .contact-grid {
-      display: grid; grid-template-columns: 1fr 1.55fr;
-      gap: 80px; align-items: start;
-    }
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.55fr; gap: 80px; align-items: start; }
     .ec-contact-info { display: flex; flex-direction: column; }
-    .ec-contact-info__item {
-      display: flex; align-items: flex-start; gap: 16px;
-      padding: 20px 0; border-bottom: 1px solid var(--border);
-    }
+    .ec-contact-info__item { display: flex; align-items: flex-start; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--border); }
     .ec-contact-info__item:first-child { border-top: 1px solid var(--border); }
-    .ec-contact-info__icon {
-      width: 36px; height: 36px; display: flex; align-items: center;
-      justify-content: center; color: var(--gold); font-size: 14px; flex-shrink: 0;
-      border: 1px solid var(--gold-line); border-radius: 2px; margin-top: 2px;
-    }
-    .ec-contact-info__label {
-      font-size: 9px; font-weight: 500; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;
-    }
+    .ec-contact-info__icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 14px; flex-shrink: 0; border: 1px solid var(--gold-line); border-radius: 2px; margin-top: 2px; }
+    .ec-contact-info__label { font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
     .ec-contact-info__value { font-size: 14px; color: var(--text-bright); font-weight: 300; }
-    .contact-map-link {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
-      color: var(--gold); margin-top: 28px; transition: gap .2s;
-    }
+    .contact-map-link { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-top: 28px; transition: gap .2s; }
     .contact-map-link:hover { gap: 14px; }
-
     .ec-form { display: flex; flex-direction: column; gap: 14px; }
-    .ec-form select, .ec-form input, .ec-form textarea {
-      width: 100%; background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 2px; padding: 14px 16px; font-family: var(--font-body);
-      font-size: 13px; font-weight: 300; color: var(--text-bright); outline: none;
-      transition: border-color .2s, background .2s; -webkit-appearance: none;
-    }
+    .ec-form select, .ec-form input, .ec-form textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 2px; padding: 14px 16px; font-family: var(--font-body); font-size: 13px; font-weight: 300; color: var(--text-bright); outline: none; transition: border-color .2s, background .2s; -webkit-appearance: none; }
     .ec-form select { color: var(--text-muted); }
-    .ec-form select:focus, .ec-form input:focus, .ec-form textarea:focus {
-      border-color: var(--gold-line); background: rgba(201,168,76,.04);
-    }
+    .ec-form select:focus, .ec-form input:focus, .ec-form textarea:focus { border-color: var(--gold-line); background: rgba(201,168,76,.04); }
     .ec-form select option { background: #1a1a1a; color: var(--text-bright); }
     .ec-form textarea { resize: vertical; min-height: 130px; }
     .ec-form input::placeholder, .ec-form textarea::placeholder { color: var(--text-muted); }
@@ -455,50 +309,23 @@
     .iti__selected-flag { background: transparent !important; }
     .iti__country-list { background: #141414; border-color: var(--border); }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     .ec-footer { background: var(--surface); border-top: 1px solid var(--border); }
-    .ec-footer__top {
-      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
-      gap: 48px; padding: 72px 40px 56px;
-      border-bottom: 1px solid var(--border);
-    }
+    .ec-footer__top { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; padding: 72px 40px 56px; border-bottom: 1px solid var(--border); }
     .ec-footer__brand img { height: 32px; margin-bottom: 18px; }
     .ec-footer__brand p { font-size: 13px; color: var(--text-muted); line-height: 1.8; max-width: 260px; }
-    .ec-footer__brand .ec-footer__linktree {
-      display: inline-flex; align-items: center; gap: 7px;
-      margin-top: 22px; padding: 9px 16px;
-      border: 1px solid var(--border); border-radius: 2px;
-      font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--text-muted); transition: border-color .2s, color .2s;
-    }
+    .ec-footer__brand .ec-footer__linktree { display: inline-flex; align-items: center; gap: 7px; margin-top: 22px; padding: 9px 16px; border: 1px solid var(--border); border-radius: 2px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); transition: border-color .2s, color .2s; }
     .ec-footer__brand .ec-footer__linktree:hover { border-color: var(--gold-line); color: var(--gold); }
-    .ec-footer__col h4 {
-      font-size: 9px; font-weight: 500; letter-spacing: .22em;
-      text-transform: uppercase; color: var(--text-muted); margin-bottom: 24px;
-    }
-    .ec-footer__col a {
-      display: block; font-size: 13px; color: var(--text);
-      margin-bottom: 13px; transition: color .2s;
-    }
+    .ec-footer__col h4 { font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 24px; }
+    .ec-footer__col a { display: block; font-size: 13px; color: var(--text); margin-bottom: 13px; transition: color .2s; }
     .ec-footer__col a:hover { color: var(--gold); }
-    .ec-footer__bottom {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 24px 40px; gap: 20px; flex-wrap: wrap;
-    }
+    .ec-footer__bottom { display: flex; align-items: center; justify-content: space-between; padding: 24px 40px; gap: 20px; flex-wrap: wrap; }
     .ec-footer__copy { font-size: 11px; color: var(--text-muted); }
     .ec-footer__socials { display: flex; gap: 12px; }
-    .ec-footer__socials a {
-      width: 34px; height: 34px; border-radius: 50%;
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; color: var(--text-muted);
-      transition: border-color .2s, color .2s, background .2s;
-    }
-    .ec-footer__socials a:hover {
-      border-color: var(--gold-line); color: var(--gold); background: var(--gold-dim);
-    }
+    .ec-footer__socials a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--text-muted); transition: border-color .2s, color .2s, background .2s; }
+    .ec-footer__socials a:hover { border-color: var(--gold-line); color: var(--gold); background: var(--gold-dim); }
 
-    /* ── RESPONSIVE ── */
+    /* RESPONSIVE */
     @media (max-width: 1024px) {
       .socials-grid { grid-template-columns: repeat(2, 1fr); }
       .ec-footer__top { grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -513,7 +340,6 @@
       .contact-grid { grid-template-columns: 1fr; gap: 52px; }
       .stats { grid-template-columns: repeat(2, 1fr); }
       .service-card { padding: 52px 32px; }
-      .calendly-cta { flex-direction: column; text-align: center; }
     }
     @media (max-width: 600px) {
       .ec-container { padding: 0 20px; }
@@ -527,7 +353,6 @@
       .ec-section { padding: 64px 0; }
       .artists-strip { padding: 64px 0; }
       .community-section { padding: 64px 0; }
-      .calendly-cta { padding: 40px 24px; }
     }
   </style>
 </head>
@@ -544,11 +369,11 @@
     <li><a href="creativity.html">Creativity</a></li>
     <li><a href="technology.html">Technology</a></li>
     <li class="ec-nav__dropdown">
-      <a href="#">Artists ▾</a>
+      <a href="#">Artists &#9662;</a>
       <div class="ec-nav__dropdown-menu">
         <a href="Ayomikun Art Gallery.html">Ayomikun Ojoade</a>
         <a href="Damola Art Gallery.html">Damola Ayegbayo</a>
-        <a href="Starlex Art Gallery.html">Starlex — Simi Adey</a>
+        <a href="Starlex Art Gallery.html">Starlex &mdash; Simi Adey</a>
       </div>
     </li>
     <li><a href="#contact" class="ec-nav__cta">Get in Touch</a></li>
@@ -563,7 +388,7 @@
   <a href="technology.html">Technology</a>
   <a href="Ayomikun Art Gallery.html">Ayomikun Ojoade</a>
   <a href="Damola Art Gallery.html">Damola Ayegbayo</a>
-  <a href="Starlex Art Gallery.html">Starlex — Simi Adey</a>
+  <a href="Starlex Art Gallery.html">Starlex &mdash; Simi Adey</a>
   <a href="#contact">Get in Touch</a>
 </nav>
 
@@ -571,7 +396,7 @@
 
   <!-- HERO -->
   <section class="hero">
-    <p class="hero__eyebrow ec-animate">African Creativity × Thoughtful Technology</p>
+    <p class="hero__eyebrow ec-animate">African Creativity &times; Thoughtful Technology</p>
     <h1 class="hero__title ec-animate ec-animate--d1">Eon<em>Canvas</em></h1>
     <p class="hero__sub ec-animate ec-animate--d2">
       Empowering African and diasporan creatives through art, storytelling, and technology that respects ownership, culture, and community.
@@ -589,7 +414,7 @@
     </div>
     <div class="hero__banner ec-animate ec-animate--d5">
       <img src="./Images/eoncanvas-homepage-hero.png"
-           alt="EonCanvas — African Art and Technology"
+           alt="EonCanvas &mdash; African Art and Technology"
            onerror="this.parentElement.style.background='linear-gradient(135deg,#100009,#000812)'">
     </div>
   </section>
@@ -603,7 +428,7 @@
       <div class="stats__label">Featured Artists</div>
     </div>
     <div class="stats__item">
-      <div class="stats__number">∞</div>
+      <div class="stats__number">&#8734;</div>
       <div class="stats__label">Stories to Tell</div>
     </div>
     <div class="stats__item">
@@ -636,7 +461,7 @@
     <a href="technology.html" class="service-card service-card--tech">
       <div class="service-card__icon"><i class="fa fa-microchip"></i></div>
       <h2 class="service-card__title">Technology</h2>
-      <p class="service-card__desc">We design SaaS platforms, community tools, and digital journeys that respect consent, ownership, and cultural context — technology that works for creatives, not the other way around.</p>
+      <p class="service-card__desc">We design SaaS platforms, community tools, and digital journeys that respect consent, ownership, and cultural context &mdash; technology that works for creatives, not the other way around.</p>
       <div class="service-card__pills">
         <span class="service-card__pill">SaaS Platforms</span>
         <span class="service-card__pill">Rights-first Tools</span>
@@ -663,24 +488,24 @@
           <img src="./Images/Ayomikun Profile/176050752_155386409841645_899981766682875081_n.jpg" alt="Ayomikun Ojoade" loading="lazy">
           <div class="artist-card__overlay">
             <div class="artist-card__name">Ayomikun Ojoade</div>
-            <div class="artist-card__medium">Charcoal & Oil · Realism</div>
-            <span class="artist-card__link">View Gallery →</span>
+            <div class="artist-card__medium">Charcoal &amp; Oil &middot; Realism</div>
+            <span class="artist-card__link">View Gallery &rarr;</span>
           </div>
         </a>
         <a href="Damola Art Gallery.html" class="artist-card">
           <img src="./Images/Damola Profile/421813853_18414766663059019_408253133761223442_n.jpg" alt="Damola Ayegbayo" loading="lazy">
           <div class="artist-card__overlay">
             <div class="artist-card__name">Damola Ayegbayo</div>
-            <div class="artist-card__medium">ÀBÈFÉ · Colour & Texture</div>
-            <span class="artist-card__link">View Gallery →</span>
+            <div class="artist-card__medium">&#192;B&#200;F&#201; &middot; Colour &amp; Texture</div>
+            <span class="artist-card__link">View Gallery &rarr;</span>
           </div>
         </a>
         <a href="Starlex Art Gallery.html" class="artist-card">
-          <img src="./Images/Starlex.jpg" alt="Starlex — Simi Adey" loading="lazy">
+          <img src="./Images/Starlex.jpg" alt="Starlex &mdash; Simi Adey" loading="lazy">
           <div class="artist-card__overlay">
             <div class="artist-card__name">Simi Adey</div>
-            <div class="artist-card__medium">Starlex · Fashion & Textile</div>
-            <span class="artist-card__link">View Gallery →</span>
+            <div class="artist-card__medium">Starlex &middot; Fashion &amp; Textile</div>
+            <span class="artist-card__link">View Gallery &rarr;</span>
           </div>
         </a>
       </div>
@@ -718,7 +543,7 @@
           <div class="social-card__icon"><i class="fab fa-youtube"></i></div>
           <div class="social-card__platform">YouTube</div>
           <div class="social-card__title">Creative Storytelling</div>
-          <div class="social-card__desc">Long-form stories celebrating talent across cultures — art, technology, and code.</div>
+          <div class="social-card__desc">Long-form stories celebrating talent across cultures &mdash; art, technology, and code.</div>
           <div class="social-card__handle">@E_on_Canvas <i class="fa fa-arrow-right"></i></div>
         </a>
         <a href="https://substack.com/@eoncanvas" target="_blank" rel="noopener" class="social-card">
@@ -753,7 +578,7 @@
           <div class="social-card__icon"><i class="fa fa-calendar-check"></i></div>
           <div class="social-card__platform">Calendly</div>
           <div class="social-card__title">Book a 30-min Call</div>
-          <div class="social-card__desc">Commission, partnership, or just a conversation — book a free call directly in our calendar.</div>
+          <div class="social-card__desc">Commission, partnership, or just a conversation &mdash; book a free call directly in our calendar.</div>
           <div class="social-card__handle">Schedule Now <i class="fa fa-arrow-right"></i></div>
         </a>
       </div>
@@ -768,7 +593,7 @@
       <div class="contact-grid">
         <div>
           <p class="ec-body" style="margin-bottom:40px;">
-            Whether you want to commission an artwork, build a platform, or collaborate on something new — we'd love to hear from you. Prefer a call? <a href="https://calendly.com/eoncanvas-info/30min" target="_blank" rel="noopener" style="color:var(--gold);">Book 30 mins here.</a>
+            Whether you want to commission an artwork, build a platform, or collaborate on something new &mdash; we'd love to hear from you. Prefer a call? <a href="https://calendly.com/eoncanvas-info/30min" target="_blank" rel="noopener" style="color:var(--gold);">Book 30 mins here.</a>
           </p>
           <div class="ec-contact-info">
             <div class="ec-contact-info__item">
@@ -789,17 +614,15 @@
               <div class="ec-contact-info__icon"><i class="fa fa-envelope"></i></div>
               <div>
                 <div class="ec-contact-info__label">Email</div>
-                <div class="ec-contact-info__value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c55525a537c5953525f5d524a5d4f125f53124957">[email&#160;protected]</a></div>
+                <div class="ec-contact-info__value">info@eoncanvas.co.uk</div>
               </div>
             </div>
           </div>
-          <a href="https://www.google.com/maps?q=Sussex+Innovation+Centre,+Brighton"
-             target="_blank" rel="noopener" class="contact-map-link">
+          <a href="https://www.google.com/maps?q=Sussex+Innovation+Centre,+Brighton" target="_blank" rel="noopener" class="contact-map-link">
             View on map <i class="fa fa-arrow-right"></i>
           </a>
         </div>
-        <form class="ec-form" id="EonCanvasContact"
-             >
+        <form class="ec-form" id="EonCanvasContact">
           <input type="hidden" name="_subject" value="New enquiry from EonCanvas">
           <input type="hidden" name="phone" id="phoneHidden">
           <select name="enquiryType" required>
@@ -815,7 +638,7 @@
             <input type="email" name="email" placeholder="Email Address" required>
           </div>
           <input id="phoneInput" type="tel" placeholder="Phone (optional)">
-          <textarea name="message" rows="5" placeholder="Tell us about your project…" required></textarea>
+          <textarea name="message" rows="5" placeholder="Tell us about your project&#8230;" required></textarea>
           <div>
             <button type="submit" class="ec-btn ec-btn--gold">
               Send Enquiry <i class="fa fa-paper-plane"></i>
@@ -858,14 +681,14 @@
       <div class="ec-footer__col">
         <h4>Work With Us</h4>
         <a href="https://calendly.com/eoncanvas-info/30min" target="_blank" rel="noopener">Book a 30-min Call</a>
-        <a href="/cdn-cgi/l/email-protection#325b5c545d72575d5c51535c4453411c515d1c4759">Send an Email</a>
+        <a href="mailto:info@eoncanvas.co.uk">Send an Email</a>
         <a href="creativity.html#commission">Commission Artwork</a>
         <a href="technology.html">Technology Services</a>
         <a href="#contact">Contact Form</a>
       </div>
     </div>
     <div class="ec-footer__bottom">
-      <div class="ec-footer__copy">© 2024–2025 EonCanvas — Creativity · Technology · Community</div>
+      <div class="ec-footer__copy">&copy; 2024&ndash;2025 EonCanvas &mdash; Creativity &middot; Technology &middot; Community</div>
       <div class="ec-footer__socials">
         <a href="https://www.instagram.com/e_on_canvas" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="https://www.tiktok.com/@e_on_canvas" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
@@ -880,75 +703,7 @@
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js">
-  
-
-
-  /* ── CONTACT FORM ── */
-  (function(){
-    var form = document.getElementById('EonCanvasContact');
-    if (!form) return;
-
-    // Create hidden iframe - form posts into it, bypasses CORS/redirect issues
-    var iframe = document.createElement('iframe');
-    iframe.name = 'ec-submit-frame';
-    iframe.id   = 'ec-submit-frame';
-    iframe.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;top:-9999px;left:-9999px;border:none;';
-    document.body.appendChild(iframe);
-
-    // Point form at iframe
-    form.setAttribute('method', 'POST');
-    form.setAttribute('action', 'https://email-handler.damilolaajiboyelove.workers.dev');
-    form.setAttribute('target', 'ec-submit-frame');
-
-    // Phone
-    var phoneInput = document.getElementById('phoneInput');
-    var iti = null;
-    if (phoneInput && window.intlTelInput) {
-      iti = window.intlTelInput(phoneInput, {
-        initialCountry: 'gb',
-        separateDialCode: true,
-        utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js'
-      });
-    }
-
-    function setLoading(on) {
-      var btn = form.querySelector('button[type="submit"]');
-      if (!btn) return;
-      if (on) {
-        btn.setAttribute('data-orig', btn.innerHTML);
-        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending…';
-        btn.disabled = true;
-        btn.style.opacity = '0.7';
-      } else {
-        btn.innerHTML = btn.getAttribute('data-orig') || 'Send Enquiry';
-        btn.disabled = false;
-        btn.style.opacity = '';
-      }
-    }
-
-    var submitted = false;
-
-    form.addEventListener('submit', function(e) {
-      // Let the form POST natively into the iframe
-      var phoneHidden = document.getElementById('phoneHidden');
-      if (iti && phoneHidden) phoneHidden.value = iti.getNumber();
-      setLoading(true);
-      submitted = true;
-    });
-
-    // When iframe loads after submit = worker responded = success
-    iframe.addEventListener('load', function() {
-      if (!submitted) return;
-      // Small delay to ensure worker has processed
-      setTimeout(function() {
-        window.location.href = 'thank-you.html?from=index';
-      }, 300);
-    });
-
-  })();
-
-</script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js"></script>
 <script>
   const nav = document.getElementById('ec-nav');
   window.addEventListener('scroll', () => {
@@ -968,9 +723,43 @@
     });
   });
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const phoneInput = document.getElementById('phoneInput');
+  (function() {
+    var fr = document.createElement('iframe');
+    fr.name = 'ec-hidden-post';
+    fr.style.cssText = 'display:none;position:absolute;';
+    document.body.appendChild(fr);
+
+    var form = document.getElementById('EonCanvasContact');
+    if (!form) return;
+
+    form.setAttribute('action', 'https://email-handler.damilolaajiboyelove.workers.dev');
+    form.setAttribute('method', 'POST');
+    form.setAttribute('target', 'ec-hidden-post');
+
+    var phoneInput = document.getElementById('phoneInput');
+    var iti = null;
     if (phoneInput && window.intlTelInput) {
-      const iti = window.intlTelInput(phoneInput, {
-        initialCountry: 'gb', separateDialCode: true,
-        utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils
+      iti = window.intlTelInput(phoneInput, {
+        initialCountry: 'gb',
+        separateDialCode: true,
+        utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js'
+      });
+    }
+
+    form.addEventListener('submit', function(e) {
+      var ph = document.getElementById('phoneHidden');
+      if (iti && ph) ph.value = iti.getNumber();
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) {
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i>&nbsp;Sending…';
+        btn.disabled = true;
+      }
+      setTimeout(function() {
+        window.location.href = 'thank-you.html?from=index';
+      }, 800);
+    });
+  })();
+</script>
+
+</body>
+</html>
