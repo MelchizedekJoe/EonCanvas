@@ -15,7 +15,22 @@ function doGet(e) {
 }
 
 // ── Called by PayPal IPN to MARK artwork as sold ──
+// ── Also called by shop.html form to SAVE order details ──
 function doPost(e) {
+
+  // Handle order form submission from shop.html
+  try {
+    var body = JSON.parse(e.postData.contents);
+    if (body.action === 'saveOrder') {
+      saveOrderDetails(body);
+      return ContentService
+        .createTextOutput(JSON.stringify({ status: 'order_saved' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+  } catch(err) {
+    // Not JSON — continue to IPN handling below
+  }
+
   var params = e.parameter;
 
   // Verify it's a real PayPal payment
@@ -101,6 +116,27 @@ function getSheet() {
     sheet.appendRow(["ArtworkID","Status","Timestamp","PayerEmail","Amount","Currency","TxnID","PayerName"]);
   }
   return sheet;
+}
+
+// ── Save order details from shop form ──
+function saveOrderDetails(data) {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("Orders");
+  if (!sheet) {
+    sheet = ss.insertSheet("Orders");
+    sheet.appendRow(["Timestamp","Name","Email","Address","Country","Amount","Status"]);
+    // Style header row
+    sheet.getRange(1,1,1,7).setFontWeight("bold").setBackground("#c9a84c").setFontColor("#000000");
+  }
+  sheet.appendRow([
+    new Date().toISOString(),
+    data.name    || "",
+    data.email   || "",
+    data.address || "",
+    data.country || "",
+    data.amount  || "",
+    "Pending Payment"
+  ]);
 }
 
 // ── Manual override: run this function to mark sold manually ──

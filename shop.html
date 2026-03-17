@@ -248,6 +248,24 @@ img{display:block;max-width:100%}
 .shop-footer__links a{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);transition:color .2s}
 .shop-footer__links a:hover{color:var(--gold)}
 
+/* MODAL FORM */
+.modal-form { display:flex; flex-direction:column; gap:14px; margin-bottom:8px; }
+.modal-field { display:flex; flex-direction:column; gap:6px; }
+.modal-label { font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--text-muted); }
+.modal-input { width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:2px; padding:12px 14px; font-family:var(--font-body); font-size:13px; font-weight:300; color:var(--text-bright); outline:none; transition:border-color .2s; }
+.modal-input:focus { border-color:var(--gold-line); }
+.modal-input::placeholder { color:var(--text-muted); }
+.modal-textarea { resize:vertical; min-height:90px; }
+.modal-select { cursor:pointer; -webkit-appearance:none; }
+.modal-select option { background:#1a1a1a; }
+.modal-error { display:flex; align-items:center; gap:8px; font-size:11px; color:#e53935; padding:10px 14px; border:1px solid rgba(229,57,53,0.3); border-radius:2px; background:rgba(229,57,53,0.06); }
+.modal-proceed { width:100%; padding:16px 24px; background:var(--gold); color:#000; border:none; border-radius:3px; font-size:13px; font-weight:600; cursor:pointer; letter-spacing:.05em; transition:background .2s, transform .18s; display:flex; align-items:center; justify-content:center; gap:10px; }
+.modal-proceed:hover { background:var(--gold-light); transform:translateY(-2px); }
+.modal-summary-box { background:var(--surface2); border:1px solid var(--border); border-radius:2px; padding:16px 18px; margin-bottom:24px; font-size:12px; color:var(--text); line-height:1.8; }
+.modal-summary-box strong { color:var(--text-bright); }
+.modal-back { width:100%; padding:12px 24px; background:transparent; color:var(--text-muted); border:1px solid var(--border); border-radius:3px; font-size:11px; cursor:pointer; letter-spacing:.1em; text-transform:uppercase; transition:color .2s, border-color .2s; margin-top:8px; }
+.modal-back:hover { color:var(--text-bright); border-color:var(--text-muted); }
+
 /* RESPONSIVE */
 @media(max-width:1024px){
   .book-card{grid-template-columns:280px 1fr}
@@ -479,40 +497,78 @@ img{display:block;max-width:100%}
     <button class="modal-close" id="modalCloseBtn" type="button" aria-label="Close">
       <i class="fa fa-xmark"></i>
     </button>
-    <div class="modal-tag">Original · 1 of 1 · EonCanvas Arts</div>
-    <h3 class="modal-title">How to <em>Claim</em><br>This Artwork</h3>
-    <p class="modal-summary">A one-of-a-kind original charcoal work. Once payment is confirmed, this listing closes permanently and no further orders can be placed.</p>
-    <div class="modal-steps">
-      <div class="modal-step">
-        <div class="modal-num">1</div>
-        <div class="modal-step-body">
-          <strong>Send Payment via PayPal</strong>
-          Click below to pay via paypal.me/EonCanvas. Use <em>Goods &amp; Services</em> for buyer protection.<br>
-          UK: <strong style="color:var(--gold);">£900</strong> &nbsp;·&nbsp; International: <strong style="color:var(--gold);">£950</strong>
+    <!-- STEP 1: Details Form -->
+    <div id="modalStep1">
+      <div class="modal-tag">Original · 1 of 1 · EonCanvas Arts</div>
+      <h3 class="modal-title">Claim <em>This</em><br>Artwork</h3>
+      <p class="modal-summary">Fill in your details below and we will take you straight to payment. Once confirmed, this listing closes permanently.</p>
+      <div class="modal-form">
+        <div class="modal-field">
+          <label class="modal-label">Full Name</label>
+          <input type="text" id="orderName" class="modal-input" placeholder="Your full name">
         </div>
-      </div>
-      <div class="modal-step">
-        <div class="modal-num">2</div>
-        <div class="modal-step-body">
-          <strong>Email Your Details</strong>
-          After paying, email <a href="/cdn-cgi/l/email-protection#670e0901082702080904060911061449040849120c"><span class="__cf_email__" data-cfemail="1e777078715e7b71707d7f70687f6d307d71306b75">[email&#160;protected]</span></a> with your full name, delivery address, and PayPal transaction reference.
+        <div class="modal-field">
+          <label class="modal-label">Email Address</label>
+          <input type="email" id="orderEmail" class="modal-input" placeholder="your@email.com">
         </div>
-      </div>
-      <div class="modal-step">
-        <div class="modal-num">3</div>
-        <div class="modal-step-body">
-          <strong>Confirmation &amp; Delivery</strong>
-          We confirm your order, mark the work as sold, and arrange careful delivery with a certificate of provenance.
+        <div class="modal-field">
+          <label class="modal-label">Delivery Address</label>
+          <textarea id="orderAddress" class="modal-input modal-textarea" placeholder="Full delivery address including postcode"></textarea>
         </div>
+        <div class="modal-field">
+          <label class="modal-label">Location</label>
+          <select id="orderCountry" class="modal-input modal-select">
+            <option value="UK">UK — £900 (delivery included)</option>
+            <option value="International">International — £950 (includes £50 shipping)</option>
+          </select>
+        </div>
+        <div class="modal-error" id="modalError" style="display:none;">
+          <i class="fa fa-circle-exclamation"></i>
+          <span id="modalErrorText">Please fill in all fields.</span>
+        </div>
+        <button class="modal-proceed" id="proceedBtn" type="button">
+          Continue to Payment <i class="fa fa-arrow-right"></i>
+        </button>
       </div>
+      <p class="modal-note" style="margin-top:16px;">
+        Questions? <a href="https://calendly.com/eoncanvas-info/30min" target="_blank">Book a 30-min call</a> or email info@eoncanvas.co.uk
+      </p>
     </div>
-    <a href="https://www.paypal.me/EonCanvas" target="_blank" rel="noopener" class="modal-paypal" id="paypalBtn">
-      <i class="fab fa-paypal"></i>
-      Pay via PayPal · paypal.me/EonCanvas
-    </a>
-    <p class="modal-note">
-      Questions? <a href="https://calendly.com/eoncanvas-info/30min" target="_blank">Book a 30-min call</a> or email <a href="/cdn-cgi/l/email-protection#e881868e87a88d87868b89869e899bc68b87c69d83"><span class="__cf_email__" data-cfemail="741d1a121b34111b1a17151a0215075a171b5a011f">[email&#160;protected]</span></a>
-    </p>
+
+    <!-- STEP 2: Payment -->
+    <div id="modalStep2" style="display:none;">
+      <div class="modal-tag">Almost There · 1 of 1 · EonCanvas Arts</div>
+      <h3 class="modal-title">Complete <em>Your</em><br>Payment</h3>
+      <p class="modal-summary">Your details have been saved. Click below to complete payment via PayPal.</p>
+      <div class="modal-summary-box" id="orderSummary"></div>
+      <div class="modal-steps">
+        <div class="modal-step">
+          <div class="modal-num">1</div>
+          <div class="modal-step-body">
+            <strong>Pay via PayPal</strong>
+            Use <em>Goods &amp; Services</em> for buyer protection.<br>
+            UK: <strong style="color:var(--gold);">£900</strong> &nbsp;·&nbsp; International: <strong style="color:var(--gold);">£950</strong>
+          </div>
+        </div>
+        <div class="modal-step">
+          <div class="modal-num">2</div>
+          <div class="modal-step-body">
+            <strong>You are done!</strong>
+            We have your details. We will confirm your order and arrange delivery with a certificate of provenance.
+          </div>
+        </div>
+      </div>
+      <a href="https://www.paypal.me/EonCanvas" target="_blank" rel="noopener" class="modal-paypal" id="paypalBtn">
+        <i class="fab fa-paypal"></i>
+        Pay via PayPal · paypal.me/EonCanvas
+      </a>
+      <button class="modal-back" id="backBtn" type="button">
+        <i class="fa fa-arrow-left"></i> Go back and edit details
+      </button>
+      <p class="modal-note" style="margin-top:12px;">
+        Questions? <a href="https://calendly.com/eoncanvas-info/30min" target="_blank">Book a 30-min call</a> or email info@eoncanvas.co.uk
+      </p>
+    </div>
   </div>
 </div>
 
@@ -543,6 +599,13 @@ img{display:block;max-width:100%}
     var m = document.getElementById('artModal');
     m.style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    // Reset to step 1
+    document.getElementById('modalStep1').style.display = 'block';
+    document.getElementById('modalStep2').style.display = 'none';
+    document.getElementById('modalError').style.display = 'none';
+    document.getElementById('orderName').value = '';
+    document.getElementById('orderEmail').value = '';
+    document.getElementById('orderAddress').value = '';
   }
   function closeModal() {
     var m = document.getElementById('artModal');
@@ -558,9 +621,82 @@ img{display:block;max-width:100%}
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeModal();
   });
+
+  // ── PROCEED BUTTON — validate form + save to Google Sheet ──
+  document.getElementById('proceedBtn').addEventListener('click', function() {
+    var name    = document.getElementById('orderName').value.trim();
+    var email   = document.getElementById('orderEmail').value.trim();
+    var address = document.getElementById('orderAddress').value.trim();
+    var country = document.getElementById('orderCountry').value;
+    var errEl   = document.getElementById('modalError');
+    var errTxt  = document.getElementById('modalErrorText');
+
+    // Validate
+    if (!name || !email || !address) {
+      errTxt.textContent = 'Please fill in all fields before continuing.';
+      errEl.style.display = 'flex';
+      return;
+    }
+    if (!email.includes('@')) {
+      errTxt.textContent = 'Please enter a valid email address.';
+      errEl.style.display = 'flex';
+      return;
+    }
+    errEl.style.display = 'none';
+
+    // Show loading state
+    var btn = document.getElementById('proceedBtn');
+    btn.innerHTML = '<i class="fa fa-circle-notch fa-spin"></i> Saving your details...';
+    btn.disabled = true;
+
+    // Save to Google Sheet
+    var amount = country === 'UK' ? '£900' : '£950';
+    var payload = {
+      action:  'saveOrder',
+      name:    name,
+      email:   email,
+      address: address,
+      country: country,
+      amount:  amount
+    };
+
+    var saveData = function() {
+      // Show step 2
+      var summary = document.getElementById('orderSummary');
+      summary.innerHTML =
+        '<strong>Name:</strong> ' + name + '<br>' +
+        '<strong>Email:</strong> ' + email + '<br>' +
+        '<strong>Address:</strong> ' + address + '<br>' +
+        '<strong>Amount:</strong> ' + amount;
+      document.getElementById('modalStep1').style.display = 'none';
+      document.getElementById('modalStep2').style.display = 'block';
+    };
+
+    if (SCRIPT_URL && SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbwHqxwKu-V3G_0aZixTo8sgzD41W6E-MrRyHob8kMKMeP_LwFBwhiFrUiZo-p56YLd9dQ/exec') {
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function() { saveData(); })
+      .catch(function() { saveData(); }); // Show step 2 even if save fails
+    } else {
+      saveData(); // Dev mode
+    }
+  });
+
+  // ── BACK BUTTON ──
+  document.getElementById('backBtn').addEventListener('click', function() {
+    document.getElementById('modalStep1').style.display = 'block';
+    document.getElementById('modalStep2').style.display = 'none';
+    var btn = document.getElementById('proceedBtn');
+    btn.innerHTML = 'Continue to Payment <i class="fa fa-arrow-right"></i>';
+    btn.disabled = false;
+  });
+
+  // ── PAYPAL BUTTON ──
   document.getElementById('paypalBtn').addEventListener('click', function() {
-    // Mark sold locally immediately so THIS visitor sees sold
-    showSold('Payment initiated — we will confirm your order by email shortly.');
+    showSold('Payment initiated — we will confirm your order and arrange delivery shortly.');
     setTimeout(closeModal, 400);
   });
 
@@ -601,7 +737,7 @@ img{display:block;max-width:100%}
   // ── CHECK SOLD STATE FROM GOOGLE SHEET ──
   function checkSoldState() {
     // If no script URL set yet, show available (dev mode)
-    if (!SCRIPT_URL || SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+    if (!SCRIPT_URL || SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwHqxwKu-V3G_0aZixTo8sgzD41W6E-MrRyHob8kMKMeP_LwFBwhiFrUiZo-p56YLd9dQ/exec') {
       showAvailable();
       return;
     }
