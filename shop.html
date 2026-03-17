@@ -340,7 +340,9 @@ img{display:block;max-width:100%}
         <p class="book-card__subtitle">Finding Peace, Purpose and Power in Our Differences</p>
         <p class="book-card__author">By <span>Damilola Ajiboye</span></p>
         <p class="book-card__desc">A bold, research-grounded exploration of why the world's most complex challenges demand its most diverse minds. Weaving personal stories, global case studies and frontline research, this book argues that the ideas we most need are the ones we keep silencing.</p>
-        <div class="book-formats">
+        <div class="book-formats" id="bookFormats">
+
+          <!-- Digital — always same -->
           <a href="https://payhip.com/b/OFMCP" target="_blank" rel="noopener" class="book-format highlight">
             <div class="bf-left">
               <i class="fa fa-file-pdf bf-icon"></i>
@@ -352,28 +354,39 @@ img{display:block;max-width:100%}
               <i class="fa fa-arrow-right bf-arr"></i>
             </div>
           </a>
-          <a href="https://www.amazon.co.uk/dp/B0GSNSDCDV" target="_blank" rel="noopener" class="book-format">
+
+          <!-- Kindle Pre-order — location aware -->
+          <a href="#" target="_blank" rel="noopener" class="book-format" id="kindleLink">
             <div class="bf-left">
               <i class="fab fa-amazon bf-icon"></i>
-              <div><div class="bf-name">Kindle Pre-order</div><div class="bf-note">Auto-delivered 29 Mar 2026 · <strong>Rises to £9.99 after</strong></div></div>
+              <div>
+                <div class="bf-name">Kindle Pre-order</div>
+                <div class="bf-note" id="kindleNote">Auto-delivered 29 Mar 2026 · <strong>Rises after pre-order</strong></div>
+              </div>
             </div>
             <div class="bf-right">
               <span class="bf-tag">Pre-order</span>
-              <div class="bf-price">£7.99</div>
+              <div class="bf-price" id="kindlePrice">£7.99</div>
               <i class="fa fa-arrow-right bf-arr"></i>
             </div>
           </a>
-          <a href="https://www.amazon.co.uk/dp/B0GSV3JPT2" target="_blank" rel="noopener" class="book-format">
+
+          <!-- Paperback — location aware -->
+          <a href="#" target="_blank" rel="noopener" class="book-format" id="paperbackLink">
             <div class="bf-left">
               <i class="fa fa-book bf-icon"></i>
-              <div><div class="bf-name">Paperback</div><div class="bf-note">Physical copy · Amazon · Ships worldwide</div></div>
+              <div>
+                <div class="bf-name">Paperback</div>
+                <div class="bf-note" id="paperbackNote">Physical copy · Amazon · Ships worldwide</div>
+              </div>
             </div>
             <div class="bf-right">
               <span class="bf-tag">Available Now</span>
-              <div class="bf-price">$14.99</div>
+              <div class="bf-price" id="paperbackPrice">£11.32</div>
               <i class="fa fa-arrow-right bf-arr"></i>
             </div>
           </a>
+
         </div>
         <p class="book-donate">💛 On Payhip you can pay more than £9.99 — any extra goes directly to supporting the author and future Melchizedek Joseph publications.</p>
       </div>
@@ -610,6 +623,58 @@ img{display:block;max-width:100%}
 
   // Run on load
   checkSoldState();
+
+  // ── LOCATION DETECTION ──
+  var BOOK_DATA = {
+    US: {
+      kindle:    { url: 'https://www.amazon.com/dp/B0GSNSDCDV',  price: '$9.99',  note: 'Auto-delivered 29 Mar 2026 · Rises to $9.99 after' },
+      paperback: { url: 'https://www.amazon.com/dp/B0GSV3JPT2',  price: '$14.99', note: 'Physical copy · Amazon US · Ships worldwide' }
+    },
+    GB: {
+      kindle:    { url: 'https://www.amazon.co.uk/dp/B0GSNSDCDV', price: '£7.99',  note: 'Auto-delivered 29 Mar 2026 · Rises to £9.99 after' },
+      paperback: { url: 'https://www.amazon.co.uk/dp/B0GSV3JPT2', price: '£11.32', note: 'Physical copy · Amazon UK · Ships worldwide' }
+    },
+    FR: {
+      kindle:    { url: 'https://www.amazon.fr/dp/B0GSNSDCDV',  price: '€9.26',  note: 'Auto-delivered 29 Mar 2026 · Rises after pre-order' },
+      paperback: { url: 'https://www.amazon.fr/dp/B0GSV3JPT2',  price: '€13.83', note: 'Physical copy · Amazon FR · Ships worldwide' }
+    },
+    NL: {
+      kindle:    { url: 'https://www.amazon.nl/dp/B0GSNSDCDV',  price: '€9.26',  note: 'Auto-delivered 29 Mar 2026 · Rises after pre-order' },
+      paperback: { url: 'https://www.amazon.nl/dp/B0GSV3JPT2',  price: '€14.03', note: 'Physical copy · Amazon NL · Ships worldwide' }
+    }
+  };
+
+  function updateBookLinks(countryCode) {
+    var data = BOOK_DATA[countryCode] || BOOK_DATA['GB'];
+
+    // Kindle
+    var kLink  = document.getElementById('kindleLink');
+    var kPrice = document.getElementById('kindlePrice');
+    var kNote  = document.getElementById('kindleNote');
+    if (kLink)  kLink.href        = data.kindle.url;
+    if (kPrice) kPrice.textContent = data.kindle.price;
+    if (kNote)  kNote.innerHTML   = data.kindle.note;
+
+    // Paperback
+    var pLink  = document.getElementById('paperbackLink');
+    var pPrice = document.getElementById('paperbackPrice');
+    var pNote  = document.getElementById('paperbackNote');
+    if (pLink)  pLink.href        = data.paperback.url;
+    if (pPrice) pPrice.textContent = data.paperback.price;
+    if (pNote)  pNote.textContent  = data.paperback.note;
+  }
+
+  // Detect country using free ipapi.co
+  fetch('https://ipapi.co/json/')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      var country = (d.country_code || 'GB').toUpperCase();
+      updateBookLinks(country);
+    })
+    .catch(function() {
+      // Default to UK if detection fails
+      updateBookLinks('GB');
+    });
 
 })();
 </script>
