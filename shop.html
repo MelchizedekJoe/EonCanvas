@@ -263,6 +263,14 @@ img{display:block;max-width:100%}
 .modal-proceed:hover { background:var(--gold-light); transform:translateY(-2px); }
 .modal-summary-box { background:var(--surface2); border:1px solid var(--border); border-radius:2px; padding:16px 18px; margin-bottom:24px; font-size:12px; color:var(--text); line-height:1.8; }
 .modal-summary-box strong { color:var(--text-bright); }
+.modal-privacy {
+  font-size:10px; color:var(--text-muted); line-height:1.7;
+  padding:12px 14px; border:1px solid var(--border);
+  border-radius:2px; background:rgba(255,255,255,0.02);
+  margin-top:10px; display:flex; align-items:flex-start; gap:8px;
+}
+.modal-privacy i { color:var(--gold); font-size:11px; margin-top:2px; flex-shrink:0; }
+.modal-privacy a { color:var(--gold); }
 .modal-back { width:100%; padding:12px 24px; background:transparent; color:var(--text-muted); border:1px solid var(--border); border-radius:3px; font-size:11px; cursor:pointer; letter-spacing:.1em; text-transform:uppercase; transition:color .2s, border-color .2s; margin-top:8px; }
 .modal-back:hover { color:var(--text-bright); border-color:var(--text-muted); }
 
@@ -529,6 +537,10 @@ img{display:block;max-width:100%}
         <button class="modal-proceed" id="proceedBtn" type="button">
           Continue to Payment <i class="fa fa-arrow-right"></i>
         </button>
+        <p class="modal-privacy">
+          <i class="fa fa-shield-halved"></i>
+          Your details are collected solely for order fulfilment and delivery of this artwork. We do not share your data with third parties. By continuing you agree to our <a href="https://www.eoncanvas.co.uk/privacy-policy" target="_blank">Privacy Policy</a>.
+        </p>
       </div>
       <p class="modal-note" style="margin-top:16px;">
         Questions? <a href="https://calendly.com/eoncanvas-info/30min" target="_blank">Book a 30-min call</a> or email info@eoncanvas.co.uk

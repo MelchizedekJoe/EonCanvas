@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Weight of a Borrowed Name — Samuel George</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --aged: #e8dfc8;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --red: #8b1a1a;
+    --shadow: #1a0a0a;
+    --grey: #4a4a4a;
+    --violet: #4a3060;
+    --violet-soft: rgba(74,48,96,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0f0a14;
+    font-family: 'Crimson Pro', Georgia, serif;
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 30% 10%, rgba(74,48,96,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 90%, rgba(201,168,76,0.05) 0%, transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.01) 40px, rgba(255,255,255,0.01) 41px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── BACK NAV ── */
+  .back-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(15,10,20,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .back-nav a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    color: rgba(201,168,76,0.6);
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+  .back-nav a:hover { color: var(--gold); }
+
+  .back-nav .series-note {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: rgba(245,240,232,0.25);
+  }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 80px 20px 60px;
+    background: #0f0a14;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 40%, rgba(74,48,96,0.25) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 50% 40%, rgba(201,168,76,0.06) 0%, transparent 60%);
+  }
+
+  .cover-border {
+    position: absolute;
+    inset: 24px;
+    border: 1px solid rgba(201,168,76,0.2);
+    pointer-events: none;
+  }
+  .cover-border::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(74,48,96,0.3);
+  }
+
+  .cover-content {
+    position: relative;
+    text-align: center;
+    max-width: 680px;
+  }
+
+  .cover-series {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.45em;
+    color: rgba(201,168,76,0.5);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 1s 0.2s forwards;
+  }
+
+  .cover-chapter {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.45em;
+    color: rgba(74,48,96,0.8);
+    text-transform: uppercase;
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: fadeUp 1s 0.35s forwards;
+  }
+
+  .cover-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 40px;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 900;
+    color: var(--paper);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 1s 0.65s forwards;
+  }
+
+  .cover-title em {
+    font-style: italic;
+    color: rgba(180,140,220,0.9);
+  }
+
+  .cover-subtitle {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(245,240,232,0.4);
+    margin-bottom: 52px;
+    opacity: 0;
+    animation: fadeUp 1s 0.8s forwards;
+  }
+
+  .cover-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: fadeUp 1s 0.95s forwards;
+  }
+  .cover-divider::before, .cover-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.35), transparent);
+  }
+  .cover-divider span { color: var(--gold); font-size: 1rem; }
+
+  .cover-author {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    color: rgba(245,240,232,0.3);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1s 1.1s forwards;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 1s 2s forwards;
+  }
+  .scroll-hint span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.52rem;
+    letter-spacing: 0.3em;
+    color: rgba(245,240,232,0.25);
+    text-transform: uppercase;
+  }
+  .scroll-arrow {
+    width: 1px;
+    height: 28px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* ── BOOK ── */
+  .book {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── CHAPTER OPENER ── */
+  .chapter-opener {
+    padding: 100px 0 60px;
+    text-align: center;
+  }
+
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.5em;
+    color: rgba(180,140,220,0.7);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .chapter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
+    font-weight: 900;
+    color: var(--paper);
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .chapter-title em {
+    font-style: italic;
+    color: rgba(180,140,220,0.85);
+  }
+
+  .chapter-epigraph {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: rgba(245,240,232,0.38);
+    max-width: 500px;
+    margin: 24px auto 0;
+    line-height: 1.75;
+  }
+
+  .chapter-rule {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 36px 0;
+  }
+  .chapter-rule::before, .chapter-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(180,140,220,0.3), transparent);
+  }
+  .chapter-rule span { color: rgba(180,140,220,0.6); font-size: 0.85rem; }
+
+  /* ── PROSE ── */
+  .prose {
+    background: var(--paper);
+    border-radius: 2px;
+    padding: 56px clamp(24px, 6vw, 72px);
+    position: relative;
+    box-shadow:
+      0 4px 6px rgba(0,0,0,0.5),
+      0 20px 60px rgba(0,0,0,0.6),
+      inset 0 0 80px rgba(0,0,0,0.04);
+    margin-bottom: 40px;
+  }
+
+  .prose::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, rgba(180,140,220,0.5), transparent, rgba(201,168,76,0.3));
+    opacity: 0.6;
+  }
+
+  .prose p {
+    font-size: clamp(1.05rem, 2vw, 1.18rem);
+    line-height: 1.88;
+    color: #1a1410;
+    margin-bottom: 1.45em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .prose p:first-child::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.8;
+    margin: 0.08em 0.12em 0 0;
+    color: var(--violet);
+  }
+
+  .prose p strong { font-weight: 600; color: var(--shadow); }
+  .prose p em { font-style: italic; color: #3a2a1a; }
+
+  /* ── REALWORLD BOXES ── */
+  .realworld {
+    background: rgba(74,48,96,0.08);
+    border: 1px solid rgba(180,140,220,0.15);
+    padding: 24px 28px;
+    margin: 40px 0;
+    border-radius: 2px;
+  }
+
+  .realworld-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    color: rgba(180,140,220,0.7);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .realworld p {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.75;
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* ── PULL QUOTES ── */
+  .pull-quote {
+    border-top: 2px solid rgba(180,140,220,0.4);
+    border-bottom: 2px solid rgba(180,140,220,0.4);
+    padding: 28px 0;
+    margin: 48px 0;
+    text-align: center;
+  }
+
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.15rem, 2.8vw, 1.55rem);
+    font-style: italic;
+    color: var(--paper) !important;
+    line-height: 1.55;
+    margin: 0 !important;
+    text-align: center !important;
+  }
+  .pull-quote p::first-letter {
+    font-size: inherit !important;
+    float: none !important;
+    color: var(--paper) !important;
+  }
+
+  /* ── CLINIC INSERT ── */
+  .clinic-record {
+    background: var(--aged);
+    border: 1px solid rgba(74,48,96,0.25);
+    border-left: 4px solid var(--violet);
+    padding: 28px 32px;
+    margin: 40px 0;
+    position: relative;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.73rem;
+    line-height: 1.9;
+    color: var(--grey);
+  }
+
+  .clinic-record::before {
+    content: 'CLINICAL RECORD — SHAC CLINIC — CONFIDENTIAL';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--aged);
+    padding: 0 8px;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: var(--violet);
+  }
+
+  .clinic-record .redacted {
+    background: #3a2a50;
+    color: #3a2a50;
+    padding: 0 4px;
+    user-select: none;
+  }
+
+  /* ── END MATTER ── */
+  .end-matter {
+    text-align: center;
+    padding: 80px 0 40px;
+  }
+
+  .end-matter .finis {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    color: rgba(180,140,220,0.7);
+    margin-bottom: 24px;
+  }
+
+  .end-matter p {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    color: rgba(245,240,232,0.35);
+    font-style: italic;
+    line-height: 1.9;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50%       { opacity: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .prose { padding: 36px 24px; }
+    .back-nav .series-note { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BACK NAV -->
+<nav class="back-nav">
+  <a href="../stories.html">← Back to Stories</a>
+  <span class="series-note">The Samuel George Series</span>
+</nav>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-border"></div>
+  <div class="cover-content">
+
+    <div class="cover-series">The Samuel George Series</div>
+    <div class="cover-chapter">Chapter Four</div>
+
+    <svg class="cover-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="28" stroke="rgba(180,140,220,0.4)" stroke-width="1"/>
+      <circle cx="32" cy="32" r="18" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+      <path d="M32 18 C26 18 20 24 20 30 C20 38 32 46 32 46 C32 46 44 38 44 30 C44 24 38 18 32 18Z"
+            stroke="rgba(180,140,220,0.5)" stroke-width="1.2" fill="rgba(74,48,96,0.15)"/>
+      <circle cx="32" cy="29" r="4" fill="rgba(201,168,76,0.3)"/>
+    </svg>
+
+    <h1 class="cover-title">The Weight of<br><em>a Borrowed Name</em></h1>
+    <p class="cover-subtitle">The Story of Samuel George — Chapter Four</p>
+
+    <div class="cover-divider"><span>✦</span></div>
+    <p class="cover-author">Fiction Grounded in Documented Truth</p>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Read</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     CHAPTER FOUR
+══════════════════════════════════════════════════ -->
+<div class="book">
+
+  <div class="chapter-opener">
+    <span class="chapter-number">Chapter Four</span>
+    <h2 class="chapter-title">The Weight of<br><em>a Borrowed Name</em></h2>
+    <p class="chapter-epigraph">"There are two selves a man carries when God and desire speak different languages. The question is not which one is real. Both are real. The question is which one he is allowed to live."</p>
+    <div class="chapter-rule"><span>✦</span></div>
+  </div>
+
+  <div class="prose">
+    <p>The name Samuel had been given at birth was not the name he had given himself in the silence of his own mind, in the part of himself that had no language yet — only a recognition, quiet and persistent as a heartbeat, that something in him was arranged differently from the way the world expected. He had been seven years old when he first understood this, though he had no word for it. He had been fourteen when the word arrived, from a classmate who used it as a weapon, and he had filed it away like a document he was not yet ready to open. He had been twenty-two when he arrived at a church in Lagos where a pastor described it as spiritual warfare — an affliction to be prayed out of a man through fasting and the laying on of hands. Samuel had knelt at the altar that evening and prayed with everything he had. He was not sure, kneeling there, whether he was praying to be changed or simply praying to survive.</p>
+
+    <p>By the time he reached London at thirty-one, Samuel George had become very skilled at the performance of a self. He attended church twice on Sundays. He sang in the choir on Wednesday evenings. He spoke of marriage to his mother on the phone as a thing that was coming, simply delayed by the difficulty of establishing himself in a new country. He was patient with her questions. He was a man who had learned to carry a borrowed name with the posture of someone it belonged to.</p>
+
+    <p>The files, the surveillance, the CIFAS markers, the police vans — all of that had a quality he could almost intellectualise. It was external. It was institutional. He could take notes on it, document it, hold it at arm's length in a manila folder. <em>What he could not document was the thing that had no folder.</em> The part of himself that existed before God and after God and entirely outside the architecture of either surveillance or salvation. The part that stirred when a certain kind of man moved through a room. The part he had been starving for eleven years.</p>
+
+    <p>He would not have gone to Pride that Saturday in July if Marcus — whose CHIS usefulness had expired and who had, genuinely, grown to consider Samuel a friend — had not mentioned it the way you mention weather: casually, as information rather than invitation. <em>"They're closing Wardour Street for it. Going to be mad."</em> Samuel had nodded. He had gone home and sat with his Bible open on the kitchen table and not read a single word of it for forty minutes. Then he had put on a plain navy shirt and taken the Overground to Soho.</p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"He had spent eleven years perfecting the art of not wanting what he wanted. He had no practice at all in the art of having it."</p>
+  </div>
+
+  <div class="prose">
+    <p>He stood on the edge of Old Compton Street for a long time before he walked into it. The crowd was enormous — colours he associated privately with a brightness he had kept behind glass — and the noise was physical, a pressure against the chest that was not unpleasant. He walked carefully, the way he walked everywhere now, with the situational awareness that two years of being surveilled had calcified into habit. He noted entrances and exits. He noted who was watching. He noted, with some private surprise, that for the first time in a very long time the people watching him seemed to be watching with no agenda he could identify.</p>
+
+    <p>He met Daniel outside a bar on Dean Street, in the way that people meet in crowds — through the particular accident of stopping at the same moment to let someone pass. Daniel was Trinidadian-British, thirty-four, a secondary school art teacher with an easy laugh and the quality of a person entirely comfortable inside his own skin. He wore a small rainbow pin on his lapel with the casualness of someone who had long since stopped performing anything. They talked for an hour standing on the pavement, easily and well, the way Samuel talked with Kolade on the phone — with the pleasure of a mind finding its equal. At some point Samuel registered that he was not checking the street. At some point after that he registered that he was happy.</p>
+
+    <p>What happened later that afternoon — in the quiet of Daniel's flat in Kennington, with the window open and the sound of the city below — was not sordid. It was not sinful in any register Samuel could honestly access. It was, in fact, the most honest thing Samuel George had done in eleven years. It was also, immediately afterward, the source of the most comprehensive terror he had ever experienced. Not because of what it was. Because of what it meant. Because of what God would say. Because of what his mother would say. Because of what his pastor would say. Because of what the version of himself he had built, brick by careful brick, in the service of survival and belonging — would now have to say to the version of himself that had just, finally, existed without apology for the first time.</p>
+
+    <p>He thanked Daniel quietly. He put on his navy shirt. He took the Tube home and sat in his flat without turning the lights on until it was dark outside, and then he sat in the dark until it was not.</p>
+  </div>
+
+  <div class="realworld">
+    <div class="realworld-label">✦ Documented Reality</div>
+    <p>The experience of LGBTQ+ Christians — particularly those from African and Caribbean church traditions — navigating the conflict between faith identity and sexual identity is extensively documented in academic literature and pastoral research. Studies consistently find elevated rates of depression, anxiety, self-suppression, and suicidal ideation among gay Christians who remain in non-affirming faith communities. The conflict between community belonging, family expectation, and authentic selfhood produces a psychological burden that mental health services are frequently unprepared to address with cultural competence.</p>
+  </div>
+
+  <div class="prose">
+    <p>He went to the SHAC clinic on the Monday. The Sexual Health and Contraception clinic on Marlborough Road had been recommended to him by a leaflet he had once seen and quietly pocketed at a community centre, in the practised way of a man who collects information he is not yet ready to use. He went for a sexual health screen — the first of his life — and he went also, he admitted to the intake worker, because he was not sure he was managing. The intake worker, a young Black woman named Priya who wore her professionalism with warmth, had asked him in a gentle and direct way whether he was having thoughts of harming himself. He had said no. He had said it accurately. What he was having was not thoughts of harm. It was something more like the feeling of a man who has been carrying a weight for so long that when it is briefly lifted he does not feel relief. He feels terror at how heavy it always was.</p>
+
+    <p>He sat in the waiting room for forty minutes. He was a man practised at waiting. But this waiting was different from every other waiting he had done — the waiting outside bank offices, the waiting for Subject Access Request responses, the waiting in church pews while the sermon described him as a battlefield. This waiting was for something he had chosen. He found this distinction significant.</p>
+
+    <p>The GP he saw was kind and efficient. She noted that he presented with elevated anxiety and low mood. She noted that he had recently had his first sexual experience as a gay man after a prolonged period of identity suppression. She noted — carefully, because she was a good clinician — that he did not appear unstable. He appeared, she said, in the way of a person going through something real and large, which was not the same thing as being unable to cope. She asked whether he had support. He said he was working on it. She referred him to a counsellor at the clinic who had specific experience with LGBTQ+ individuals from faith backgrounds.</p>
+
+    <p>He walked home through Stockwell with his hands in his pockets and his mind doing what it always did — filing, noting, recording. He noted that the police van that had followed certain routes of his was not on this street today. He noted that the sky was the particular shade of pale blue that Lagos also produced in the early evening. He noted that he had, this week, been seen — by Daniel, by Priya, by the GP — in ways that had nothing to do with threat assessments or intelligence profiles or the algorithm's version of Samuel George.</p>
+
+    <p>He had been seen as a person. He was not yet certain what to do with this. But he was beginning, carefully, to consider that it might be something he was allowed to want.</p>
+  </div>
+
+  <div class="clinic-record">
+    PATIENT: <span class="redacted">████████████████</span> &nbsp;|&nbsp; DOB: <span class="redacted">██████████</span><br>
+    CLINIC: SHAC — Marlborough Road &nbsp;|&nbsp; DATE: <span class="redacted">████████</span><br>
+    PRESENTING: Sexual health screen. Disclosed first same-sex encounter.<br>
+    Disclosed prolonged identity suppression within non-affirming faith context.<br>
+    PRESENTING AFFECT: Anxious. Oriented. Articulate. Non-acute.<br>
+    RISK ASSESSMENT: No current suicidal ideation. No self-harm history disclosed.<br>
+    CLINICIAN NOTE: Patient does not present as unstable. Presents as a person<br>
+    navigating a significant identity transition with limited external support.<br>
+    Distinction is clinically and ethically important.<br>
+    REFERRAL: LGBTQ+ affirming counsellor — faith background experience.<br>
+    FOLLOW UP: <span class="redacted">████████</span><br><br>
+    <em>Note: Patient maintained dignity and composure throughout.<br>
+    He asked good questions. He thanked the team.<br>
+    He left under his own recognisance, which is to say: he left as himself.</em>
+  </div>
+
+  <div class="realworld">
+    <div class="realworld-label">✦ Documented Reality</div>
+    <p>SHAC (Sexual Health and Contraception) clinics operate across London providing non-judgmental sexual health services. Research by the LGBT Foundation and Stonewall consistently documents that LGBTQ+ individuals from Black African and Caribbean communities face compounded barriers to healthcare access — including fear of community disclosure, experiences of homophobia within faith settings, and healthcare providers who lack cultural competence around the intersection of faith, race, and sexual identity. The NHS Long Term Plan acknowledged these disparities. Structural change has been slow.</p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"The system had built a file on Samuel George. Samuel George was finally, quietly, building one on himself — and his version contained the truth."</p>
+  </div>
+
+  <!-- END MATTER -->
+  <div class="end-matter">
+    <div class="finis">— End of Chapter Four —</div>
+    <p>
+      This story is fiction. The experiences it depicts — identity suppression within non-affirming faith communities, the mental health burden carried by LGBTQ+ individuals from Black African and Caribbean backgrounds, the barriers to culturally competent healthcare — are documented, researched, and real.<br><br>
+      Samuel George is invented. The weight he carries has been carried, and continues to be carried, by people who are not.<br><br>
+      <em>Continue reading: <a href="../stories.html" style="color:rgba(180,140,220,0.7);text-decoration:none;">The Samuel George Series</a></em>
+    </p>
+  </div>
+
+</div><!-- /book -->
+
+</body>
+</html>

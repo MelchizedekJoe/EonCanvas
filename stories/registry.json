@@ -1,0 +1,34 @@
+{
+  "stories": [
+    {
+      "status": "live",
+      "file": "stories/samuel_george_storybook.html",
+      "tags": "Surveillance · Identity · Race",
+      "title": "The <em>Invisible</em> File",
+      "subject": "The Story of Samuel George",
+      "desc": "A Nigerian immigrant arrives in London with clean papers and a legitimate life. A file — built by algorithm from a single family association — arrived before he did. A story about the systems that condemn before they accuse.",
+      "meta": "3 Chapters &nbsp;·&nbsp; Fiction"
+    },
+    {
+      "status": "live",
+      "file": "stories/samuel-pride.html",
+      "tags": "Identity · Faith · Shame · Medicine",
+      "title": "The Weight of<br><em>a Borrowed Name</em>",
+      "subject": "The Story of Samuel George — Chapter Four",
+      "desc": "Samuel has survived the file, the algorithms, the informants. But the self he has never shown anyone is the one that finally breaks cover — on a summer afternoon in Soho, among strangers who looked like freedom.",
+      "meta": "1 Chapter &nbsp;·&nbsp; Fiction"
+    },
+    {
+      "status": "soon",
+      "tags": "Power · Whistleblowing",
+      "title": "The Woman Who<br><em>Kept the Record</em>",
+      "desc": "A civil servant discovers an anomaly in a dataset. What she does next reshapes everything around her — including the people she trusted most."
+    },
+    {
+      "status": "soon",
+      "tags": "Community · Informants · Faith",
+      "title": "Every Congregation<br><em>Has a Listener</em>",
+      "desc": "Inside a South London church, trust is the currency and someone is spending it on behalf of people the congregation has never met."
+    }
+  ]
+}

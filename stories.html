@@ -414,50 +414,54 @@
 <!-- STORIES GRID -->
 <main class="stories-section">
   <div class="section-label">Published — Share the link, not the page</div>
-
-  <div class="stories-grid">
-
-    <!-- CARD 1 — THE INVISIBLE FILE -->
-    <a href="the-invisible-file.html" class="story-card card-animate" style="animation-delay: 0.1s">
-      <div class="card-number">I</div>
-      <div class="card-tag">Surveillance · Identity · Race</div>
-      <h2 class="card-title">The <em>Invisible</em> File</h2>
-      <p class="card-subject">The Story of Samuel George</p>
-      <p class="card-desc">A Nigerian immigrant arrives in London with clean papers and a legitimate life. A file — built by algorithm from a single family association — arrived before he did. A story about the systems that condemn before they accuse.</p>
-      <div class="card-meta">
-        <span class="card-chapters">3 Chapters &nbsp;·&nbsp; Fiction</span>
-        <span class="card-cta">Read → </span>
-      </div>
-    </a>
-
-    <!-- CARD 2 — COMING SOON -->
-    <div class="story-card soon card-animate" style="animation-delay: 0.2s">
-      <div class="soon-badge">Coming</div>
-      <div class="card-number">II</div>
-      <div class="card-tag">Power · Whistleblowing</div>
-      <h2 class="card-title">The Woman Who<br><em>Kept the Record</em></h2>
-      <p class="card-subject">Forthcoming</p>
-      <p class="card-desc">A civil servant discovers an anomaly in a dataset. What she does next reshapes everything around her — including the people she trusted most.</p>
-      <div class="card-meta">
-        <span class="card-chapters">In Progress</span>
-      </div>
-    </div>
-
-    <!-- CARD 3 — COMING SOON -->
-    <div class="story-card soon card-animate" style="animation-delay: 0.3s">
-      <div class="soon-badge">Coming</div>
-      <div class="card-number">III</div>
-      <div class="card-tag">Community · Informants · Faith</div>
-      <h2 class="card-title">Every Congregation<br><em>Has a Listener</em></h2>
-      <p class="card-subject">Forthcoming</p>
-      <p class="card-desc">Inside a South London church, trust is the currency and someone is spending it on behalf of people the congregation has never met.</p>
-      <div class="card-meta">
-        <span class="card-chapters">In Progress</span>
-      </div>
-    </div>
-
+  <div class="stories-grid" id="storiesGrid">
+    <!-- auto-populated from stories/registry.json — never edit manually -->
   </div>
 </main>
+
+<script>
+const numerals = ['I','II','III','IV','V','VI','VII','VIII','IX','X',
+                  'XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'];
+
+function buildCard(story, index) {
+  const delay = (index * 0.1 + 0.1).toFixed(1);
+  if (story.status === 'soon') {
+    return `
+      <div class="story-card soon card-animate" style="animation-delay:${delay}s">
+        <div class="soon-badge">Coming</div>
+        <div class="card-number">${numerals[index]}</div>
+        <div class="card-tag">${story.tags}</div>
+        <h2 class="card-title">${story.title}</h2>
+        <p class="card-subject">Forthcoming</p>
+        <p class="card-desc">${story.desc}</p>
+        <div class="card-meta"><span class="card-chapters">In Progress</span></div>
+      </div>`;
+  }
+  return `
+    <a href="${story.file}" class="story-card card-animate" style="animation-delay:${delay}s">
+      <div class="card-number">${numerals[index]}</div>
+      <div class="card-tag">${story.tags}</div>
+      <h2 class="card-title">${story.title}</h2>
+      <p class="card-subject">${story.subject}</p>
+      <p class="card-desc">${story.desc}</p>
+      <div class="card-meta">
+        <span class="card-chapters">${story.meta}</span>
+        <span class="card-cta">Read → </span>
+      </div>
+    </a>`;
+}
+
+fetch('stories/registry.json')
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('storiesGrid').innerHTML =
+      data.stories.map((s, i) => buildCard(s, i)).join('');
+  })
+  .catch(() => {
+    document.getElementById('storiesGrid').innerHTML =
+      '<p style="color:rgba(245,240,232,0.3);font-style:italic;padding:40px 0;grid-column:1/-1">Stories loading...</p>';
+  });
+</script>
 
 <!-- FOOTER -->
 <footer>
