@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EonCanvas Language School — Learn Hausa, Igbo & Yoruba Online</title>
+<meta name="description" content="Connect your children to their African heritage. EonCanvas Language School offers expert tutors for Hausa, Igbo, and Yoruba — designed for diaspora families worldwide.">
+<meta name="keywords" content="Learn Yoruba online, Learn Igbo online, Learn Hausa online, African language school, diaspora children language tutor">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── CSS VARIABLES ─────────────────────────── */
+:root {
+  --ink:       #0a0805;
+  --deep:      #111008;
+  --surface:   #16120a;
+  --card:      #1e1810;
+  --card-hi:   #261f11;
+  --border:    #2e2514;
+  --gold:      #c9963a;
+  --gold-lt:   #e4b55a;
+  --gold-pale: #f5dfa0;
+  --cream:     #f7f0e3;
+  --muted:     #7a6e5a;
+  --text:      #ddd5c0;
+  --accent:    #8b4513;
+  --radius:    4px;
+  --radius-lg: 10px;
+}
+
+/* ─── RESET & BASE ──────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  background:var(--ink);
+  color:var(--text);
+  font-family:'Jost',sans-serif;
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:var(--gold);text-decoration:none;transition:color .2s}
+a:hover{color:var(--gold-lt)}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400;line-height:1.2}
+button,input,select,textarea{font-family:'Jost',sans-serif}
+
+/* ─── UTILITIES ─────────────────────────────── */
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.gold{color:var(--gold)}
+.gold-lt{color:var(--gold-lt)}
+.text-sm{font-size:.85rem}
+.text-muted{color:var(--muted)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+/* ─── ORNAMENT ──────────────────────────────── */
+.ornament{
+  display:flex;align-items:center;gap:12px;
+  color:var(--gold);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+}
+.ornament::before,.ornament::after{content:'';flex:1;height:1px;background:var(--gold);opacity:.35}
+
+/* ─── NAV ───────────────────────────────────── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,8,5,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  transition:padding .3s;
+}
+.nav-inner{
+  max-width:1180px;margin:0 auto;padding:18px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;
+  color:var(--gold);letter-spacing:.05em;white-space:nowrap;
+}
+.nav-logo span{font-weight:300;color:var(--cream)}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text);font-weight:400}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{
+  background:var(--gold);color:var(--ink);
+  padding:9px 22px;border-radius:2px;
+  font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+  transition:background .2s,transform .15s;white-space:nowrap;
+}
+.nav-cta:hover{background:var(--gold-lt);color:var(--ink);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:24px;height:1.5px;background:var(--text);transition:.3s}
+.mobile-nav{
+  display:none;flex-direction:column;gap:0;
+  background:var(--deep);border-top:1px solid var(--border);
+}
+.mobile-nav a{padding:14px 24px;border-bottom:1px solid var(--border);font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text)}
+.mobile-nav.open{display:flex}
+
+/* ─── HERO ──────────────────────────────────── */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;padding-top:80px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 40%, rgba(201,150,58,.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 20% 80%, rgba(139,69,19,.12) 0%, transparent 50%),
+    var(--ink);
+}
+.hero-pattern{
+  position:absolute;inset:0;opacity:.04;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,var(--gold) 39px,var(--gold) 40px),
+                   repeating-linear-gradient(90deg,transparent,transparent 39px,var(--gold) 39px,var(--gold) 40px);
+}
+.hero-content{position:relative;z-index:1;max-width:700px;padding:80px 24px 100px;margin:0 auto;text-align:center}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(201,150,58,.12);border:1px solid rgba(201,150,58,.3);
+  color:var(--gold);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  padding:6px 16px;border-radius:2px;margin-bottom:32px;
+}
+.hero-badge::before{content:'◆';font-size:.5rem}
+.hero-title{
+  font-size:clamp(2.8rem,7vw,5.2rem);
+  color:var(--cream);margin-bottom:20px;font-weight:300;
+  text-shadow:0 0 80px rgba(201,150,58,.15);
+}
+.hero-title em{font-style:italic;color:var(--gold-pale)}
+.hero-subtitle{font-size:1.1rem;color:var(--muted);max-width:540px;margin:0 auto 40px;line-height:1.8}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{
+  background:var(--gold);color:var(--ink);
+  padding:15px 36px;border-radius:2px;font-size:.85rem;
+  letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  transition:background .2s,transform .15s;border:none;cursor:pointer;
+  display:inline-block;
+}
+.btn-primary:hover{background:var(--gold-lt);color:var(--ink);transform:translateY(-2px)}
+.btn-outline{
+  border:1px solid rgba(201,150,58,.4);color:var(--gold);
+  padding:15px 36px;border-radius:2px;font-size:.85rem;
+  letter-spacing:.12em;text-transform:uppercase;font-weight:400;
+  transition:.2s;background:transparent;cursor:pointer;
+  display:inline-block;
+}
+.btn-outline:hover{border-color:var(--gold);background:rgba(201,150,58,.06);color:var(--gold-lt)}
+.hero-stats{
+  display:flex;justify-content:center;gap:48px;margin-top:64px;
+  border-top:1px solid var(--border);padding-top:40px;flex-wrap:wrap;
+}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold-pale);display:block}
+.stat-label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* ─── MARQUEE ───────────────────────────────── */
+.marquee-wrap{
+  background:var(--gold);padding:13px 0;overflow:hidden;
+  border-top:1px solid rgba(0,0,0,.2);border-bottom:1px solid rgba(0,0,0,.2);
+}
+.marquee-track{
+  display:flex;gap:0;white-space:nowrap;
+  animation:marquee 28s linear infinite;
+}
+.marquee-item{
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink);font-weight:500;padding:0 28px;
+  border-right:1px solid rgba(0,0,0,.15);flex-shrink:0;
+}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── MISSION ───────────────────────────────── */
+#mission{padding:110px 0;position:relative}
+.mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.mission-label{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.mission-title{font-size:clamp(2rem,4vw,3rem);color:var(--cream);margin-bottom:24px}
+.mission-body{color:var(--muted);line-height:1.9;margin-bottom:28px}
+.mission-body+.mission-body{margin-bottom:0}
+.mission-visual{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;
+  background:var(--card);border:1px solid var(--border);
+  aspect-ratio:4/5;
+}
+.mission-visual-inner{
+  width:100%;height:100%;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 30%,rgba(201,150,58,.18),transparent),
+    linear-gradient(160deg,var(--card) 0%,var(--deep) 100%);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  gap:20px;padding:40px;
+}
+.adinkra{font-size:7rem;opacity:.25;line-height:1;color:var(--gold)}
+.mission-quote{
+  font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;
+  color:var(--gold-pale);text-align:center;line-height:1.6;
+}
+.mission-quote cite{display:block;font-style:normal;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.pillars{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.pillar{display:flex;align-items:flex-start;gap:14px}
+.pillar-icon{width:36px;height:36px;border-radius:50%;background:rgba(201,150,58,.12);border:1px solid rgba(201,150,58,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem}
+.pillar-text strong{display:block;color:var(--cream);font-size:.85rem;font-weight:500;margin-bottom:2px}
+.pillar-text span{font-size:.8rem;color:var(--muted)}
+
+/* ─── LANGUAGES ─────────────────────────────── */
+#languages{padding:100px 0;background:var(--deep)}
+.section-head{text-align:center;margin-bottom:64px}
+.section-label{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.section-title{font-size:clamp(1.8rem,4vw,2.8rem);color:var(--cream);margin-bottom:16px}
+.section-sub{font-size:1rem;color:var(--muted);max-width:520px;margin:0 auto}
+.lang-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.lang-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);overflow:hidden;
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+  cursor:pointer;
+}
+.lang-card:hover{transform:translateY(-6px);border-color:rgba(201,150,58,.4);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lang-card-header{
+  padding:36px 28px 28px;
+  position:relative;overflow:hidden;
+}
+.lang-card-header::before{
+  content:'';position:absolute;inset:0;opacity:.12;
+}
+.lang-hausa .lang-card-header::before{background:linear-gradient(135deg,#2a7f4f,#1a4f2f)}
+.lang-igbo  .lang-card-header::before{background:linear-gradient(135deg,#1a4fa0,#0d2a60)}
+.lang-yoruba .lang-card-header::before{background:linear-gradient(135deg,#9f1a1a,#5f0d0d)}
+.lang-symbol{
+  font-size:3.2rem;margin-bottom:16px;
+  filter:drop-shadow(0 4px 12px rgba(201,150,58,.3));
+}
+.lang-name{font-size:1.9rem;color:var(--cream);margin-bottom:4px}
+.lang-native{font-size:.8rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.lang-speakers{font-size:.75rem;color:var(--muted);letter-spacing:.08em}
+.lang-card-body{padding:0 28px 28px}
+.lang-desc{font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:20px}
+.lang-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.tag{
+  background:rgba(201,150,58,.1);border:1px solid rgba(201,150,58,.2);
+  color:var(--gold);font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 10px;border-radius:2px;
+}
+.lang-tutors-count{
+  display:flex;align-items:center;gap:8px;
+  font-size:.8rem;color:var(--muted);padding-top:16px;border-top:1px solid var(--border);
+}
+.tutor-dots{display:flex;gap:-4px}
+.tutor-dot{
+  width:28px;height:28px;border-radius:50%;
+  border:2px solid var(--card);background:var(--card-hi);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;color:var(--gold);margin-left:-6px;
+}
+.tutor-dot:first-child{margin-left:0}
+.lang-card-footer{padding:0 28px 28px}
+.lang-card-link{
+  display:block;text-align:center;
+  background:transparent;border:1px solid rgba(201,150,58,.3);
+  color:var(--gold);padding:11px;border-radius:2px;
+  font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
+  transition:.2s;
+}
+.lang-card-link:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+
+/* ─── TUTORS ─────────────────────────────────── */
+#tutors{padding:100px 0}
+.tutors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.tutor-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);overflow:hidden;
+  transition:transform .25s,border-color .25s;
+}
+.tutor-card:hover{transform:translateY(-4px);border-color:rgba(201,150,58,.35)}
+.tutor-photo{
+  width:100%;aspect-ratio:1;
+  background:var(--card-hi);position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.tutor-avatar{
+  font-size:4.5rem;opacity:.5;
+  filter:grayscale(1) sepia(.4);
+}
+.tutor-lang-badge{
+  position:absolute;top:12px;right:12px;
+  background:var(--gold);color:var(--ink);
+  font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 10px;border-radius:2px;font-weight:500;
+}
+.tutor-info{padding:22px}
+.tutor-name{font-size:1.3rem;color:var(--cream);margin-bottom:4px}
+.tutor-title{font-size:.78rem;color:var(--gold);letter-spacing:.08em;margin-bottom:10px}
+.tutor-bio{font-size:.82rem;color:var(--muted);line-height:1.75;margin-bottom:14px}
+.tutor-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tutor-meta-item{
+  font-size:.7rem;color:var(--muted);
+  display:flex;align-items:center;gap:4px;
+}
+.tutor-rate{
+  font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold-pale);
+  border-top:1px solid var(--border);padding-top:14px;margin-bottom:14px;
+}
+.tutor-rate span{font-family:'Jost',sans-serif;font-size:.75rem;color:var(--muted)}
+.btn-book{
+  width:100%;background:var(--gold);color:var(--ink);
+  padding:11px;border:none;border-radius:2px;cursor:pointer;
+  font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+  transition:.2s;
+}
+.btn-book:hover{background:var(--gold-lt)}
+.stars{color:var(--gold);font-size:.75rem;letter-spacing:1px}
+
+/* ─── HOW IT WORKS ───────────────────────────── */
+#how{padding:100px 0;background:var(--deep)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:56px}
+.steps::before{
+  content:'';position:absolute;top:28px;left:calc(25% / 2);right:calc(25% / 2);
+  height:1px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold),transparent);
+  opacity:.25;z-index:0;
+}
+.step{text-align:center;padding:0 20px;position:relative;z-index:1}
+.step-num{
+  width:56px;height:56px;border-radius:50%;
+  border:1px solid rgba(201,150,58,.35);
+  background:var(--deep);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--gold);
+}
+.step-title{font-size:1.05rem;color:var(--cream);margin-bottom:8px}
+.step-desc{font-size:.82rem;color:var(--muted);line-height:1.7}
+
+/* ─── BOOKING MODAL ──────────────────────────── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:40px 20px;overflow-y:auto;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  width:100%;max-width:640px;overflow:hidden;
+  transform:translateY(20px);transition:transform .3s;flex-shrink:0;
+}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-header{
+  padding:28px 32px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--card);
+}
+.modal-title{font-size:1.4rem;color:var(--cream)}
+.modal-close{
+  width:32px;height:32px;border-radius:50%;
+  border:1px solid var(--border);background:transparent;
+  color:var(--muted);cursor:pointer;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:.2s;
+}
+.modal-close:hover{border-color:var(--gold);color:var(--gold)}
+.modal-body{padding:32px}
+.booking-steps{display:flex;gap:0;margin-bottom:32px;border-bottom:1px solid var(--border)}
+.booking-step-tab{
+  flex:1;padding:12px 8px;text-align:center;
+  font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);border-bottom:2px solid transparent;
+  cursor:pointer;transition:.2s;
+}
+.booking-step-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.booking-panel{display:none}
+.booking-panel.active{display:block}
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.form-input{
+  width:100%;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:12px 14px;
+  color:var(--text);font-size:.9rem;transition:border-color .2s;
+}
+.form-input:focus{outline:none;border-color:rgba(201,150,58,.5)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.calendar{margin-bottom:20px}
+.cal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:12px;
+}
+.cal-month{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--cream)}
+.cal-nav{
+  background:none;border:1px solid var(--border);color:var(--muted);
+  width:30px;height:30px;border-radius:2px;cursor:pointer;font-size:.9rem;
+  transition:.2s;display:flex;align-items:center;justify-content:center;
+}
+.cal-nav:hover{border-color:var(--gold);color:var(--gold)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-day-name{text-align:center;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:4px 0}
+.cal-day{
+  text-align:center;padding:8px 4px;border-radius:var(--radius);
+  font-size:.82rem;cursor:pointer;color:var(--muted);
+  border:1px solid transparent;transition:.15s;
+}
+.cal-day:hover:not(.empty):not(.past){background:rgba(201,150,58,.1);color:var(--cream);border-color:rgba(201,150,58,.2)}
+.cal-day.available{color:var(--text);cursor:pointer}
+.cal-day.selected{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.cal-day.past{opacity:.3;cursor:default}
+.cal-day.empty{cursor:default}
+.time-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
+.time-slot{
+  padding:10px;text-align:center;border-radius:var(--radius);
+  border:1px solid var(--border);background:var(--card);
+  color:var(--muted);font-size:.8rem;cursor:pointer;transition:.15s;
+}
+.time-slot:hover{border-color:rgba(201,150,58,.3);color:var(--cream)}
+.time-slot.selected{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.time-slot.unavailable{opacity:.3;cursor:default}
+.booking-summary{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px;margin-bottom:20px;
+}
+.summary-row{display:flex;justify-content:space-between;font-size:.83rem;padding:6px 0}
+.summary-row:not(:last-child){border-bottom:1px solid var(--border)}
+.summary-total{color:var(--gold-pale);font-weight:500}
+.payment-methods{display:flex;gap:10px;margin-bottom:20px}
+.pay-method{
+  flex:1;padding:12px;text-align:center;
+  border:1px solid var(--border);border-radius:var(--radius);
+  cursor:pointer;font-size:.8rem;color:var(--muted);
+  transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.pay-method:hover,.pay-method.selected{border-color:rgba(201,150,58,.4);color:var(--gold);background:rgba(201,150,58,.06)}
+.secure-note{font-size:.73rem;color:var(--muted);text-align:center;margin-top:12px}
+.secure-note span{color:var(--gold)}
+
+/* ─── TESTIMONIALS ───────────────────────────── */
+#testimonials{padding:100px 0}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.testimonial{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:30px;
+  position:relative;
+}
+.testimonial::before{
+  content:'\201C';position:absolute;top:16px;right:22px;
+  font-family:'Cormorant Garamond',serif;font-size:5rem;
+  color:var(--gold);opacity:.12;line-height:1;
+}
+.testimonial-text{font-size:.88rem;color:var(--muted);line-height:1.85;margin-bottom:20px;font-style:italic}
+.testimonial-author{display:flex;align-items:center;gap:12px}
+.author-avatar{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--card-hi);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+}
+.author-name{font-size:.85rem;color:var(--cream);font-weight:400}
+.author-location{font-size:.72rem;color:var(--muted)}
+
+/* ─── NEWSLETTER ─────────────────────────────── */
+#newsletter{
+  padding:80px 0;background:var(--card);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.newsletter-inner{
+  max-width:560px;margin:0 auto;text-align:center;
+}
+.newsletter-title{font-size:2rem;color:var(--cream);margin-bottom:12px}
+.newsletter-sub{font-size:.9rem;color:var(--muted);margin-bottom:32px}
+.newsletter-form{display:flex;gap:0;border-radius:2px;overflow:hidden;border:1px solid var(--border)}
+.newsletter-input{
+  flex:1;background:var(--surface);border:none;padding:14px 18px;
+  color:var(--text);font-size:.88rem;
+}
+.newsletter-input:focus{outline:none}
+.newsletter-btn{
+  background:var(--gold);color:var(--ink);border:none;
+  padding:14px 24px;font-size:.78rem;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:500;cursor:pointer;
+  transition:background .2s;
+}
+.newsletter-btn:hover{background:var(--gold-lt)}
+
+/* ─── FOOTER ─────────────────────────────────── */
+footer{padding:64px 0 32px;background:var(--deep);border-top:1px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);margin-bottom:12px}
+.footer-brand-sub{font-size:.82rem;color:var(--muted);line-height:1.8;max-width:240px}
+.footer-col-title{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:.82rem;color:var(--muted);transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:24px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px;
+}
+.footer-legal{font-size:.73rem;color:var(--muted)}
+.social-links{display:flex;gap:12px}
+.social-link{
+  width:34px;height:34px;border-radius:50%;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:.8rem;transition:.2s;
+}
+.social-link:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ─── TOAST ──────────────────────────────────── */
+.toast{
+  position:fixed;bottom:24px;right:24px;z-index:300;
+  background:var(--card);border:1px solid var(--gold);
+  border-radius:var(--radius);padding:16px 20px;
+  max-width:320px;
+  transform:translateY(80px);opacity:0;
+  transition:.3s;pointer-events:none;
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-title{color:var(--gold);font-weight:500;font-size:.88rem;margin-bottom:4px}
+.toast-msg{color:var(--muted);font-size:.8rem}
+
+/* ─── RESPONSIVE ─────────────────────────────── */
+@media(max-width:900px){
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .mission-grid{grid-template-columns:1fr;gap:40px}
+  .mission-visual{aspect-ratio:16/9}
+  .lang-cards{grid-template-columns:1fr}
+  .tutors-grid{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .steps::before{display:none}
+  .testimonials-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .hero-title{font-size:2.4rem}
+  .tutors-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .time-slots{grid-template-columns:repeat(2,1fr)}
+  .payment-methods{flex-direction:column}
+  .newsletter-form{flex-direction:column}
+  .newsletter-input{border-bottom:1px solid var(--border)}
+}
+
+/* ─── ANIMATIONS ─────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .7s ease both}
+.delay-1{animation-delay:.1s}
+.delay-2{animation-delay:.2s}
+.delay-3{animation-delay:.3s}
+.delay-4{animation-delay:.4s}
+
+/* ─── ADMIN PANEL ────────────────────────────── */
+.admin-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:200;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:40px 20px;overflow-y:auto;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.admin-overlay.open{opacity:1;pointer-events:all}
+.admin-panel{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-lg);width:100%;max-width:800px;
+  overflow:hidden;transform:translateY(20px);transition:transform .3s;
+}
+.admin-overlay.open .admin-panel{transform:translateY(0)}
+.admin-header{
+  padding:24px 32px;background:var(--card);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.admin-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--card)}
+.admin-tab{
+  padding:14px 24px;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:.2s;
+}
+.admin-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.admin-body{padding:24px 32px}
+.admin-table{width:100%;border-collapse:collapse;font-size:.83rem}
+.admin-table th{
+  text-align:left;padding:10px 14px;
+  font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);border-bottom:1px solid var(--border);
+}
+.admin-table td{padding:12px 14px;border-bottom:1px solid rgba(46,37,20,.5);color:var(--text)}
+.status-badge{
+  display:inline-block;padding:3px 10px;border-radius:2px;
+  font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;
+}
+.status-confirmed{background:rgba(39,174,96,.15);color:#6fcf97}
+.status-pending{background:rgba(201,150,58,.15);color:var(--gold)}
+.status-cancelled{background:rgba(255,80,80,.1);color:#ff8080}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────── -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">Eon<span>Canvas</span></a>
+    <ul class="nav-links">
+      <li><a href="#languages">Languages</a></li>
+      <li><a href="#tutors">Tutors</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#testimonials">Stories</a></li>
+    </ul>
+    <a href="#languages" class="nav-cta">Book a Lesson</a>
+    <div class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="#languages" onclick="toggleMenu()">Languages</a>
+    <a href="#tutors" onclick="toggleMenu()">Tutors</a>
+    <a href="#how" onclick="toggleMenu()">How It Works</a>
+    <a href="#testimonials" onclick="toggleMenu()">Stories</a>
+    <a href="#languages" onclick="toggleMenu()">Book a Lesson</a>
+  </nav>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-badge fade-up">Heritage · Language · Connection</div>
+    <h1 class="hero-title fade-up delay-1">
+      Your Children Deserve to <em>Speak Their Story</em>
+    </h1>
+    <p class="hero-subtitle fade-up delay-2">
+      EonCanvas Language School connects diaspora families with expert tutors in Hausa, Igbo, and Yoruba — keeping culture alive, one lesson at a time.
+    </p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="#languages" class="btn-primary">Start Learning Today</a>
+      <a href="#how" class="btn-outline">How It Works</a>
+    </div>
+    <div class="hero-stats fade-up delay-4">
+      <div><span class="stat-num">340+</span><span class="stat-label">Families Enrolled</span></div>
+      <div><span class="stat-num">28</span><span class="stat-label">Expert Tutors</span></div>
+      <div><span class="stat-num">3</span><span class="stat-label">Languages</span></div>
+      <div><span class="stat-num">4.9★</span><span class="stat-label">Average Rating</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ───────────────────────────────── -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <div class="marquee-item">Hausa Language Lessons</div>
+    <div class="marquee-item">Igbo Language Lessons</div>
+    <div class="marquee-item">Yoruba Language Lessons</div>
+    <div class="marquee-item">Diaspora Families</div>
+    <div class="marquee-item">Cultural Heritage</div>
+    <div class="marquee-item">Live 1:1 Tutoring</div>
+    <div class="marquee-item">Ages 4–18</div>
+    <div class="marquee-item">Zoom & Google Meet</div>
+    <div class="marquee-item">Hausa Language Lessons</div>
+    <div class="marquee-item">Igbo Language Lessons</div>
+    <div class="marquee-item">Yoruba Language Lessons</div>
+    <div class="marquee-item">Diaspora Families</div>
+    <div class="marquee-item">Cultural Heritage</div>
+    <div class="marquee-item">Live 1:1 Tutoring</div>
+    <div class="marquee-item">Ages 4–18</div>
+    <div class="marquee-item">Zoom & Google Meet</div>
+  </div>
+</div>
+
+<!-- ─── MISSION ───────────────────────────────── -->
+<section id="mission">
+  <div class="container">
+    <div class="mission-grid">
+      <div>
+        <p class="mission-label">Our Mission</p>
+        <h2 class="mission-title">Language Is the Bridge Between Generations</h2>
+        <p class="mission-body">
+          Growing up between two worlds, diaspora children often find themselves caught between the culture of their home country and the country their parents now call home. At EonCanvas, we believe language is the invisible thread that keeps those worlds together.
+        </p>
+        <p class="mission-body" style="margin-top:16px;margin-bottom:32px">
+          We pair your child with expert tutors who not only teach Hausa, Igbo, or Yoruba — but who understand the diaspora experience deeply, weaving stories, proverbs, and cultural context into every lesson.
+        </p>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-icon">🌍</div>
+            <div class="pillar-text">
+              <strong>Culturally Grounded</strong>
+              <span>Every lesson is rooted in proverb, story, and lived experience</span>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">👨‍👩‍👧</div>
+            <div class="pillar-text">
+              <strong>Family Centred</strong>
+              <span>Regular progress updates and parent-inclusive milestones</span>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">📱</div>
+            <div class="pillar-text">
+              <strong>Flexible & Online</strong>
+              <span>Lessons via Zoom or Google Meet — from anywhere in the world</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mission-visual">
+        <div class="mission-visual-inner">
+          <div class="adinkra">⁕</div>
+          <div class="mission-quote">
+            "Ọmọ tí a kò kọ́, yóò jẹ àgbàdo tí a kò dán."
+            <cite>— Yoruba Proverb: A child not taught will eat the raw corn</cite>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LANGUAGES ─────────────────────────────── -->
+<section id="languages">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-label">Choose a Language</p>
+      <h2 class="section-title">Three Languages. One Heritage.</h2>
+      <p class="section-sub">Each language carries a universe of culture, history, and belonging. Which story will your child tell?</p>
+    </div>
+    <div class="lang-cards">
+
+      <!-- HAUSA -->
+      <div class="lang-card lang-hausa">
+        <div class="lang-card-header">
+          <div class="lang-symbol">🌙</div>
+          <h3 class="lang-name">Hausa</h3>
+          <p class="lang-native">Harshen Hausa</p>
+          <p class="lang-speakers">80+ million speakers worldwide</p>
+        </div>
+        <div class="lang-card-body">
+          <p class="lang-desc">One of Africa's most widely spoken languages, Hausa is the cultural heartbeat of Northern Nigeria and the Sahel. Rich in poetry, trade history, and oral tradition, it unlocks a profound civilisation for your child.</p>
+          <div class="lang-tags">
+            <span class="tag">Beginner Friendly</span>
+            <span class="tag">Tonal Patterns</span>
+            <span class="tag">Islamic Heritage</span>
+            <span class="tag">Trade Language</span>
+          </div>
+          <div class="lang-tutors-count">
+            <div class="tutor-dots">
+              <div class="tutor-dot">A</div>
+              <div class="tutor-dot">F</div>
+              <div class="tutor-dot">M</div>
+            </div>
+            <span>9 tutors available</span>
+          </div>
+        </div>
+        <div class="lang-card-footer">
+          <a href="#" class="lang-card-link" onclick="scrollToTutors('Hausa');return false">View Hausa Tutors →</a>
+        </div>
+      </div>
+
+      <!-- IGBO -->
+      <div class="lang-card lang-igbo">
+        <div class="lang-card-header">
+          <div class="lang-symbol">🦅</div>
+          <h3 class="lang-name">Igbo</h3>
+          <p class="lang-native">Asụsụ Igbo</p>
+          <p class="lang-speakers">45+ million speakers worldwide</p>
+        </div>
+        <div class="lang-card-body">
+          <p class="lang-desc">Spoken by the Igbo people of southeastern Nigeria, this expressive language carries centuries of entrepreneurial spirit, masquerade culture, and deep philosophical thought encoded in its proverbs and dialects.</p>
+          <div class="lang-tags">
+            <span class="tag">Rich Proverbs</span>
+            <span class="tag">Tonal Language</span>
+            <span class="tag">South-East Nigeria</span>
+            <span class="tag">Diaspora-Ready</span>
+          </div>
+          <div class="lang-tutors-count">
+            <div class="tutor-dots">
+              <div class="tutor-dot">C</div>
+              <div class="tutor-dot">N</div>
+              <div class="tutor-dot">U</div>
+            </div>
+            <span>10 tutors available</span>
+          </div>
+        </div>
+        <div class="lang-card-footer">
+          <a href="#" class="lang-card-link" onclick="scrollToTutors('Igbo');return false">View Igbo Tutors →</a>
+        </div>
+      </div>
+
+      <!-- YORUBA -->
+      <div class="lang-card lang-yoruba">
+        <div class="lang-card-header">
+          <div class="lang-symbol">🌟</div>
+          <h3 class="lang-name">Yoruba</h3>
+          <p class="lang-native">Èdè Yorùbá</p>
+          <p class="lang-speakers">55+ million speakers worldwide</p>
+        </div>
+        <div class="lang-card-body">
+          <p class="lang-desc">The language of ancient Oyo, Ife, and Benin kingdoms — Yoruba is music, philosophy, and identity woven into speech. Its tonal beauty and global diaspora presence make it one of Africa's most powerful living languages.</p>
+          <div class="lang-tags">
+            <span class="tag">Highly Tonal</span>
+            <span class="tag">Cultural Depth</span>
+            <span class="tag">Afrobeats Roots</span>
+            <span class="tag">Global Diaspora</span>
+          </div>
+          <div class="lang-tutors-count">
+            <div class="tutor-dots">
+              <div class="tutor-dot">T</div>
+              <div class="tutor-dot">B</div>
+              <div class="tutor-dot">A</div>
+            </div>
+            <span>9 tutors available</span>
+          </div>
+        </div>
+        <div class="lang-card-footer">
+          <a href="#" class="lang-card-link" onclick="scrollToTutors('Yoruba');return false">View Yoruba Tutors →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── TUTORS ─────────────────────────────────── -->
+<section id="tutors">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-label">Our Tutors</p>
+      <h2 class="section-title">Meet Your Child's Guide</h2>
+      <p class="section-sub">Every EonCanvas tutor is vetted, background-checked, and trained in diaspora-aware pedagogy.</p>
+    </div>
+
+    <!-- Filter -->
+    <div style="display:flex;gap:10px;justify-content:center;margin-bottom:40px;flex-wrap:wrap">
+      <button class="tag" style="cursor:pointer;border:none;padding:8px 18px;font-size:.75rem" onclick="filterTutors('All')" id="filter-All">All Languages</button>
+      <button class="tag" style="cursor:pointer;border:none;padding:8px 18px;font-size:.75rem" onclick="filterTutors('Hausa')" id="filter-Hausa">Hausa</button>
+      <button class="tag" style="cursor:pointer;border:none;padding:8px 18px;font-size:.75rem" onclick="filterTutors('Igbo')" id="filter-Igbo">Igbo</button>
+      <button class="tag" style="cursor:pointer;border:none;padding:8px 18px;font-size:.75rem" onclick="filterTutors('Yoruba')" id="filter-Yoruba">Yoruba</button>
+    </div>
+
+    <div class="tutors-grid" id="tutorsGrid">
+
+      <div class="tutor-card" data-lang="Hausa">
+        <div class="tutor-photo">
+          <div class="tutor-avatar">👩🏾</div>
+          <span class="tutor-lang-badge">Hausa</span>
+        </div>
+        <div class="tutor-info">
+          <h3 class="tutor-name">Aisha Musa</h3>
+          <p class="tutor-title">Senior Hausa Educator · Kano, Nigeria</p>
+          <div class="stars">★★★★★</div>
+          <p class="tutor-bio" style="margin-top:8px">Aisha spent 12 years teaching Hausa at the University of Bayero before joining EonCanvas. Her lessons blend grammar with folk tales and Hausa poetry, making language feel like home for diaspora children.</p>
+          <div class="tutor-meta">
+            <span class="tutor-meta-item">📚 Ages 5–16</span>
+            <span class="tutor-meta-item">🎓 M.Ed Linguistics</span>
+            <span class="tutor-meta-item">🌍 EN / HA</span>
+          </div>
+          <div class="tutor-rate">£35 <span>/ 60-min session</span></div>
+          <button class="btn-book" onclick="openBooking('Aisha Musa','Hausa','£35')">Book Aisha</button>
+        </div>
+      </div>
+
+      <div class="tutor-card" data-lang="Igbo">
+        <div class="tutor-photo">
+          <div class="tutor-avatar">👨🏿</div>
+          <span class="tutor-lang-badge">Igbo</span>
+        </div>
+        <div class="tutor-info">
+          <h3 class="tutor-name">Chukwuemeka Obi</h3>
+          <p class="tutor-title">Igbo Language Specialist · London, UK</p>
+          <div class="stars">★★★★★</div>
+          <p class="tutor-bio" style="margin-top:8px">Born in Enugu, raised in London — Emeka deeply understands the diaspora experience. He uses storytelling, Ọdinani cultural context, and playful exercises to make Igbo accessible and joyful for UK-based children.</p>
+          <div class="tutor-meta">
+            <span class="tutor-meta-item">📚 Ages 6–18</span>
+            <span class="tutor-meta-item">🎓 BA African Studies</span>
+            <span class="tutor-meta-item">🌍 EN / IG</span>
+          </div>
+          <div class="tutor-rate">£38 <span>/ 60-min session</span></div>
+          <button class="btn-book" onclick="openBooking('Chukwuemeka Obi','Igbo','£38')">Book Emeka</button>
+        </div>
+      </div>
+
+      <div class="tutor-card" data-lang="Yoruba">
+        <div class="tutor-photo">
+          <div class="tutor-avatar">👩🏽</div>
+          <span class="tutor-lang-badge">Yoruba</span>
+        </div>
+        <div class="tutor-info">
+          <h3 class="tutor-name">Toluwani Adeyemi</h3>
+          <p class="tutor-title">Yoruba Culture & Language · Lagos / Toronto</p>
+          <div class="stars">★★★★★</div>
+          <p class="tutor-bio" style="margin-top:8px">Tolu's background in performing arts and linguistics makes her lessons unforgettable. She weaves Yoruba proverbs, Ìtàn stories, and music into structured lessons that children genuinely look forward to.</p>
+          <div class="tutor-meta">
+            <span class="tutor-meta-item">📚 Ages 4–14</span>
+            <span class="tutor-meta-item">🎓 MFA Theatre Arts</span>
+            <span class="tutor-meta-item">🌍 EN / YO</span>
+          </div>
+          <div class="tutor-rate">£40 <span>/ 60-min session</span></div>
+          <button class="btn-book" onclick="openBooking('Toluwani Adeyemi','Yoruba','£40')">Book Tolu</button>
+        </div>
+      </div>
+
+      <div class="tutor-card" data-lang="Hausa">
+        <div class="tutor-photo">
+          <div class="tutor-avatar">👨🏾</div>
+          <span class="tutor-lang-badge">Hausa</span>
+        </div>
+        <div class="tutor-info">
+          <h3 class="tutor-name">Farouq Sule</h3>
+          <p class="tutor-title">Hausa & Fulfulde Educator · Abuja, Nigeria</p>
+          <div class="stars">★★★★★</div>
+          <p class="tutor-bio" style="margin-top:8px">Farouq specialises in beginner Hausa for very young children (4–9). His patience, visual aids, and gamified approach ensure that even shy learners thrive and build confidence quickly.</p>
+          <div class="tutor-meta">
+            <span class="tutor-meta-item">📚 Ages 4–12</span>
+            <span class="tutor-meta-item">🎓 PGCE Education</span>
+            <span class="tutor-meta-item">🌍 EN / HA / FF</span>
+          </div>
+          <div class="tutor-rate">£30 <span>/ 60-min session</span></div>
+          <button class="btn-book" onclick="openBooking('Farouq Sule','Hausa','£30')">Book Farouq</button>
+        </div>
+      </div>
+
+      <div class="tutor-card" data-lang="Igbo">
+        <div class="tutor-photo">
+          <div class="tutor-avatar">👩🏿</div>
+          <span class="tutor-lang-badge">Igbo</span>
+        </div>
+        <div class="tutor-info">
+          <h3 class="tutor-name">Ngozi Eze</h3>
+          <p class="tutor-title">Igbo Literacy Specialist · Houston, USA</p>
+          <div class="stars">★★★★★</div>
+          <p class="tutor-bio" style="margin-top:8px">Ngozi developed the first Igbo literacy curriculum for diaspora children in Houston Public Schools. She focuses on reading and writing — giving children the full breadth of the language beyond conversation.</p>
+          <div class="tutor-meta">
+            <span class="tutor-meta-item">📚 Ages 8–18</span>
+            <span class="tutor-meta-item">🎓 PhD Applied Linguistics</span>
+            <span class="tutor-meta-item">🌍 EN / IG</span>
+          </div>
+          <div class="tutor-rate">£45 <span>/ 60-min session</span></div>
+          <button class="btn-book" onclick="openBooking('Ngozi Eze','Igbo','£45')">Book Ngozi</button>
+        </div>
+      </div>
+
+      <div class="tutor-card" data-lang="Yoruba">
+        <div class="tutor-photo">
+          <div class="tutor-avatar">👨🏽</div>
+          <span class="tutor-lang-badge">Yoruba</span>
+        </div>
+        <div class="tutor-info">
+          <h3 class="tutor-name">Babatunde Ogundele</h3>
+          <p class="tutor-title">Yoruba Advanced Tutor · Manchester, UK</p>
+          <div class="stars">★★★★★</div>
+          <p class="tutor-bio" style="margin-top:8px">Baba brings 15 years of secondary school teaching to EonCanvas. His structured curriculum takes teens from basic greetings to reading classic Yoruba literature by D.O. Fagunwa and Wole Soyinka.</p>
+          <div class="tutor-meta">
+            <span class="tutor-meta-item">📚 Ages 12–18</span>
+            <span class="tutor-meta-item">🎓 MA Yoruba Literature</span>
+            <span class="tutor-meta-item">🌍 EN / YO</span>
+          </div>
+          <div class="tutor-rate">£42 <span>/ 60-min session</span></div>
+          <button class="btn-book" onclick="openBooking('Babatunde Ogundele','Yoruba','£42')">Book Baba</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ───────────────────────────── -->
+<section id="how">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-label">Process</p>
+      <h2 class="section-title">From First Click to First Lesson</h2>
+      <p class="section-sub">Simple, transparent, and built for busy diaspora parents.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3 class="step-title">Choose a Language</h3>
+        <p class="step-desc">Browse Hausa, Igbo, or Yoruba — or book a free consultation call to identify the best fit for your child's age and level.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3 class="step-title">Select Your Tutor</h3>
+        <p class="step-desc">Read tutor profiles, teaching styles, and availability. Every tutor offers a free 15-minute intro session.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3 class="step-title">Book & Pay Securely</h3>
+        <p class="step-desc">Choose a time that suits your family's schedule. Pay securely via Stripe or PayPal. Instant confirmation sent to your inbox.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3 class="step-title">Join on Zoom or Meet</h3>
+        <p class="step-desc">Receive a unique meeting link before each lesson. Sessions are recorded so children can review at their own pace.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ──────────────────────────── -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-label">Family Stories</p>
+      <h2 class="section-title">From Families Like Yours</h2>
+      <p class="section-sub">Real experiences from diaspora parents across the UK, USA, and Canada.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <p class="testimonial-text">"My daughter Amira would refuse to speak Hausa — she was embarrassed. After just six weeks with Aisha, she's singing Hausa lullabies to her little brother. I cried watching her. This school changed our family."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👩🏾</div>
+          <div><div class="author-name">Fatima Al-Hassan</div><div class="author-location">Manchester, UK · Hausa learner</div></div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial-text">"We moved to Toronto when Chidi was three. By eight, he'd lost almost all his Igbo. Ngozi didn't just teach him words — she gave him back his identity. He now speaks Igbo with his grandma on video calls, and she weeps with joy."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👨🏿</div>
+          <div><div class="author-name">Ikenna Okafor</div><div class="author-location">Toronto, Canada · Igbo learner</div></div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial-text">"The booking experience was incredibly smooth, and Tolu's energy is contagious. Our twins — aged 7 and 9 — now argue in Yoruba. That sounds stressful but honestly it's the best thing that's ever happened to our home."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👩🏽</div>
+          <div><div class="author-name">Abosede Williams</div><div class="author-location">Atlanta, USA · Yoruba learners</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── NEWSLETTER ─────────────────────────────── -->
+<section id="newsletter">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="ornament" style="margin-bottom:24px">Heritage Updates</div>
+      <h2 class="newsletter-title">Stay Connected to the Community</h2>
+      <p class="newsletter-sub">Monthly tips for raising bilingual children, cultural events, tutor spotlights, and special offers for diaspora families.</p>
+      <form class="newsletter-form" onsubmit="submitNewsletter(event)">
+        <input class="newsletter-input" type="email" placeholder="Your email address" required>
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">EonCanvas</div>
+        <p class="footer-brand-sub">Preserving African languages and cultures for the next generation of diaspora children — one lesson at a time.</p>
+        <div class="social-links" style="margin-top:20px">
+          <a class="social-link" href="#" aria-label="Instagram">IG</a>
+          <a class="social-link" href="#" aria-label="Twitter">X</a>
+          <a class="social-link" href="#" aria-label="Facebook">FB</a>
+          <a class="social-link" href="#" aria-label="TikTok">TK</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Languages</p>
+        <ul class="footer-links">
+          <li><a href="#languages">Learn Hausa</a></li>
+          <li><a href="#languages">Learn Igbo</a></li>
+          <li><a href="#languages">Learn Yoruba</a></li>
+          <li><a href="#tutors">Find a Tutor</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Support</p>
+        <ul class="footer-links">
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#" onclick="openAdmin();return false">Tutor Login</a></li>
+          <li><a href="#">Cancellation Policy</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Legal</p>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Safeguarding</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">© 2025 EonCanvas Language School. All rights reserved. Registered in England & Wales.</p>
+      <p class="footer-legal" style="color:var(--border)">🔒 Payments secured by Stripe · SSL encrypted</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── BOOKING MODAL ──────────────────────────── -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">Book a Session</h3>
+      <button class="modal-close" onclick="closeBooking()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="bookingTutorInfo" style="display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border)">
+        <div style="width:46px;height:46px;border-radius:50%;background:var(--card-hi);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem" id="bookingAvatar">👩🏾</div>
+        <div>
+          <div style="color:var(--cream);font-weight:500" id="bookingTutorName">Aisha Musa</div>
+          <div style="font-size:.78rem;color:var(--muted)" id="bookingTutorMeta">Hausa · £35 per session</div>
+        </div>
+      </div>
+
+      <div class="booking-steps">
+        <div class="booking-step-tab active" id="tab1" onclick="switchTab(1)">1. Schedule</div>
+        <div class="booking-step-tab" id="tab2" onclick="switchTab(2)">2. Details</div>
+        <div class="booking-step-tab" id="tab3" onclick="switchTab(3)">3. Payment</div>
+      </div>
+
+      <!-- Panel 1: Calendar -->
+      <div class="booking-panel active" id="panel1">
+        <div class="calendar">
+          <div class="cal-header">
+            <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+            <span class="cal-month" id="calMonth">April 2025</span>
+            <button class="cal-nav" onclick="changeMonth(1)">›</button>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+
+        <p class="form-label" style="margin-bottom:10px">Available Times</p>
+        <div class="time-slots" id="timeSlots">
+          <div class="time-slot" onclick="selectTime(this)">9:00 AM</div>
+          <div class="time-slot" onclick="selectTime(this)">10:00 AM</div>
+          <div class="time-slot unavailable">11:00 AM</div>
+          <div class="time-slot" onclick="selectTime(this)">2:00 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">3:00 PM</div>
+          <div class="time-slot unavailable">4:00 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">5:00 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">6:00 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">7:00 PM</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Lesson Platform</label>
+          <select class="form-input">
+            <option>Zoom (link sent after booking)</option>
+            <option>Google Meet (link sent after booking)</option>
+          </select>
+        </div>
+
+        <button class="btn-primary" style="width:100%" onclick="switchTab(2)">Continue →</button>
+      </div>
+
+      <!-- Panel 2: Details -->
+      <div class="booking-panel" id="panel2">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Parent / Guardian Name</label>
+            <input class="form-input" type="text" placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" type="email" placeholder="email@example.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Child's Name</label>
+            <input class="form-input" type="text" placeholder="Child's first name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Child's Age</label>
+            <select class="form-input">
+              <option>4–6 years</option>
+              <option>7–9 years</option>
+              <option>10–12 years</option>
+              <option>13–15 years</option>
+              <option>16–18 years</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Current Language Level</label>
+          <select class="form-input">
+            <option>Complete beginner — no prior knowledge</option>
+            <option>Understands but cannot speak</option>
+            <option>Can speak some words and phrases</option>
+            <option>Conversational — needs grammar & literacy</option>
+            <option>Intermediate — looking to advance</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Goals & Notes for Tutor (optional)</label>
+          <textarea class="form-input" rows="3" placeholder="e.g. 'We want her to speak with her grandparents in Lagos. She loves music and drawing.'"></textarea>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button class="btn-outline" style="flex:1" onclick="switchTab(1)">← Back</button>
+          <button class="btn-primary" style="flex:2" onclick="switchTab(3)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- Panel 3: Payment -->
+      <div class="booking-panel" id="panel3">
+        <div class="booking-summary">
+          <div class="summary-row"><span>Tutor</span><span id="summTutor" style="color:var(--cream)">Aisha Musa</span></div>
+          <div class="summary-row"><span>Language</span><span id="summLang" style="color:var(--cream)">Hausa</span></div>
+          <div class="summary-row"><span>Date & Time</span><span id="summDateTime" style="color:var(--cream)">—</span></div>
+          <div class="summary-row"><span>Duration</span><span style="color:var(--cream)">60 minutes</span></div>
+          <div class="summary-row summary-total"><span>Total</span><span id="summPrice">£35.00</span></div>
+        </div>
+        <p class="form-label" style="margin-bottom:10px">Pay With</p>
+        <div class="payment-methods">
+          <div class="pay-method selected" onclick="selectPayment(this)">
+            💳 Stripe / Card
+          </div>
+          <div class="pay-method" onclick="selectPayment(this)">
+            🅿️ PayPal
+          </div>
+        </div>
+        <div class="form-row" id="cardFields">
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label">Card Number</label>
+            <input class="form-input" type="text" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="formatCard(this)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Expiry</label>
+            <input class="form-input" type="text" placeholder="MM / YY" maxlength="7">
+          </div>
+          <div class="form-group">
+            <label class="form-label">CVC</label>
+            <input class="form-input" type="text" placeholder="•••" maxlength="3">
+          </div>
+        </div>
+        <p class="secure-note">🔒 Payments processed securely by <span>Stripe</span>. EonCanvas never stores card details.</p>
+        <div style="display:flex;gap:12px;margin-top:20px">
+          <button class="btn-outline" style="flex:1" onclick="switchTab(2)">← Back</button>
+          <button class="btn-primary" style="flex:2" onclick="confirmBooking()">Confirm & Pay →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── ADMIN PANEL ────────────────────────────── -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel">
+    <div class="admin-header">
+      <h3 class="modal-title">Admin Panel</h3>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span style="font-size:.72rem;color:var(--muted)">EonCanvas Internal</span>
+        <button class="modal-close" onclick="closeAdmin()">✕</button>
+      </div>
+    </div>
+    <div class="admin-tabs">
+      <div class="admin-tab active" onclick="adminTab(this,'adminBookings')">Bookings</div>
+      <div class="admin-tab" onclick="adminTab(this,'adminTutors')">Tutors</div>
+      <div class="admin-tab" onclick="adminTab(this,'adminAvail')">Availability</div>
+    </div>
+    <div class="admin-body">
+
+      <div id="adminBookings">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <p style="font-size:.82rem;color:var(--muted)">6 bookings · Week of 14 April 2025</p>
+          <select class="form-input" style="width:auto;padding:6px 10px;font-size:.78rem">
+            <option>All Languages</option>
+            <option>Hausa</option>
+            <option>Igbo</option>
+            <option>Yoruba</option>
+          </select>
+        </div>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Tutor</th>
+              <th>Language</th>
+              <th>Date / Time</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Amira Al-Hassan</td><td>Aisha Musa</td><td>Hausa</td><td>Mon 14 Apr, 5pm</td><td>£35</td><td><span class="status-badge status-confirmed">Confirmed</span></td></tr>
+            <tr><td>Chidi Okafor</td><td>Ngozi Eze</td><td>Igbo</td><td>Tue 15 Apr, 3pm</td><td>£45</td><td><span class="status-badge status-confirmed">Confirmed</span></td></tr>
+            <tr><td>Taiwo Williams</td><td>Toluwani Adeyemi</td><td>Yoruba</td><td>Wed 16 Apr, 10am</td><td>£40</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+            <tr><td>Zara Mohammed</td><td>Farouq Sule</td><td>Hausa</td><td>Thu 17 Apr, 2pm</td><td>£30</td><td><span class="status-badge status-confirmed">Confirmed</span></td></tr>
+            <tr><td>Emeka Nweze</td><td>Chukwuemeka Obi</td><td>Igbo</td><td>Fri 18 Apr, 6pm</td><td>£38</td><td><span class="status-badge status-cancelled">Cancelled</span></td></tr>
+            <tr><td>Kehinde Williams</td><td>Babatunde Ogundele</td><td>Yoruba</td><td>Sat 19 Apr, 11am</td><td>£42</td><td><span class="status-badge status-confirmed">Confirmed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="adminTutors" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <p style="font-size:.82rem;color:var(--muted)">6 active tutors</p>
+          <button class="btn-primary" style="padding:8px 18px;font-size:.75rem">+ Add Tutor</button>
+        </div>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Language</th>
+              <th>Rate</th>
+              <th>Sessions (month)</th>
+              <th>Rating</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Aisha Musa</td><td>Hausa</td><td>£35/h</td><td>14</td><td>★ 5.0</td><td><span class="status-badge status-confirmed">Active</span></td></tr>
+            <tr><td>Farouq Sule</td><td>Hausa</td><td>£30/h</td><td>9</td><td>★ 4.9</td><td><span class="status-badge status-confirmed">Active</span></td></tr>
+            <tr><td>Chukwuemeka Obi</td><td>Igbo</td><td>£38/h</td><td>11</td><td>★ 5.0</td><td><span class="status-badge status-confirmed">Active</span></td></tr>
+            <tr><td>Ngozi Eze</td><td>Igbo</td><td>£45/h</td><td>16</td><td>★ 5.0</td><td><span class="status-badge status-confirmed">Active</span></td></tr>
+            <tr><td>Toluwani Adeyemi</td><td>Yoruba</td><td>£40/h</td><td>12</td><td>★ 4.9</td><td><span class="status-badge status-confirmed">Active</span></td></tr>
+            <tr><td>Babatunde Ogundele</td><td>Yoruba</td><td>£42/h</td><td>8</td><td>★ 5.0</td><td><span class="status-badge status-pending">On Leave</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="adminAvail" style="display:none">
+        <p style="font-size:.88rem;color:var(--muted);margin-bottom:20px">Tutors can update their weekly availability. Blocked slots will hide from the booking calendar.</p>
+        <div class="form-group">
+          <label class="form-label">Select Tutor</label>
+          <select class="form-input">
+            <option>Aisha Musa</option>
+            <option>Farouq Sule</option>
+            <option>Chukwuemeka Obi</option>
+            <option>Ngozi Eze</option>
+            <option>Toluwani Adeyemi</option>
+            <option>Babatunde Ogundele</option>
+          </select>
+        </div>
+        <p class="form-label" style="margin-bottom:10px">Weekly Available Hours</p>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center">
+          <div style="font-size:.65rem;color:var(--muted);padding:4px">MON</div>
+          <div style="font-size:.65rem;color:var(--muted);padding:4px">TUE</div>
+          <div style="font-size:.65rem;color:var(--muted);padding:4px">WED</div>
+          <div style="font-size:.65rem;color:var(--muted);padding:4px">THU</div>
+          <div style="font-size:.65rem;color:var(--muted);padding:4px">FRI</div>
+          <div style="font-size:.65rem;color:var(--muted);padding:4px">SAT</div>
+          <div style="font-size:.65rem;color:var(--muted);padding:4px">SUN</div>
+          <div class="time-slot selected" style="font-size:.72rem;padding:8px 2px">9am</div>
+          <div class="time-slot" style="font-size:.72rem;padding:8px 2px" onclick="this.classList.toggle('selected')">9am</div>
+          <div class="time-slot selected" style="font-size:.72rem;padding:8px 2px" onclick="this.classList.toggle('selected')">9am</div>
+          <div class="time-slot" style="font-size:.72rem;padding:8px 2px" onclick="this.classList.toggle('selected')">9am</div>
+          <div class="time-slot selected" style="font-size:.72rem;padding:8px 2px" onclick="this.classList.toggle('selected')">9am</div>
+          <div class="time-slot unavailable" style="font-size:.72rem;padding:8px 2px">9am</div>
+          <div class="time-slot unavailable" style="font-size:.72rem;padding:8px 2px">9am</div>
+          <div class="time-slot selected" style="font-size:.72rem;padding:8px 2px" onclick="this.classList.toggle('selected')">5pm</div>
+          <div class="time-slot selected" style="font-size:.72rem;padding:8px 2px" onclick="this.classList.toggle('selected')">5pm</div>
+          <div class="time-slot" style="font-size:.72rem;padding:8px 2px" onclick="this.classList.toggle('selected')">5pm</div>
+          <div class="time-slot selected" style="font-size:.72rem;padding:8px 2px" onclick="this.classList.toggle('selected')">5pm</div>
+          <div class="time-slot selected" style="font-size:.72rem;padding:8px 2px" onclick="this.classList.toggle('selected')">5pm</div>
+          <div class="time-slot selected" style="font-size:.72rem;padding:8px 2px" onclick="this.classList.toggle('selected')">5pm</div>
+          <div class="time-slot" style="font-size:.72rem;padding:8px 2px" onclick="this.classList.toggle('selected')">5pm</div>
+        </div>
+        <button class="btn-primary" style="margin-top:20px;width:100%">Save Availability</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─── TOAST ─────────────────────────────────── -->
+<div class="toast" id="toast">
+  <div class="toast-title" id="toastTitle">✓ Booking Confirmed!</div>
+  <div class="toast-msg" id="toastMsg">A confirmation has been sent to your email. See you at the lesson!</div>
+</div>
+
+<!-- ─── JAVASCRIPT ─────────────────────────────── -->
+<script>
+/* ── NAV ── */
+function toggleMenu(){
+  const m=document.getElementById('mobileNav');
+  m.classList.toggle('open');
+}
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('nav');
+  nav.style.padding=window.scrollY>50?'0':'';
+});
+
+/* ── TUTOR FILTER ── */
+function filterTutors(lang){
+  document.querySelectorAll('.tutor-card').forEach(c=>{
+    c.style.display=(lang==='All'||c.dataset.lang===lang)?'':'none';
+  });
+  document.querySelectorAll('[id^="filter-"]').forEach(b=>{
+    b.style.background=b.id==='filter-'+lang?'var(--gold)':'rgba(201,150,58,.1)';
+    b.style.color=b.id==='filter-'+lang?'var(--ink)':'var(--gold)';
+  });
+}
+filterTutors('All');
+
+function scrollToTutors(lang){
+  document.getElementById('tutors').scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>filterTutors(lang),500);
+}
+
+/* ── BOOKING MODAL ── */
+let currentTutor='',currentLang='',currentPrice='',selectedDate='',selectedTime='';
+function openBooking(name,lang,price){
+  currentTutor=name;currentLang=lang;currentPrice=price;
+  document.getElementById('bookingTutorName').textContent=name;
+  document.getElementById('bookingTutorMeta').textContent=lang+' · '+price+' per session';
+  document.getElementById('summTutor').textContent=name;
+  document.getElementById('summLang').textContent=lang;
+  document.getElementById('summPrice').textContent=price+'.00';
+  switchTab(1);
+  document.getElementById('bookingModal').classList.add('open');
+  document.body.style.overflow='hidden';
+  renderCalendar();
+}
+function closeBooking(){
+  document.getElementById('bookingModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('bookingModal').addEventListener('click',function(e){
+  if(e.target===this)closeBooking();
+});
+
+/* ── TABS ── */
+function switchTab(n){
+  for(let i=1;i<=3;i++){
+    document.getElementById('tab'+i).classList.toggle('active',i===n);
+    document.getElementById('panel'+i).classList.toggle('active',i===n);
+  }
+}
+
+/* ── CALENDAR ── */
+let calYear=2025,calMonth=3; // 0-indexed, April=3
+const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function renderCalendar(){
+  document.getElementById('calMonth').textContent=monthNames[calMonth]+' '+calYear;
+  const grid=document.getElementById('calGrid');
+  grid.innerHTML='<div class="cal-day-name">Su</div><div class="cal-day-name">Mo</div><div class="cal-day-name">Tu</div><div class="cal-day-name">We</div><div class="cal-day-name">Th</div><div class="cal-day-name">Fr</div><div class="cal-day-name">Sa</div>';
+  const first=new Date(calYear,calMonth,1).getDay();
+  const days=new Date(calYear,calMonth+1,0).getDate();
+  const today=new Date();
+  for(let i=0;i<first;i++)grid.innerHTML+='<div class="cal-day empty"></div>';
+  for(let d=1;d<=days;d++){
+    const date=new Date(calYear,calMonth,d);
+    const past=date<new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    const key=calYear+'-'+(calMonth+1)+'-'+d;
+    const sel=selectedDate===key;
+    grid.innerHTML+=`<div class="cal-day ${past?'past':' available'} ${sel?'selected':''}" onclick="${past?'':'selectDay(this,'+calYear+','+(calMonth+1)+','+d+')'}">${d}</div>`;
+  }
+}
+function changeMonth(dir){
+  calMonth+=dir;
+  if(calMonth<0){calMonth=11;calYear--;}
+  if(calMonth>11){calMonth=0;calYear++;}
+  renderCalendar();
+}
+function selectDay(el,y,m,d){
+  document.querySelectorAll('.cal-day').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedDate=y+'-'+m+'-'+d;
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('summDateTime').textContent=d+' '+months[m-1]+' '+y+(selectedTime?' at '+selectedTime:'');
+}
+function selectTime(el){
+  document.querySelectorAll('.time-slot').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedTime=el.textContent;
+  if(selectedDate){
+    const parts=selectedDate.split('-');
+    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    document.getElementById('summDateTime').textContent=parts[2]+' '+months[parts[1]-1]+' '+parts[0]+' at '+selectedTime;
+  }
+}
+
+/* ── PAYMENT ── */
+function selectPayment(el){
+  document.querySelectorAll('.pay-method').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected');
+  const isPayPal=el.textContent.includes('PayPal');
+  document.getElementById('cardFields').style.display=isPayPal?'none':'grid';
+}
+function formatCard(el){
+  let v=el.value.replace(/\D/g,'').substring(0,16);
+  el.value=v.replace(/(.{4})/g,'$1 ').trim();
+}
+
+/* ── CONFIRM ── */
+function confirmBooking(){
+  closeBooking();
+  showToast('✓ Booking Confirmed!','Confirmation sent to your email. Your Zoom link will arrive 1 hour before the lesson.');
+}
+function showToast(title,msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastTitle').textContent=title;
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),5000);
+}
+
+/* ── ADMIN ── */
+function openAdmin(){
+  document.getElementById('adminOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeAdmin(){
+  document.getElementById('adminOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('adminOverlay').addEventListener('click',function(e){
+  if(e.target===this)closeAdmin();
+});
+function adminTab(el,panelId){
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  ['adminBookings','adminTutors','adminAvail'].forEach(id=>{
+    document.getElementById(id).style.display=id===panelId?'block':'none';
+  });
+}
+
+/* ── NEWSLETTER ── */
+function submitNewsletter(e){
+  e.preventDefault();
+  e.target.reset();
+  showToast('✓ You\'re subscribed!','Welcome to the EonCanvas community. Check your inbox for a welcome gift.');
+}
+
+/* ── SCROLL ANIMATIONS ── */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:.1});
+document.querySelectorAll('.lang-card,.tutor-card,.step,.testimonial,.pillar').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(24px)';
+  el.style.transition='opacity .6s ease, transform .6s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>

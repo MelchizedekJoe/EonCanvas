@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Eke Market Day — Shop Together, Share Together</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"/>
+<style>
+:root {
+  --clay:       #e8653a;
+  --clay-light: #f28b62;
+  --clay-dim:   rgba(232,101,58,0.10);
+  --clay-line:  rgba(232,101,58,0.28);
+  --ochre:      #d4a017;
+  --ochre-dim:  rgba(212,160,23,0.12);
+  --sage:       #4a7c59;
+  --bg:         #faf7f2;
+  --bg2:        #f2ece0;
+  --surface:    #fff;
+  --surface2:   #fdf9f4;
+  --ink:        #1a1209;
+  --ink2:       #4a3f2f;
+  --ink3:       #8a7a64;
+  --border:     rgba(26,18,9,0.10);
+  --border2:    rgba(26,18,9,0.06);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'Space Mono', monospace;
+  --nav-h:      68px;
+  --ease:       cubic-bezier(.4,0,.2,1);
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink2);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button { font-family: var(--font-body); }
+
+/* UTILS */
+.container { max-width: 1140px; margin: 0 auto; padding: 0 40px; }
+.label {
+  display: inline-block; font-size: 9px; font-weight: 500;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--clay); margin-bottom: 12px;
+  padding: 4px 10px; border: 1px solid var(--clay-line);
+  border-radius: 2px; background: var(--clay-dim);
+}
+.h2 {
+  font-family: var(--font-display); font-size: clamp(1.9rem,4vw,3rem);
+  font-weight: 300; color: var(--ink); line-height: 1.1;
+  letter-spacing: -.015em;
+}
+.h2 em { font-style: italic; color: var(--clay); }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 500; letter-spacing: .13em;
+  text-transform: uppercase; padding: 13px 26px; border-radius: 3px;
+  border: none; cursor: pointer;
+  transition: transform .18s var(--ease-spring), box-shadow .2s, background .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn--primary {
+  background: var(--clay); color: #fff;
+  box-shadow: 0 4px 20px rgba(232,101,58,.28);
+}
+.btn--primary:hover { background: var(--clay-light); box-shadow: 0 6px 28px rgba(232,101,58,.38); }
+.btn--outline {
+  background: transparent; color: var(--ink);
+  border: 1.5px solid var(--border);
+}
+.btn--outline:hover { border-color: var(--clay-line); color: var(--clay); }
+.btn--ghost {
+  background: transparent; color: var(--clay);
+  padding: 10px 16px; font-size: 10px;
+}
+.divider { border: none; border-top: 1px solid var(--border); }
+
+/* PATTERN BG */
+.pattern-bg {
+  background-image:
+    repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(232,101,58,.03) 18px, rgba(232,101,58,.03) 19px),
+    repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(212,160,23,.03) 18px, rgba(212,160,23,.03) 19px);
+}
+
+/* NAV */
+.nav {
+  position: fixed; inset: 0 0 auto; z-index: 200; height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  background: rgba(250,247,242,.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s, background .3s;
+}
+.nav.scrolled { border-bottom-color: var(--border); background: rgba(250,247,242,.98); }
+.nav__logo { display: flex; align-items: center; gap: 12px; }
+.nav__logo-mark {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--clay);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 18px; font-weight: 400; color: #fff;
+  font-style: italic; flex-shrink: 0;
+}
+.nav__logo-text { font-family: var(--font-display); font-size: 1.25rem; font-weight: 400; color: var(--ink); }
+.nav__logo-text span { color: var(--clay); font-style: italic; }
+.nav__links { display: flex; align-items: center; gap: 2px; list-style: none; }
+.nav__links a {
+  display: block; padding: 8px 14px; font-size: 11px; font-weight: 400;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--ink3);
+  transition: color .2s;
+}
+.nav__links a:hover { color: var(--ink); }
+.nav__counter {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--ink3);
+  padding: 7px 14px; border: 1px solid var(--border); border-radius: 20px;
+}
+.nav__counter .dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--clay);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+.nav__burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+.nav__burger span { display: block; width: 22px; height: 1.5px; background: var(--ink); }
+
+/* HERO */
+.hero {
+  min-height: calc(100vh - var(--nav-h));
+  padding-top: var(--nav-h);
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center; gap: 60px;
+  overflow: hidden; position: relative;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(232,101,58,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero__left { padding: 80px 0 80px 40px; max-width: 600px; margin: 0 auto 0 0; }
+.hero__day-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 16px; border-radius: 999px;
+  background: var(--clay-dim); border: 1px solid var(--clay-line);
+  font-family: var(--font-mono); font-size: 10px; color: var(--clay);
+  letter-spacing: .06em; margin-bottom: 28px;
+}
+.hero__day-badge .divot { width: 6px; height: 6px; border-radius: 50%; background: var(--clay); }
+.hero__title {
+  font-family: var(--font-display); font-size: clamp(3rem, 7vw, 5.8rem);
+  font-weight: 300; line-height: .92; letter-spacing: -.025em;
+  color: var(--ink); margin-bottom: 24px;
+}
+.hero__title em { font-style: italic; color: var(--clay); }
+.hero__title .outline {
+  -webkit-text-stroke: 1.5px var(--clay); color: transparent;
+}
+.hero__sub {
+  font-size: 15px; line-height: 1.8; color: var(--ink2);
+  max-width: 460px; margin-bottom: 36px;
+}
+.hero__actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+.hero__stats { display: flex; gap: 32px; }
+.hero__stat-num {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 300;
+  color: var(--ink); line-height: 1;
+}
+.hero__stat-label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); }
+.hero__right {
+  position: relative; height: 100%; min-height: 520px;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 40px;
+}
+
+/* FLOATING CARDS */
+.float-board {
+  position: relative; width: 380px; height: 480px;
+}
+.float-card {
+  position: absolute; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 18px 20px; box-shadow: 0 8px 32px rgba(26,18,9,.08);
+  min-width: 220px;
+  animation: floatCard 4s ease-in-out infinite;
+}
+.float-card:nth-child(1) { top: 0; left: 0; animation-delay: 0s; z-index: 3; }
+.float-card:nth-child(2) { top: 120px; right: 0; animation-delay: .8s; z-index: 2; }
+.float-card:nth-child(3) { bottom: 40px; left: 20px; animation-delay: 1.6s; z-index: 3; }
+@keyframes floatCard {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.float-card__header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.float-card__avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.float-card__avatar--clay { background: var(--clay-dim); color: var(--clay); }
+.float-card__avatar--ochre { background: var(--ochre-dim); color: var(--ochre); }
+.float-card__avatar--sage { background: rgba(74,124,89,.12); color: var(--sage); }
+.float-card__name { font-size: 12px; font-weight: 500; color: var(--ink); }
+.float-card__time { font-size: 9px; color: var(--ink3); font-family: var(--font-mono); }
+.float-card__list { font-size: 11px; color: var(--ink2); line-height: 1.7; }
+.float-card__list li { list-style: none; display: flex; align-items: center; gap: 6px; }
+.float-card__list li::before { content: '·'; color: var(--clay); font-weight: 700; }
+.float-card__tag {
+  display: inline-block; margin-top: 10px; padding: 3px 9px;
+  background: var(--clay-dim); border-radius: 999px;
+  font-size: 9px; letter-spacing: .08em; color: var(--clay); font-weight: 500;
+}
+.float-card__tag--green { background: rgba(74,124,89,.1); color: var(--sage); }
+.float-card__tag--ochre { background: var(--ochre-dim); color: var(--ochre); }
+.float-card__claimed {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; font-weight: 500; color: var(--sage); margin-top: 10px;
+}
+
+/* MARKET TICKER */
+.market-ticker {
+  background: var(--clay); overflow: hidden; height: 42px;
+  display: flex; align-items: center;
+}
+.ticker-track {
+  display: flex; gap: 0; white-space: nowrap;
+  animation: ticker 28s linear infinite;
+}
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.ticker-item {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 0 28px; font-size: 10px; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.85);
+}
+.ticker-item i { color: rgba(255,255,255,.5); font-size: 8px; }
+
+/* MARKET DAYS */
+.market-days { padding: 80px 0; background: var(--surface); border-top: 1px solid var(--border); }
+.days-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; background: var(--border); margin-top: 40px; }
+.day-card {
+  background: var(--surface2); padding: 36px 28px;
+  transition: background .25s; position: relative; overflow: hidden;
+}
+.day-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--clay); transform: scaleX(0);
+  transform-origin: left; transition: transform .3s var(--ease);
+}
+.day-card:hover { background: var(--surface); }
+.day-card:hover::after { transform: scaleX(1); }
+.day-card--active { background: var(--surface); }
+.day-card--active::after { transform: scaleX(1); }
+.day-card__name {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 400;
+  color: var(--ink); margin-bottom: 4px; letter-spacing: -.01em;
+}
+.day-card__igbo { font-family: var(--font-mono); font-size: 9px; color: var(--ink3); letter-spacing: .1em; margin-bottom: 16px; }
+.day-card__desc { font-size: 12px; line-height: 1.7; color: var(--ink3); margin-bottom: 16px; }
+.day-card__badge {
+  display: inline-block; padding: 3px 10px; border-radius: 2px;
+  font-size: 9px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+}
+.day-card__badge--live { background: rgba(74,124,89,.12); color: var(--sage); }
+.day-card__badge--upcoming { background: var(--clay-dim); color: var(--clay); }
+.day-card__badge--rest { background: rgba(26,18,9,.06); color: var(--ink3); }
+
+/* HOW IT WORKS */
+.how { padding: 80px 0; background: var(--bg); }
+.steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border); margin-top: 48px; }
+.step {
+  background: var(--surface); padding: 52px 40px; position: relative;
+  transition: background .25s;
+}
+.step:hover { background: var(--surface2); }
+.step__num {
+  font-family: var(--font-display); font-size: 5rem; font-weight: 300;
+  color: var(--clay); opacity: .15; line-height: 1; margin-bottom: 20px;
+  letter-spacing: -.03em;
+}
+.step__icon { font-size: 28px; color: var(--clay); margin-bottom: 18px; }
+.step__title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; color: var(--ink); margin-bottom: 12px; }
+.step__desc { font-size: 13px; line-height: 1.8; color: var(--ink3); }
+.step__connector {
+  position: absolute; right: -18px; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; background: var(--clay-dim); border: 1px solid var(--clay-line);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: var(--clay); font-size: 12px; z-index: 1;
+}
+.step:last-child .step__connector { display: none; }
+
+/* REQUEST BOARD */
+.board { padding: 80px 0; background: var(--bg2); border-top: 1px solid var(--border); }
+.board__header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; flex-wrap: wrap; gap: 20px; }
+.board__filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-btn {
+  padding: 7px 16px; border-radius: 999px; border: 1.5px solid var(--border);
+  font-size: 10px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  background: var(--surface); color: var(--ink3); cursor: pointer;
+  transition: all .2s var(--ease);
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--clay); border-color: var(--clay); color: #fff;
+}
+.requests-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.request-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 24px; transition: box-shadow .25s, transform .25s var(--ease-spring);
+  position: relative; overflow: hidden;
+}
+.request-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--clay);
+}
+.request-card--nanny::before { background: var(--ochre); }
+.request-card--errand::before { background: var(--sage); }
+.request-card:hover { box-shadow: 0 8px 32px rgba(26,18,9,.1); transform: translateY(-3px); }
+.request-card__top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.request-card__user { display: flex; align-items: center; gap: 10px; }
+.request-card__avatar {
+  width: 38px; height: 38px; border-radius: 50%; overflow: hidden;
+  background: var(--clay-dim); display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 16px; font-weight: 400; color: var(--clay);
+  flex-shrink: 0;
+}
+.request-card__name { font-size: 13px; font-weight: 500; color: var(--ink); }
+.request-card__location { font-size: 10px; color: var(--ink3); display: flex; align-items: center; gap: 4px; }
+.request-card__type {
+  font-size: 9px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 2px;
+}
+.type--shopping { background: var(--clay-dim); color: var(--clay); }
+.type--nanny    { background: var(--ochre-dim); color: var(--ochre); }
+.type--errand   { background: rgba(74,124,89,.12); color: var(--sage); }
+.request-card__title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--ink); margin-bottom: 8px; }
+.request-card__items { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.item-pill {
+  font-size: 10px; padding: 4px 10px; border-radius: 999px;
+  background: var(--bg2); color: var(--ink2); border: 1px solid var(--border);
+}
+.request-card__meta { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid var(--border2); }
+.request-card__reward {
+  font-family: var(--font-mono); font-size: 16px; font-weight: 700; color: var(--clay);
+}
+.request-card__reward span { font-size: 10px; font-weight: 400; color: var(--ink3); font-family: var(--font-body); }
+.request-card__claim {
+  padding: 8px 16px; background: var(--clay); color: #fff; border: none;
+  border-radius: 4px; font-size: 10px; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; cursor: pointer;
+  transition: background .2s, transform .18s var(--ease-spring);
+}
+.request-card__claim:hover { background: var(--clay-light); transform: scale(1.04); }
+.request-card__claimed { display: flex; align-items: center; gap: 6px; color: var(--sage); font-size: 11px; font-weight: 500; }
+.request-card__urgency {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 9px; color: var(--ink3); font-family: var(--font-mono);
+}
+.urgency-dot { width: 6px; height: 6px; border-radius: 50%; }
+.urgency-dot--high { background: #e53e3e; }
+.urgency-dot--med  { background: var(--ochre); }
+.urgency-dot--low  { background: var(--sage); }
+
+/* POST FORM */
+.post-section {
+  padding: 80px 0; background: var(--ink);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  position: relative; overflow: hidden;
+}
+.post-section::before {
+  content: ''; position: absolute; top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(232,101,58,.12) 0%, transparent 68%);
+  pointer-events: none;
+}
+.post-section .h2 { color: var(--bg); }
+.post-section .h2 em { color: var(--clay); }
+.post-section .ec-body { color: rgba(250,247,242,.6); }
+.post-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; margin-top: 48px; }
+.post-info { color: rgba(250,247,242,.7); }
+.post-info__list { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+.post-info__item { display: flex; align-items: flex-start; gap: 14px; }
+.post-info__icon {
+  width: 36px; height: 36px; border-radius: 6px; flex-shrink: 0;
+  background: rgba(232,101,58,.15); border: 1px solid rgba(232,101,58,.25);
+  display: flex; align-items: center; justify-content: center; color: var(--clay); font-size: 14px;
+}
+.post-info__text { font-size: 13px; line-height: 1.75; color: rgba(250,247,242,.6); }
+.post-info__text strong { color: rgba(250,247,242,.9); display: block; margin-bottom: 2px; font-weight: 400; }
+.post-form {
+  background: var(--surface); border-radius: 12px; padding: 36px;
+  box-shadow: 0 24px 64px rgba(0,0,0,.3);
+}
+.post-form__title {
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 300;
+  color: var(--ink); margin-bottom: 24px; line-height: 1.2;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.form-group label { font-size: 9px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--ink3); }
+.form-group input, .form-group select, .form-group textarea {
+  padding: 12px 14px; border: 1.5px solid var(--border);
+  border-radius: 6px; background: var(--bg);
+  font-family: var(--font-body); font-size: 13px; color: var(--ink);
+  outline: none; transition: border-color .2s, background .2s;
+  -webkit-appearance: none;
+}
+.form-group input::placeholder, .form-group textarea::placeholder { color: var(--ink3); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--clay-line); background: var(--surface);
+}
+.form-group select { color: var(--ink2); }
+.form-group textarea { resize: vertical; min-height: 90px; }
+.items-input-area {
+  border: 1.5px dashed var(--border); border-radius: 6px; padding: 12px 14px;
+  background: var(--bg); min-height: 80px;
+  display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start;
+  cursor: text;
+}
+.items-input-area.focus { border-color: var(--clay-line); }
+.item-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; background: var(--clay-dim); border-radius: 999px;
+  font-size: 11px; color: var(--clay); border: 1px solid var(--clay-line);
+}
+.item-tag button { background: none; border: none; cursor: pointer; color: var(--clay); opacity: .6; font-size: 10px; padding: 0; line-height: 1; }
+.item-tag button:hover { opacity: 1; }
+.items-input { border: none; background: none; font-family: var(--font-body); font-size: 13px; color: var(--ink); outline: none; min-width: 120px; padding: 2px 4px; }
+.reward-toggle { display: flex; gap: 8px; }
+.reward-opt {
+  flex: 1; padding: 10px; border: 1.5px solid var(--border); border-radius: 6px;
+  text-align: center; font-size: 11px; cursor: pointer; color: var(--ink3);
+  transition: all .2s; background: var(--bg);
+}
+.reward-opt.active { border-color: var(--clay); background: var(--clay-dim); color: var(--clay); font-weight: 500; }
+.form-submit { width: 100%; padding: 15px; background: var(--clay); color: #fff; border: none; border-radius: 6px; font-family: var(--font-body); font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: background .2s, transform .18s var(--ease-spring); }
+.form-submit:hover { background: var(--clay-light); transform: translateY(-2px); }
+
+/* SERVICES STRIP */
+.services-strip { padding: 80px 0; background: var(--surface); border-top: 1px solid var(--border); }
+.services-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 44px; }
+.service-tile {
+  border: 1.5px solid var(--border); border-radius: 10px; padding: 32px 28px;
+  transition: border-color .25s, box-shadow .25s, transform .25s var(--ease-spring);
+  position: relative; overflow: hidden;
+}
+.service-tile:hover {
+  border-color: var(--clay-line);
+  box-shadow: 0 8px 32px rgba(232,101,58,.1);
+  transform: translateY(-4px);
+}
+.service-tile__icon {
+  width: 52px; height: 52px; border-radius: 10px; margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+}
+.service-tile__icon--clay { background: var(--clay-dim); color: var(--clay); }
+.service-tile__icon--ochre { background: var(--ochre-dim); color: var(--ochre); }
+.service-tile__icon--sage { background: rgba(74,124,89,.12); color: var(--sage); }
+.service-tile__title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; color: var(--ink); margin-bottom: 10px; }
+.service-tile__desc { font-size: 13px; line-height: 1.75; color: var(--ink3); margin-bottom: 20px; }
+.service-tile__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.service-tile__tag { font-size: 9px; padding: 3px 9px; border-radius: 2px; background: var(--bg2); color: var(--ink3); border: 1px solid var(--border); }
+
+/* COMMUNITY */
+.community { padding: 80px 0; background: var(--bg); }
+.community-inner {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 64px; position: relative; overflow: hidden;
+}
+.community-inner::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    90deg, transparent, transparent 60px,
+    rgba(232,101,58,.02) 60px, rgba(232,101,58,.02) 61px
+  );
+  pointer-events: none;
+}
+.community-inner::after {
+  content: 'ỌJA'; position: absolute; right: 40px; bottom: -20px;
+  font-family: var(--font-display); font-size: 160px; font-weight: 300; font-style: italic;
+  color: var(--clay); opacity: .04; pointer-events: none; line-height: 1;
+}
+.community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+.community-text { }
+.community-text p { font-size: 14px; line-height: 1.85; color: var(--ink2); margin-bottom: 16px; }
+.community-actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+.pledge-row { display: flex; flex-direction: column; gap: 12px; }
+.pledge-item {
+  display: flex; align-items: center; gap: 14px; padding: 16px 20px;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--surface2);
+  transition: border-color .2s, background .2s;
+}
+.pledge-item:hover { border-color: var(--clay-line); background: var(--surface); }
+.pledge-item__avatar {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--clay-dim);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 14px; color: var(--clay); flex-shrink: 0;
+}
+.pledge-item__info { flex: 1; }
+.pledge-item__name { font-size: 13px; font-weight: 500; color: var(--ink); }
+.pledge-item__action { font-size: 11px; color: var(--ink3); }
+.pledge-item__time { font-family: var(--font-mono); font-size: 9px; color: var(--ink3); }
+
+/* FOOTER */
+.footer {
+  background: var(--ink); color: rgba(250,247,242,.5);
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.footer__top {
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 48px; padding: 64px 40px 48px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.footer__brand-mark {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--clay);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 20px; color: #fff; font-style: italic;
+  margin-bottom: 18px;
+}
+.footer__brand p { font-size: 12px; line-height: 1.85; max-width: 260px; }
+.footer__col h4 { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(250,247,242,.3); margin-bottom: 20px; }
+.footer__col a { display: block; font-size: 12px; color: rgba(250,247,242,.45); margin-bottom: 10px; transition: color .2s; }
+.footer__col a:hover { color: var(--clay); }
+.footer__bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 40px; flex-wrap: wrap; gap: 16px;
+  font-size: 11px; color: rgba(250,247,242,.25);
+}
+.footer__badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(232,101,58,.2);
+  font-size: 9px; letter-spacing: .08em; color: rgba(232,101,58,.6);
+}
+
+/* SUCCESS TOAST */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--sage); color: #fff; padding: 14px 24px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,.2);
+  display: flex; align-items: center; gap: 10px; z-index: 999;
+  transition: transform .4s var(--ease-spring), opacity .4s;
+  opacity: 0;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* RESPONSIVE */
+@media (max-width: 1020px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero__right { display: none; }
+  .hero__left { padding: 80px 40px 60px; max-width: 100%; }
+  .steps { grid-template-columns: 1fr; }
+  .step__connector { display: none; }
+  .requests-grid { grid-template-columns: repeat(2,1fr); }
+  .post-grid { grid-template-columns: 1fr; }
+  .community-grid { grid-template-columns: 1fr; }
+  .footer__top { grid-template-columns: 1fr 1fr; }
+  .services-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .container { padding: 0 20px; }
+  .nav { padding: 0 20px; }
+  .nav__links, .nav__counter { display: none; }
+  .nav__burger { display: flex; }
+  .days-grid { grid-template-columns: 1fr 1fr; }
+  .requests-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer__top { grid-template-columns: 1fr; }
+  .footer__bottom { padding: 20px; }
+  .community-inner { padding: 36px 24px; }
+  .post-form { padding: 24px; }
+  .board__header { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="fa fa-check-circle"></i> <span id="toast-msg">Request posted successfully!</span></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav__logo">
+    <div class="nav__logo-mark">E</div>
+    <div class="nav__logo-text">Eke <span>Market Day</span></div>
+  </a>
+  <ul class="nav__links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#board">Browse Requests</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#post">Post a Request</a></li>
+    <li><a href="#community">Community</a></li>
+  </ul>
+  <div class="nav__counter"><div class="dot"></div> 14 active requests</div>
+  <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MARKET TICKER -->
+<div class="market-ticker" style="margin-top:68px;">
+  <div class="ticker-track" id="ticker">
+    <div class="ticker-item"><i class="fa fa-circle"></i> Today: Eke Market Day</div>
+    <div class="ticker-item"><i class="fa fa-circle"></i> 14 open shopping requests</div>
+    <div class="ticker-item"><i class="fa fa-circle"></i> Brixton Market · Dalston · Peckham · Elephant & Castle</div>
+    <div class="ticker-item"><i class="fa fa-circle"></i> Earn while you shop — claim a request near you</div>
+    <div class="ticker-item"><i class="fa fa-circle"></i> Nanny & Childcare available</div>
+    <div class="ticker-item"><i class="fa fa-circle"></i> New shopper? Join the community for free</div>
+    <div class="ticker-item"><i class="fa fa-circle"></i> Today: Eke Market Day</div>
+    <div class="ticker-item"><i class="fa fa-circle"></i> 14 open shopping requests</div>
+    <div class="ticker-item"><i class="fa fa-circle"></i> Brixton Market · Dalston · Peckham · Elephant & Castle</div>
+    <div class="ticker-item"><i class="fa fa-circle"></i> Earn while you shop — claim a request near you</div>
+    <div class="ticker-item"><i class="fa fa-circle"></i> Nanny & Childcare available</div>
+    <div class="ticker-item"><i class="fa fa-circle"></i> New shopper? Join the community for free</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero pattern-bg">
+  <div class="hero__left">
+    <div class="hero__day-badge"><div class="divot"></div> <span style="font-style:italic">Eke</span> &nbsp;·&nbsp; Wednesday Market Day</div>
+    <h1 class="hero__title">
+      Shop<br>
+      Together,<br>
+      <em>Share</em><br>
+      <span class="outline">Together</span>
+    </h1>
+    <p class="hero__sub">A community platform where neighbours shop for each other at African & diaspora markets — and earn while doing it. Food, essentials, nanny support, and more.</p>
+    <div class="hero__actions">
+      <a href="#post" class="btn btn--primary"><i class="fa fa-basket-shopping"></i> Post a Request</a>
+      <a href="#board" class="btn btn--outline">Browse Requests <i class="fa fa-arrow-right"></i></a>
+    </div>
+    <div class="hero__stats">
+      <div>
+        <div class="hero__stat-num">14</div>
+        <div class="hero__stat-label">Active Requests</div>
+      </div>
+      <div>
+        <div class="hero__stat-num">38</div>
+        <div class="hero__stat-label">Community Shoppers</div>
+      </div>
+      <div>
+        <div class="hero__stat-num">6</div>
+        <div class="hero__stat-label">Markets Covered</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero__right">
+    <div class="float-board">
+      <div class="float-card">
+        <div class="float-card__header">
+          <div class="float-card__avatar float-card__avatar--clay"><i class="fa fa-user"></i></div>
+          <div>
+            <div class="float-card__name">Adaeze O.</div>
+            <div class="float-card__time">Posted 12 min ago · Brixton</div>
+          </div>
+        </div>
+        <ul class="float-card__list">
+          <li>Ugu leaves (2 bundles)</li>
+          <li>Stockfish (medium size)</li>
+          <li>Ogiri (Calabash brand)</li>
+          <li>Crayfish (1 cup)</li>
+        </ul>
+        <span class="float-card__tag">+£5 tip offered</span>
+      </div>
+      <div class="float-card">
+        <div class="float-card__header">
+          <div class="float-card__avatar float-card__avatar--sage"><i class="fa fa-check-circle"></i></div>
+          <div>
+            <div class="float-card__name">Kemi W.</div>
+            <div class="float-card__time">Claimed · Dalston Market</div>
+          </div>
+        </div>
+        <div class="float-card__claimed"><i class="fa fa-circle-check"></i> Claimed by Taiwo A.</div>
+        <span class="float-card__tag float-card__tag--green">Delivering today</span>
+      </div>
+      <div class="float-card">
+        <div class="float-card__header">
+          <div class="float-card__avatar float-card__avatar--ochre"><i class="fa fa-child"></i></div>
+          <div>
+            <div class="float-card__name">Ngozi M.</div>
+            <div class="float-card__time">Nanny needed · 3 hrs · Peckham</div>
+          </div>
+        </div>
+        <ul class="float-card__list">
+          <li>Childcare 2pm–5pm</li>
+          <li>2 children (ages 4 &amp; 7)</li>
+        </ul>
+        <span class="float-card__tag float-card__tag--ochre">£25 offered</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- MARKET DAYS -->
+<section class="market-days" id="how">
+  <div class="container">
+    <span class="label">Market Calendar</span>
+    <h2 class="h2">The Four <em>Market Days</em></h2>
+    <div class="days-grid">
+      <div class="day-card">
+        <div class="day-card__name">Eke</div>
+        <div class="day-card__igbo">EKE · FIRST DAY</div>
+        <div class="day-card__desc">The biggest market day. Best for bulk produce, fish, spices, and fabrics.</div>
+        <span class="day-card__badge day-card__badge--live"><i class="fa fa-circle" style="font-size:7px"></i> Today</span>
+      </div>
+      <div class="day-card">
+        <div class="day-card__name">Orie</div>
+        <div class="day-card__igbo">ORIE · SECOND DAY</div>
+        <div class="day-card__desc">Good for household goods, peppers, and fresh vegetables.</div>
+        <span class="day-card__badge day-card__badge--upcoming">Tomorrow</span>
+      </div>
+      <div class="day-card">
+        <div class="day-card__name">Afọ</div>
+        <div class="day-card__igbo">AFỌ · THIRD DAY</div>
+        <div class="day-card__desc">Livestock, grains, and artisan crafts. Great for specialty items.</div>
+        <span class="day-card__badge day-card__badge--upcoming">In 2 days</span>
+      </div>
+      <div class="day-card">
+        <div class="day-card__name">Nkwo</div>
+        <div class="day-card__igbo">NKWO · FOURTH DAY</div>
+        <div class="day-card__desc">Quiet day. Perfect for personal errands, childcare, and food prep.</div>
+        <span class="day-card__badge day-card__badge--rest">In 3 days</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="howworks">
+  <div class="container">
+    <span class="label">How It Works</span>
+    <h2 class="h2">Simple as going to <em>market</em></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step__num">01</div>
+        <div class="step__icon"><i class="fa fa-list-check"></i></div>
+        <h3 class="step__title">Post Your List</h3>
+        <p class="step__desc">Share what you need — groceries, African produce, a nanny for a few hours, or an errand. Set a tip or payment for the helper.</p>
+        <div class="step__connector"><i class="fa fa-arrow-right"></i></div>
+      </div>
+      <div class="step">
+        <div class="step__num">02</div>
+        <div class="step__icon"><i class="fa fa-hand-pointer"></i></div>
+        <h3 class="step__title">A Shopper Claims It</h3>
+        <p class="step__desc">A community member already heading to that market or area claims your request and shops on your behalf, right alongside their own.</p>
+        <div class="step__connector"><i class="fa fa-arrow-right"></i></div>
+      </div>
+      <div class="step">
+        <div class="step__num">03</div>
+        <div class="step__icon"><i class="fa fa-truck-fast"></i></div>
+        <h3 class="step__title">Receive &amp; Pay</h3>
+        <p class="step__desc">Your items arrive at your door or a drop-off point. You pay for goods plus the tip agreed. Everyone wins — community built one shop at a time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REQUEST BOARD -->
+<section class="board" id="board">
+  <div class="container">
+    <div class="board__header">
+      <div>
+        <span class="label">Live Board</span>
+        <h2 class="h2">Open <em>Requests</em></h2>
+      </div>
+      <div class="board__filters">
+        <button class="filter-btn active" onclick="filterCards('all',this)">All</button>
+        <button class="filter-btn" onclick="filterCards('shopping',this)">Shopping</button>
+        <button class="filter-btn" onclick="filterCards('nanny',this)">Nanny</button>
+        <button class="filter-btn" onclick="filterCards('errand',this)">Errands</button>
+      </div>
+    </div>
+    <div class="requests-grid" id="requestsGrid">
+
+      <!-- CARD 1 -->
+      <div class="request-card" data-type="shopping">
+        <div class="request-card__top">
+          <div class="request-card__user">
+            <div class="request-card__avatar">A</div>
+            <div>
+              <div class="request-card__name">Adaeze O.</div>
+              <div class="request-card__location"><i class="fa fa-location-dot" style="color:var(--clay);font-size:9px"></i> Brixton Market</div>
+            </div>
+          </div>
+          <span class="request-card__type type--shopping">Shopping</span>
+        </div>
+        <div class="request-card__title">Weekly Soup Ingredients</div>
+        <div class="request-card__items">
+          <span class="item-pill">Ugu leaves</span>
+          <span class="item-pill">Stockfish</span>
+          <span class="item-pill">Ogiri</span>
+          <span class="item-pill">Crayfish</span>
+          <span class="item-pill">Palm oil</span>
+        </div>
+        <div class="request-card__meta">
+          <div>
+            <div class="request-card__reward">£5 <span>tip + cost covered</span></div>
+            <div class="request-card__urgency"><span class="urgency-dot urgency-dot--high"></span> Needed by 5pm</div>
+          </div>
+          <button class="request-card__claim" onclick="claimRequest(this)">Claim</button>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="request-card request-card--nanny" data-type="nanny">
+        <div class="request-card__top">
+          <div class="request-card__user">
+            <div class="request-card__avatar" style="background:var(--ochre-dim);color:var(--ochre)">N</div>
+            <div>
+              <div class="request-card__name">Ngozi M.</div>
+              <div class="request-card__location"><i class="fa fa-location-dot" style="color:var(--clay);font-size:9px"></i> Peckham, SE15</div>
+            </div>
+          </div>
+          <span class="request-card__type type--nanny">Nanny</span>
+        </div>
+        <div class="request-card__title">Childcare 2pm – 5pm Today</div>
+        <div class="request-card__items">
+          <span class="item-pill">2 children (4 &amp; 7)</span>
+          <span class="item-pill">3 hours</span>
+          <span class="item-pill">CRB preferred</span>
+        </div>
+        <div class="request-card__meta">
+          <div>
+            <div class="request-card__reward">£25 <span>flat rate</span></div>
+            <div class="request-card__urgency"><span class="urgency-dot urgency-dot--high"></span> Today only</div>
+          </div>
+          <button class="request-card__claim" onclick="claimRequest(this)">Claim</button>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="request-card request-card--errand" data-type="errand">
+        <div class="request-card__top">
+          <div class="request-card__user">
+            <div class="request-card__avatar" style="background:rgba(74,124,89,.12);color:var(--sage)">T</div>
+            <div>
+              <div class="request-card__name">Taiwo B.</div>
+              <div class="request-card__location"><i class="fa fa-location-dot" style="color:var(--clay);font-size:9px"></i> Dalston, E8</div>
+            </div>
+          </div>
+          <span class="request-card__type type--errand">Errand</span>
+        </div>
+        <div class="request-card__title">Post office + pharmacy run</div>
+        <div class="request-card__items">
+          <span class="item-pill">Send 2 parcels</span>
+          <span class="item-pill">Pick up prescription</span>
+          <span class="item-pill">~1 hour</span>
+        </div>
+        <div class="request-card__meta">
+          <div>
+            <div class="request-card__reward">£10 <span>tip</span></div>
+            <div class="request-card__urgency"><span class="urgency-dot urgency-dot--med"></span> Flexible today</div>
+          </div>
+          <button class="request-card__claim" onclick="claimRequest(this)">Claim</button>
+        </div>
+      </div>
+
+      <!-- CARD 4 - CLAIMED -->
+      <div class="request-card" data-type="shopping">
+        <div class="request-card__top">
+          <div class="request-card__user">
+            <div class="request-card__avatar">K</div>
+            <div>
+              <div class="request-card__name">Kemi W.</div>
+              <div class="request-card__location"><i class="fa fa-location-dot" style="color:var(--clay);font-size:9px"></i> Elephant &amp; Castle</div>
+            </div>
+          </div>
+          <span class="request-card__type type--shopping">Shopping</span>
+        </div>
+        <div class="request-card__title">Nigerian Provisions</div>
+        <div class="request-card__items">
+          <span class="item-pill">Indomie (carton)</span>
+          <span class="item-pill">Seasoning cubes</span>
+          <span class="item-pill">Tomato paste</span>
+        </div>
+        <div class="request-card__meta">
+          <div>
+            <div class="request-card__reward">£4 <span>tip + cost</span></div>
+            <div class="request-card__urgency"><span class="urgency-dot urgency-dot--low"></span> Tomorrow ok</div>
+          </div>
+          <div class="request-card__claimed"><i class="fa fa-circle-check"></i> Claimed by Seun</div>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="request-card" data-type="shopping">
+        <div class="request-card__top">
+          <div class="request-card__user">
+            <div class="request-card__avatar" style="background:rgba(212,160,23,.1);color:var(--ochre)">F</div>
+            <div>
+              <div class="request-card__name">Fatima D.</div>
+              <div class="request-card__location"><i class="fa fa-location-dot" style="color:var(--clay);font-size:9px"></i> Ridley Road, E8</div>
+            </div>
+          </div>
+          <span class="request-card__type type--shopping">Shopping</span>
+        </div>
+        <div class="request-card__title">Halal Meat &amp; Spices</div>
+        <div class="request-card__items">
+          <span class="item-pill">Lamb cuts (2kg)</span>
+          <span class="item-pill">Suya spice</span>
+          <span class="item-pill">Dates (1 box)</span>
+          <span class="item-pill">Cardamom</span>
+        </div>
+        <div class="request-card__meta">
+          <div>
+            <div class="request-card__reward">£8 <span>tip + cost</span></div>
+            <div class="request-card__urgency"><span class="urgency-dot urgency-dot--med"></span> By 6pm</div>
+          </div>
+          <button class="request-card__claim" onclick="claimRequest(this)">Claim</button>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="request-card request-card--nanny" data-type="nanny">
+        <div class="request-card__top">
+          <div class="request-card__user">
+            <div class="request-card__avatar" style="background:rgba(74,124,89,.12);color:var(--sage)">C</div>
+            <div>
+              <div class="request-card__name">Chioma E.</div>
+              <div class="request-card__location"><i class="fa fa-location-dot" style="color:var(--clay);font-size:9px"></i> Stockwell, SW9</div>
+            </div>
+          </div>
+          <span class="request-card__type type--nanny">Nanny</span>
+        </div>
+        <div class="request-card__title">After-school pickup &amp; care</div>
+        <div class="request-card__items">
+          <span class="item-pill">Pickup at 3:15pm</span>
+          <span class="item-pill">1 child (age 9)</span>
+          <span class="item-pill">Help with homework</span>
+        </div>
+        <div class="request-card__meta">
+          <div>
+            <div class="request-card__reward">£20 <span>flat rate</span></div>
+            <div class="request-card__urgency"><span class="urgency-dot urgency-dot--high"></span> Urgent</div>
+          </div>
+          <button class="request-card__claim" onclick="claimRequest(this)">Claim</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- POST FORM -->
+<section class="post-section" id="post">
+  <div class="container">
+    <span class="label" style="background:rgba(232,101,58,.15);border-color:rgba(232,101,58,.3);color:var(--clay-light)">Post a Request</span>
+    <h2 class="h2">Need something? <em>Ask the market.</em></h2>
+    <p class="ec-body" style="font-size:14px;margin-top:10px;color:rgba(250,247,242,.5)">Post your list and let a community shopper handle it for you.</p>
+    <div class="post-grid">
+      <div class="post-info">
+        <ul class="post-info__list">
+          <li class="post-info__item">
+            <div class="post-info__icon"><i class="fa fa-shield-halved"></i></div>
+            <div class="post-info__text"><strong>Community Verified</strong>All shoppers are community members with reviews and ratings from previous requests.</div>
+          </li>
+          <li class="post-info__item">
+            <div class="post-info__icon"><i class="fa fa-money-bill-wave"></i></div>
+            <div class="post-info__text"><strong>You Set the Tip</strong>Offer what feels fair. Most requests include cost + £3–£10 tip for the shopper's time.</div>
+          </li>
+          <li class="post-info__item">
+            <div class="post-info__icon"><i class="fa fa-location-dot"></i></div>
+            <div class="post-info__text"><strong>Local Delivery</strong>Items come to your door or an agreed drop-off. Same day or next day options available.</div>
+          </li>
+          <li class="post-info__item">
+            <div class="post-info__icon"><i class="fa fa-child-reaching"></i></div>
+            <div class="post-info__text"><strong>Nanny &amp; Errand Support</strong>Beyond shopping — post requests for childcare, school pickups, and local errands too.</div>
+          </li>
+        </ul>
+      </div>
+      <div class="post-form">
+        <div class="post-form__title">Post a new <em style="font-family:var(--font-display);color:var(--clay)">request</em></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="e.g. Adaeze O.">
+          </div>
+          <div class="form-group">
+            <label>Postcode / Area</label>
+            <input type="text" placeholder="e.g. SW9 or Stockwell">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Type of Request</label>
+          <select id="reqType" onchange="updateFormType()">
+            <option value="" disabled selected>Select…</option>
+            <option value="shopping">🛒 Shopping — market produce &amp; groceries</option>
+            <option value="nanny">🧒 Nanny / Childcare</option>
+            <option value="errand">📦 Errand — post office, pharmacy, etc.</option>
+            <option value="other">✳️ Something else</option>
+          </select>
+        </div>
+        <div class="form-group" id="marketGroup">
+          <label>Preferred Market</label>
+          <select>
+            <option value="" disabled selected>Select a market…</option>
+            <option>Brixton Market (SW9)</option>
+            <option>Ridley Road, Dalston (E8)</option>
+            <option>Peckham Market (SE15)</option>
+            <option>Elephant &amp; Castle (SE1)</option>
+            <option>Lewisham Market (SE13)</option>
+            <option>Any / Flexible</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Items / Details (press Enter to add)</label>
+          <div class="items-input-area" id="itemsArea">
+            <input class="items-input" id="itemsInput" placeholder="Type an item and press Enter…">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Needed By</label>
+            <input type="time" id="neededBy">
+          </div>
+          <div class="form-group">
+            <label>Tip Offered (£)</label>
+            <input type="number" placeholder="e.g. 5" min="0" step="0.50">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Any notes for the shopper?</label>
+          <textarea placeholder="Brands you prefer, allergies, specific instructions…"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitRequest(event)">
+          Post to the Market Board <i class="fa fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-strip" id="services">
+  <div class="container">
+    <span class="label">What We Support</span>
+    <h2 class="h2">More than <em>shopping</em></h2>
+    <div class="services-row">
+      <div class="service-tile">
+        <div class="service-tile__icon service-tile__icon--clay"><i class="fa fa-basket-shopping"></i></div>
+        <h3 class="service-tile__title">Market Shopping</h3>
+        <p class="service-tile__desc">African produce, Caribbean staples, halal meats, fresh vegetables — sourced from the real markets your community relies on.</p>
+        <div class="service-tile__tags">
+          <span class="service-tile__tag">Brixton</span>
+          <span class="service-tile__tag">Ridley Road</span>
+          <span class="service-tile__tag">Peckham</span>
+          <span class="service-tile__tag">Elephant &amp; Castle</span>
+          <span class="service-tile__tag">Lewisham</span>
+        </div>
+      </div>
+      <div class="service-tile">
+        <div class="service-tile__icon service-tile__icon--ochre"><i class="fa fa-child-reaching"></i></div>
+        <h3 class="service-tile__title">Nanny &amp; Childcare</h3>
+        <p class="service-tile__desc">Trusted community members available for childcare, school pickups, and after-school supervision — vetted and reviewed.</p>
+        <div class="service-tile__tags">
+          <span class="service-tile__tag">School pickup</span>
+          <span class="service-tile__tag">After-school care</span>
+          <span class="service-tile__tag">Hourly rate</span>
+          <span class="service-tile__tag">Babysitting</span>
+        </div>
+      </div>
+      <div class="service-tile">
+        <div class="service-tile__icon service-tile__icon--sage"><i class="fa fa-box-open"></i></div>
+        <h3 class="service-tile__title">Errands &amp; Delivery</h3>
+        <p class="service-tile__desc">Post office runs, pharmacy pickups, council office visits, document drops — community support for migrants navigating daily life.</p>
+        <div class="service-tile__tags">
+          <span class="service-tile__tag">Post office</span>
+          <span class="service-tile__tag">Pharmacy</span>
+          <span class="service-tile__tag">Same-day</span>
+          <span class="service-tile__tag">Document runs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="community" id="community">
+  <div class="container">
+    <div class="community-inner">
+      <div class="community-grid">
+        <div class="community-text">
+          <span class="label">Built for Community</span>
+          <h2 class="h2" style="margin-bottom:20px;">Rooted in <em>solidarity</em></h2>
+          <p>Eke Market Day was born from the reality that many African and diaspora migrants — especially new arrivals, parents with young children, and the elderly — can't always make it to the market themselves.</p>
+          <p>We believe the community already has everything it needs. Someone is always going to the market. Someone always needs something from the market. We just connect them.</p>
+          <p style="font-family:var(--font-display);font-size:1.1rem;font-style:italic;color:var(--clay);">"Onye wetara oji wetara ndu" — He who brings kola brings life.</p>
+          <div class="community-actions">
+            <a href="#post" class="btn btn--primary">Post a Request</a>
+            <a href="#board" class="btn btn--outline">Become a Shopper</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;">Recent Community Activity</div>
+          <div class="pledge-row">
+            <div class="pledge-item">
+              <div class="pledge-item__avatar">S</div>
+              <div class="pledge-item__info">
+                <div class="pledge-item__name">Seun A.</div>
+                <div class="pledge-item__action">Claimed Kemi's Brixton shopping list</div>
+              </div>
+              <div class="pledge-item__time">4 min ago</div>
+            </div>
+            <div class="pledge-item">
+              <div class="pledge-item__avatar" style="background:rgba(212,160,23,.1);color:var(--ochre)">B</div>
+              <div class="pledge-item__info">
+                <div class="pledge-item__name">Bisi O.</div>
+                <div class="pledge-item__action">Delivered 3 items to Adaeze — ⭐⭐⭐⭐⭐</div>
+              </div>
+              <div class="pledge-item__time">28 min ago</div>
+            </div>
+            <div class="pledge-item">
+              <div class="pledge-item__avatar" style="background:rgba(74,124,89,.12);color:var(--sage)">M</div>
+              <div class="pledge-item__info">
+                <div class="pledge-item__name">Mary N.</div>
+                <div class="pledge-item__action">Posted nanny request for tomorrow</div>
+              </div>
+              <div class="pledge-item__time">1 hr ago</div>
+            </div>
+            <div class="pledge-item">
+              <div class="pledge-item__avatar">I</div>
+              <div class="pledge-item__info">
+                <div class="pledge-item__name">Ifeoma C.</div>
+                <div class="pledge-item__action">Joined as a community shopper in Peckham</div>
+              </div>
+              <div class="pledge-item__time">2 hrs ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__brand">
+      <div class="footer__brand-mark">E</div>
+      <p>Eke Market Day is a community platform by EonCanvas, empowering African and diaspora migrants through shared shopping, childcare, and mutual support.</p>
+    </div>
+    <div class="footer__col">
+      <h4>Platform</h4>
+      <a href="#board">Browse Requests</a>
+      <a href="#post">Post a Request</a>
+      <a href="#services">Our Services</a>
+      <a href="#how">How It Works</a>
+    </div>
+    <div class="footer__col">
+      <h4>Markets</h4>
+      <a href="#">Brixton Market</a>
+      <a href="#">Ridley Road, Dalston</a>
+      <a href="#">Peckham Market</a>
+      <a href="#">Elephant &amp; Castle</a>
+      <a href="#">Lewisham Market</a>
+    </div>
+    <div class="footer__col">
+      <h4>Community</h4>
+      <a href="https://www.instagram.com/e_on_canvas" target="_blank">Instagram</a>
+      <a href="https://www.tiktok.com/@e_on_canvas" target="_blank">TikTok</a>
+      <a href="https://substack.com/@eoncanvas" target="_blank">Newsletter</a>
+      <a href="https://calendly.com/eoncanvas-info/30min" target="_blank">Book a Call</a>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2025 Eke Market Day · An EonCanvas Initiative · Brighton, UK</span>
+    <span class="footer__badge"><i class="fa fa-heart" style="color:var(--clay)"></i> Built for the community</span>
+  </div>
+</footer>
+
+<script>
+// NAV scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 24);
+}, { passive: true });
+
+// Filter cards
+function filterCards(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.request-card').forEach(card => {
+    card.style.display = (type === 'all' || card.dataset.type === type) ? '' : 'none';
+  });
+}
+
+// Claim request
+function claimRequest(btn) {
+  const card = btn.closest('.request-card');
+  const name = card.querySelector('.request-card__name').textContent;
+  btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.parentElement.innerHTML = `<div class="request-card__claimed"><i class="fa fa-circle-check"></i> You claimed this</div>`;
+    showToast(`You've claimed ${name}'s request! They'll be notified.`);
+  }, 700);
+}
+
+// Items tag input
+const itemsInput = document.getElementById('itemsInput');
+const itemsArea  = document.getElementById('itemsArea');
+const tags = [];
+itemsInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && itemsInput.value.trim()) {
+    e.preventDefault();
+    const val = itemsInput.value.trim();
+    tags.push(val);
+    const tag = document.createElement('span');
+    tag.className = 'item-tag';
+    tag.innerHTML = `${val}<button onclick="this.parentElement.remove()" title="Remove">×</button>`;
+    itemsArea.insertBefore(tag, itemsInput);
+    itemsInput.value = '';
+  }
+});
+itemsArea.addEventListener('click', () => itemsInput.focus());
+
+// Update form type
+function updateFormType() {
+  const v = document.getElementById('reqType').value;
+  const mg = document.getElementById('marketGroup');
+  mg.style.display = v === 'nanny' || v === 'errand' ? 'none' : '';
+}
+
+// Submit request
+function submitRequest(e) {
+  e.preventDefault();
+  showToast('Your request has been posted to the board!');
+}
+
+// Toast
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+// Live counter sim
+let count = 14;
+setInterval(() => {
+  const chance = Math.random();
+  if (chance > 0.7) {
+    count++;
+    document.querySelector('.nav__counter').innerHTML = `<div class="dot"></div> ${count} active requests`;
+  }
+}, 18000);
+</script>
+</body>
+</html>

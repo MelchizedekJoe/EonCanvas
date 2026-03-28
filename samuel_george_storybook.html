@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Invisible File — A Story of Samuel George</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --aged: #e8dfc8;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --red: #8b1a1a;
+    --shadow: #1a0a0a;
+    --grey: #4a4a4a;
+    --stamp-red: rgba(139,26,26,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1a1410;
+    font-family: 'Crimson Pro', Georgia, serif;
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 100vh;
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 60px 20px;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 30%, rgba(201,168,76,0.08) 0%, transparent 70%),
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px);
+  }
+
+  .cover-border {
+    position: absolute;
+    inset: 24px;
+    border: 1px solid rgba(201,168,76,0.3);
+    pointer-events: none;
+  }
+  .cover-border::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .cover-content {
+    position: relative;
+    text-align: center;
+    max-width: 680px;
+  }
+
+  .cover-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+
+  .cover-eye {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 40px;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900;
+    color: var(--paper);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s forwards;
+  }
+
+  .cover-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .cover-subtitle {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: rgba(245,240,232,0.5);
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
+
+  .cover-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 1s 1.1s forwards;
+  }
+  .cover-divider::before,
+  .cover-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .cover-divider span {
+    color: var(--gold);
+    font-size: 1.2rem;
+  }
+
+  .cover-author {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: rgba(245,240,232,0.4);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1s 1.3s forwards;
+  }
+
+  .cover-stamp {
+    position: absolute;
+    bottom: 60px;
+    right: 60px;
+    width: 100px;
+    height: 100px;
+    border: 3px solid var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 1s 2s forwards;
+    transform: rotate(-15deg);
+  }
+  .cover-stamp span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    color: var(--red);
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 1s 2.5s forwards;
+  }
+  .scroll-hint span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: rgba(245,240,232,0.3);
+    text-transform: uppercase;
+  }
+  .scroll-arrow {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* ── PAGE LAYOUT ── */
+  .book {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+  }
+
+  /* ── CHAPTER OPENER ── */
+  .chapter-opener {
+    padding: 100px 0 60px;
+    text-align: center;
+    position: relative;
+  }
+
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .chapter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    color: var(--paper);
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .chapter-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .chapter-epigraph {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: rgba(245,240,232,0.45);
+    max-width: 500px;
+    margin: 24px auto 0;
+    line-height: 1.7;
+  }
+
+  .chapter-rule {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 36px 0;
+  }
+  .chapter-rule::before, .chapter-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+  }
+  .chapter-rule span {
+    color: var(--gold);
+    font-size: 0.9rem;
+    opacity: 0.6;
+  }
+
+  /* ── PROSE ── */
+  .prose {
+    background: var(--paper);
+    border-radius: 2px;
+    padding: 56px clamp(24px, 6vw, 72px);
+    position: relative;
+    box-shadow:
+      0 4px 6px rgba(0,0,0,0.4),
+      0 20px 60px rgba(0,0,0,0.5),
+      inset 0 0 80px rgba(0,0,0,0.04);
+    margin-bottom: 40px;
+  }
+
+  .prose::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--gold), transparent, var(--gold));
+    opacity: 0.4;
+  }
+
+  .prose p {
+    font-size: clamp(1.05rem, 2vw, 1.18rem);
+    line-height: 1.85;
+    color: #1a1410;
+    margin-bottom: 1.4em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .prose p:first-child::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.8;
+    margin: 0.08em 0.1em 0 0;
+    color: var(--red);
+  }
+
+  .prose p strong {
+    font-weight: 600;
+    color: var(--shadow);
+  }
+
+  .prose p em {
+    font-style: italic;
+    color: #3a2a1a;
+  }
+
+  /* ── CLASSIFIED INSERTS ── */
+  .classified {
+    background: var(--aged);
+    border: 1px solid rgba(139,26,26,0.3);
+    border-left: 4px solid var(--red);
+    padding: 28px 32px;
+    margin: 40px 0;
+    position: relative;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.8;
+    color: var(--grey);
+  }
+
+  .classified::before {
+    content: 'INTELLIGENCE RECORD — RESTRICTED';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--aged);
+    padding: 0 8px;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--red);
+  }
+
+  .classified .redacted {
+    background: var(--ink);
+    color: var(--ink);
+    padding: 0 4px;
+    user-select: none;
+  }
+
+  /* ── SCENE BREAKS ── */
+  .scene-break {
+    text-align: center;
+    margin: 48px 0;
+    color: rgba(245,240,232,0.3);
+    letter-spacing: 0.5em;
+    font-size: 0.8rem;
+  }
+
+  /* ── PULL QUOTES ── */
+  .pull-quote {
+    border-top: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    padding: 28px 0;
+    margin: 48px 0;
+    text-align: center;
+  }
+
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-style: italic;
+    color: var(--paper) !important;
+    line-height: 1.5;
+    margin: 0 !important;
+    text-align: center !important;
+  }
+
+  .pull-quote p::first-letter {
+    font-size: inherit !important;
+    float: none !important;
+    color: var(--paper) !important;
+  }
+
+  /* ── FOOTNOTES / REAL WORLD BOXES ── */
+  .realworld {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 24px 28px;
+    margin: 40px 0;
+    border-radius: 2px;
+  }
+
+  .realworld-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .realworld p {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    color: rgba(245,240,232,0.65);
+    line-height: 1.7;
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* ── END MATTER ── */
+  .end-matter {
+    text-align: center;
+    padding: 80px 0 40px;
+  }
+
+  .end-matter .finis {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+
+  .end-matter p {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    color: rgba(245,240,232,0.4);
+    font-style: italic;
+    line-height: 1.8;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .prose { padding: 36px 24px; }
+    .cover-stamp { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ BACK NAV ══ -->
+<nav style="
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(13,13,13,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+">
+  <a href="stories.html" style="
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: rgba(201,168,76,0.7);
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  " onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='rgba(201,168,76,0.7)'">
+    <span style="font-size:0.9rem">←</span> Back to Stories
+  </a>
+</nav>
+
+<!-- ══════════════════════════════════════════════════
+     COVER
+══════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-border"></div>
+
+  <div class="cover-content">
+    <div class="cover-label">A Story of Survival &amp; Resistance</div>
+
+    <svg class="cover-eye" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="40" cy="40" rx="36" ry="20" stroke="#c9a84c" stroke-width="1.5" opacity="0.6"/>
+      <circle cx="40" cy="40" r="10" stroke="#c9a84c" stroke-width="1.5" opacity="0.8"/>
+      <circle cx="40" cy="40" r="4" fill="#c9a84c" opacity="0.5"/>
+      <line x1="40" y1="4" x2="40" y2="16" stroke="#8b1a1a" stroke-width="1" opacity="0.6"/>
+      <line x1="40" y1="64" x2="40" y2="76" stroke="#8b1a1a" stroke-width="1" opacity="0.6"/>
+      <line x1="4" y1="40" x2="16" y2="40" stroke="#8b1a1a" stroke-width="1" opacity="0.6"/>
+      <line x1="64" y1="40" x2="76" y2="40" stroke="#8b1a1a" stroke-width="1" opacity="0.6"/>
+    </svg>
+
+    <h1 class="cover-title">The<br><em>Invisible</em><br>File</h1>
+    <p class="cover-subtitle">The Story of Samuel George</p>
+
+    <div class="cover-divider"><span>✦</span></div>
+
+    <p class="cover-author">A Novel Grounded in Documented Truth</p>
+  </div>
+
+  <div class="cover-stamp"><span>Subject<br/>of<br/>Interest<br/>——<br/>Active</span></div>
+
+  <div class="scroll-hint">
+    <span>Read</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     CHAPTER ONE
+══════════════════════════════════════════════════ -->
+<div class="book">
+
+  <div class="chapter-opener">
+    <span class="chapter-number">Chapter One</span>
+    <h2 class="chapter-title">The File That<br><em>Arrived Before He Did</em></h2>
+    <p class="chapter-epigraph">"A man may be condemned before he speaks a word. The sentence is written in data, not ink."</p>
+    <div class="chapter-rule"><span>✦</span></div>
+  </div>
+
+  <div class="prose">
+    <p>Samuel George arrived at Heathrow on a Tuesday in November, carrying one large suitcase, a Bible his mother had pressed into his hands at Lagos airport, and a letter of acceptance from a logistics company in South London. He was thirty-one years old, broad-shouldered, careful with his words, and possessed of the particular stillness that comes from having survived things quietly. He had studied business administration in Ibadan, worked three years in supply chain management, and had been recommended by his uncle — a long-settled British citizen — to a company that needed his skills. His visa was legitimate. His references were clean. His record was clear.</p>
+
+    <p>What Samuel did not know — could not know — was that a file existed. Not a physical file, not yet. It was a digital constellation: his name appearing in the contact list of a third cousin who had once been interviewed, briefly, by counter-terrorism officers about a mosque he had attended in Birmingham. The cousin had been cleared entirely. The file was never formally closed. Samuel's name sat in a database, connected by a single line to a node that had itself been connected to nothing of consequence. But in the architecture of automated risk assessment, proximity is suspicion. Association is evidence. The algorithm does not distinguish between a family WhatsApp group and a conspiracy.</p>
+
+    <p>His flat was in Peckham — a room in a terraced house shared with two other men, one Ghanaian, one Jamaican-British, both quiet and working. The street was ordinary. The neighbours were ordinary. But within three weeks of his arrival, Samuel noticed something that he filed away as coincidence: a white Transit van parked outside most mornings, gone by evening. A neighbour from two doors down who seemed to glance at him with an attentiveness that was not quite neighbourly. Small things. He dismissed them. He had work to focus on.</p>
+
+    <p>The first disruption came at the bank. Samuel applied for a basic current account with a high-street bank, as any new resident would. The application was declined. No reason given. He applied to a second bank. Declined again. He discovered, through a referral from a Citizens Advice volunteer, that his address carried a <strong>CIFAS marker</strong> — a fraud prevention flag attached to a previous occupant of the flat. He had never been at that address before in his life. The marker did not know this. The algorithm that read it did not care. He would spend four months operating on a pre-paid card, unable to receive his salary by direct debit, unable to set up a phone contract, unable to pass the financial checks required to move to better accommodation.</p>
+
+    <p>He did not yet know that he was inside a system. He thought he was having bad luck.</p>
+  </div>
+
+  <div class="realworld">
+    <div class="realworld-label">✦ Documented Reality</div>
+    <p>CIFAS markers attached to addresses — rather than individuals — are a documented problem in the UK financial system. Innocent new residents at flagged addresses have been denied bank accounts, credit, and employment. The Information Commissioner's Office has received thousands of complaints about data accuracy in fraud prevention databases. Subjects are rarely notified that a marker exists until they are already denied a service.</p>
+  </div>
+
+  <div class="classified">
+    SUBJECT: GEORGE, Samuel A. &nbsp;|&nbsp; DOB: <span class="redacted">██████████</span><br>
+    NATIONALITY: Nigerian &nbsp;|&nbsp; STATUS: Leave to Remain (Work Visa)<br>
+    INTELLIGENCE MARKER: Associate (3rd degree) — <span class="redacted">████████████████</span><br>
+    SOURCE: Bulk communications data — automated flag<br>
+    REVIEWING OFFICER: <span class="redacted">████████</span> &nbsp;|&nbsp; LAST REVIEWED: <span class="redacted">██████</span><br>
+    ACTION: Passive monitoring. No warrant. Shared with <span class="redacted">████</span> financial partners under s.21 IPA 2016.
+  </div>
+
+  <div class="prose">
+    <p>By his fourth month, Samuel had made friends. There was Marcus, who worked security at a shopping centre and played chess online at midnight. There was Patience, a nurse originally from Enugu, who attended his church and shared his walk home on Sunday mornings. There was Dayo, his housemate, who made jollof rice that smelled like home and laughed too loudly at his own jokes. These were his people, his scaffolding in a new country.</p>
+
+    <p>What Samuel did not know was that Marcus had been approached, quietly, by a man who described himself as working for a community safety programme. The man had shown a badge — briefly, not long enough to read — and explained that there were concerns about radicalisation in the area. He asked Marcus whether Samuel had ever expressed extreme views. Marcus, a law-abiding man who trusted authority, said no — but he said it carefully, because the man had asked in a way that made saying no feel like something that needed to be earned. He mentioned that Samuel sometimes walked alone late at night. He mentioned that Samuel received phone calls in Yoruba he didn't understand. He mentioned that Samuel had once reacted angrily, briefly, when a supervisor at work had spoken to him dismissively. These were the observations of a friend, given in good faith, to someone he had no reason to distrust.</p>
+
+    <p>They were entered into a database that same afternoon. They would not be removed.</p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"The most effective informant is one who does not know they are an informant. Their good faith is the weapon."</p>
+  </div>
+
+  <div class="realworld">
+    <div class="realworld-label">✦ Documented Reality</div>
+    <p>The Undercover Policing Inquiry (2021–ongoing) has heard evidence that community members were regularly approached and recruited as informal intelligence sources, often without being told they were becoming Covert Human Intelligence Sources. The Prevent programme formally asks teachers, NHS workers, and community figures to report concerns — a structure critics describe as institutionalised community surveillance disproportionately affecting Muslim and Black communities.</p>
+  </div>
+
+</div><!-- /book -->
+
+
+<!-- ══════════════════════════════════════════════════
+     CHAPTER TWO
+══════════════════════════════════════════════════ -->
+<div class="book">
+
+  <div class="chapter-opener">
+    <span class="chapter-number">Chapter Two</span>
+    <h2 class="chapter-title">The Machinery<br><em>of Ordinary Ruin</em></h2>
+    <p class="chapter-epigraph">"They do not break you all at once. They arrange circumstances so that you break yourself, slowly, in front of witnesses."</p>
+    <div class="chapter-rule"><span>✦</span></div>
+  </div>
+
+  <div class="prose">
+    <p>The first thing to go was the job. Not dramatically — there was no confrontation, no accusation, no formal dismissal. The contract simply was not renewed. His supervisor, a man called Derek who had always been cordial, became briefly unavailable for the conversation Samuel had requested. An HR letter arrived explaining that the company was restructuring. Samuel later discovered, through Dayo who had a contact in the same industry, that two other positions in the same team had been filled within weeks of his departure. He was not restructured away. He was removed. He could not prove it. He had no evidence. He had a letter on company letterhead and a growing knowledge of what absence of evidence means when the evidence was never meant to be found.</p>
+
+    <p>He found other work — a warehouse position in Bermondsey, physically harder, less suited to his qualifications, but stable. He was grateful. He was also aware that he was being managed downward, his life being arranged around him into a shape that was smaller than the one he had arrived with. He kept this observation to himself. He had nobody to say it to who would understand without thinking him paranoid.</p>
+
+    <p>It was during the warehouse months that Samuel began to pay closer attention. Not obsessively — he was not a man given to obsession. But methodically. He noted the van. He noted the neighbour. He noted that certain conversations he had on his phone — about his job, about his plans, about a community meeting he had attended — seemed to precede changes in how people around him behaved. The supervisor who had been warm became watchful. The woman who lived above him began to keep unusual hours, as though aligned with his own movements. He said nothing. He observed.</p>
+
+    <p>His credit file, when he finally accessed it through a free check, contained three anomalies: a hard search from a lender he had never approached, a linked address he had never lived at, and a financial association with a name he did not recognise. Each anomaly, individually, was explicable as error. Together, they formed a portrait that was not his own. Any institution reading that file would see not Samuel George — logistics professional, church-going, careful saver — but Samuel George — financially irregular, transient, associated with unknown third parties. The portrait was false. The portrait was what the system saw.</p>
+
+    <p>He filed a Subject Access Request with the police. Six weeks later he received a letter confirming that no data was held about him — or that data was held but could not be disclosed on grounds of national security. The letter used language that managed to communicate both possibilities without committing to either. He filed the letter in a folder he had begun to keep. He bought a notebook and started writing dates.</p>
+  </div>
+
+  <div class="realworld">
+    <div class="realworld-label">✦ Documented Reality</div>
+    <p>The UK Blacklisting scandal — exposed in 2009 — revealed that a secret database maintained by the Consulting Association contained files on over 3,200 construction workers. Workers were denied employment across the industry based on trade union activity and political views. Files contained personal information gathered through informants and, allegedly, with the involvement of Special Branch. No police officer was ever prosecuted. Many affected workers lost years of work with no recourse.</p>
+  </div>
+
+  <div class="classified">
+    OPERATIONAL UPDATE — <span class="redacted">████████████</span><br>
+    Subject has filed Subject Access Request (PNC). Standard response issued.<br>
+    Subject has accessed credit file. Anomalies noted by subject — <span class="redacted">████</span> informed.<br>
+    Subject maintaining written log — assess significance.<br>
+    Community source MARCUS: no longer productive. Subject has distanced.<br>
+    New source identified: <span class="redacted">████████████</span> (workplace). Approach authorised.<br>
+    Psychological profile note: subject is <em>non-reactive</em>. Adjust approach.
+  </div>
+
+  <div class="prose">
+    <p>The adjustment, when it came, was social. Samuel began to notice what he could only describe as a cooling — not hostility, but the withdrawal of warmth. Patience, his friend from church, began to be less available. He would later understand, with a sadness that did not surprise him, that she had been spoken to by someone in the church leadership who had raised vague concerns about Samuel's background. Nothing specific. Just concerns. The kind of concerns that, once planted, grow in the dark without needing to be watered. Patience was not malicious. She was a nurse who worked long hours and did not need complications. She was used without knowing it.</p>
+
+    <p>At work, a new colleague named Troy arrived and attached himself to Samuel with an enthusiasm that felt, over time, slightly too calibrated. Troy asked questions — about Samuel's family in Nigeria, about his political views, about what he thought of certain news stories. Samuel answered carefully, as he always did. But Troy had a way of slightly mischaracterising Samuel's answers when repeating them to others — not lies, exactly. Emphases. Framings. <em>"Samuel thinks the government is corrupt"</em> — said in a certain tone, to a certain audience — lands differently than the thoughtful observation Samuel had actually made about institutional accountability. Troy was not Samuel's enemy. Troy was someone who had been given a task and a small payment and a justification that made the task feel like civic duty.</p>
+
+    <p>By his second year in England, Samuel was more isolated than he had been in his first month. His network had been systematically thinned. He could not name how it had happened. He could feel the shape of it — the way a person feels the shape of a room in the dark, hands outstretched, knowing the walls are there even without seeing them.</p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"Isolation is not what they do after surveillance. Isolation is the purpose of surveillance. A man alone cannot be believed."</p>
+  </div>
+
+  <div class="realworld">
+    <div class="realworld-label">✦ Documented Reality</div>
+    <p>The Undercover Policing Inquiry has heard testimony from women who formed long-term intimate relationships with undercover officers, only to discover their partners were reporting on them throughout. Officer "Mark Kennedy" maintained a false identity for seven years, forming deep personal bonds while filing intelligence reports on activists. Convictions secured using his evidence were later quashed. The psychological harm to those whose relationships were manufactured as intelligence operations is being formally examined by the Inquiry.</p>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     CHAPTER THREE
+══════════════════════════════════════════════════ -->
+<div class="book">
+
+  <div class="chapter-opener">
+    <span class="chapter-number">Chapter Three</span>
+    <h2 class="chapter-title">Sunday Morning<br><em>on Rye Lane</em></h2>
+    <p class="chapter-epigraph">"The loudest sermon was not preached from any pulpit. It was written in the way a police van slowed, and a stranger asked about a conversation held a mile away."</p>
+    <div class="chapter-rule"><span>✦</span></div>
+  </div>
+
+  <div class="prose">
+    <p>It was an ordinary Sunday in late autumn. Samuel woke early, as he always did, made instant coffee and read from the book of Job — not for comfort, but because Job had always struck him as the most honest book in the Bible. A man who is told his suffering has a cause, and who refuses to accept a false cause simply because the alternative is harder to bear. Samuel dressed carefully, the way his mother had taught him, and called his friend Kolade, who was studying theology in Manchester and who had, over many months of long phone calls, become Samuel's most trusted mind.</p>
+
+    <p>They talked for nearly an hour as Samuel made his way along Rye Lane toward the church. The conversation moved the way their best conversations always did — from the personal outward into the philosophical. Kolade had been reading neuroscience papers about the biological basis of moral behaviour. He was explaining, with his characteristic precision, the distinction between the clinical presentations of narcissism, sociopathy, and psychopathy — how narcissism operates like software, a learned adaptive pattern built on environment and attachment wounds, while psychopathy and sociopathy involve differences in the hardware itself, in the neurological architecture of empathy and fear response. He argued that true moral agency required the capacity to feel the weight of consequences — and that this was why, philosophically, free will could not be disentangled from the conditioning that shaped a person.</p>
+
+    <p>Samuel pushed back, as he always did. He said that if God existed and had given man a soul, then the soul was precisely what stood outside the conditioning — that was the theological point of it. The conversation was intelligent, exploratory, and entirely the kind of conversation that millions of people have every day about the nature of human behaviour. It was also, Samuel was aware, being heard. Not necessarily recorded in full — he had no way of knowing that. But heard. There had been too many subsequent confirmations for him to maintain the polite fiction of coincidence.</p>
+
+    <p>He registered the police sirens without breaking his conversational thread. Two cars, then a third, passing in the direction of the high street. Then a van, more slowly. He had learned — it had taken time to learn this — not to look. Not because he was hiding anything but because the performance of surveillance depends on the target looking. It needs the acknowledgement. He had decided, quietly, to refuse it.</p>
+  </div>
+
+  <div class="prose">
+    <p>He ended the call as he turned the corner and the church came into view — a converted Victorian building with good acoustics and a congregation that was mostly West African, some Caribbean, a few white British faces who came for the music. He loved the music. It was one of the uncomplicated things left to him.</p>
+
+    <p>He saw the van before he reached the gate. It was parked at the far end of the street, the angle of its windscreen making it impossible to see inside from the pavement. A man in his fifties, a member of the congregation Samuel recognised but did not know well, was standing near the entrance to the car park. As Samuel approached, the man turned. He looked toward the van. The look was not casual. It was the specific look of someone checking whether they had been seen to do what they had just done. The van moved forward slightly — not all the way to the church, just forward, repositioning. Samuel walked past without expression.</p>
+
+    <p>Inside the entrance hall, before the inner doors had been unlocked — they were running late, unusual for a church that prided itself on punctuality — a woman named Gloria, who organised the women's fellowship and who Samuel had spoken to perhaps four times in his life, stopped him with a hand on his arm.</p>
+
+    <p><em>"Were you talking to someone on your phone? About psychology and the mind?"</em> she asked. Her voice was careful. Not hostile. Almost concerned — in the way of someone who has been asked to be concerned on another's behalf.</p>
+
+    <p>Samuel looked at her for a moment. He felt the question register in his chest — not as fear, but as confirmation of something he had known for a long time and had never wanted to be certain of. He had been walking for forty minutes. He had been on a private call for most of that walk. The conversation had touched on clinical psychology and neuroscience. Gloria had not been on Rye Lane. Gloria had not passed him on his walk. Gloria knew the content of his conversation because someone had told her. Someone had told her recently enough that she had been positioned, here, at the church door, before he arrived.</p>
+
+    <p>He smiled at her. He said, <em>"Good morning, Gloria. Is it a good day for prayer?"</em></p>
+
+    <p>She blinked. Whatever response she had been prepared for, it was not this. He walked past her toward a seat near the window and opened his Bible to the forty-second Psalm. <em>As the deer pants for streams of water, so my soul pants for you, my God.</em> He sang when the music started. He prayed when the pastor prayed. He made his way home afterward through streets that were busy and bright, and he felt, not for the first time, the peculiar dignity of a person who has been underestimated by the machinery trained on them.</p>
+
+    <p>He took out his notebook that evening and wrote down what had happened. The date. The time. Gloria's exact words. The position of the van. The man at the car park entrance and the direction of his glance. He wrote it all down in his clear, careful handwriting, the same script he had used to take notes in lecture halls in Ibadan, in a life that felt like it belonged to someone freer. He wrote it down because writing it down was the one act available to him that the system could not undo. His record of what had happened. His version. His.</p>
+
+    <p>Outside, the city moved on — indifferent, enormous, full of files it did not know it carried. Samuel George made himself dinner, called his mother in Lagos to tell her he was well, and went to sleep without nightmares.</p>
+
+    <p>He was still here. That was not nothing. That was, in fact, everything.</p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"They had built a file about him. He had built a record about them. One of these was admissible. The other was the truth."</p>
+  </div>
+
+  <div class="realworld">
+    <div class="realworld-label">✦ Documented Reality</div>
+    <p>The Stephen Lawrence Inquiry (Macpherson Report, 1999) formally established institutional racism in the Metropolitan Police. Subsequent revelations through the Undercover Policing Inquiry confirmed that the Lawrence family's campaign was itself subject to covert surveillance and an active smear operation. A Black family seeking justice for a murdered child was treated as a threat. Officer Peter Francis disclosed he was specifically tasked with finding compromising information on Doreen Lawrence. This is confirmed, documented history — not allegory.</p>
+  </div>
+
+  <div class="classified">
+    FINAL OPERATIONAL NOTE — <span class="redacted">███████████████</span><br>
+    Subject attended church as expected. Community source activated at location.<br>
+    Subject response: <em>non-reactive</em>. No usable material obtained.<br>
+    Subject maintaining written log — significance elevated.<br>
+    Recommend: <span class="redacted">████████████████████████████████████████</span><br>
+    Psychological assessment: Subject is <strong>AWARE</strong>. Subject is <strong>COMPOSED</strong>.<br>
+    This presents <span class="redacted">████████████████</span> difficulties for continued operation.<br><br>
+    <em>Note appended by reviewing officer:</em> Subject has committed no offence. No offence anticipated.<br>
+    Original flag source: automated — third-degree association — <span class="redacted">████████</span> cleared 2019.<br>
+    Recommend file review. Recommend closure.<br>
+    <span class="redacted">████████████████████████████████████████████████████████████████████</span>
+  </div>
+
+  <!-- END MATTER -->
+  <div class="end-matter">
+    <div class="finis">— Finis —</div>
+    <p>
+      This story is fiction. The systems, laws, tactics, and documented cases it draws upon are real.<br><br>
+      The Investigatory Powers Act 2016. The CHIS Criminal Conduct Act 2021. The Blacklisting Scandal. The Undercover Policing Inquiry. The Macpherson Report. The Windrush Scandal. CIFAS database errors. Algorithmic discrimination in facial recognition. Predictive policing bias.<br><br>
+      Samuel George is invented. What happened to him has happened — and continues to happen — to people who are not.
+    </p>
+  </div>
+
+</div><!-- /book -->
+
+</body>
+</html>

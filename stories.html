@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Stories — fiction grounded in documented truth.">
+<title>Stories</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --aged: #e8dfc8;
+    --gold: #c9a84c;
+    --red: #8b1a1a;
+    --dim: rgba(245,240,232,0.45);
+    --dimmer: rgba(245,240,232,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #0f0d0a;
+    font-family: 'Crimson Pro', Georgia, serif;
+    color: var(--paper);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 20%, rgba(201,168,76,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,26,26,0.04) 0%, transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.008) 60px, rgba(255,255,255,0.008) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.008) 60px, rgba(255,255,255,0.008) 61px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(15,13,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .nav-home {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    color: var(--dimmer);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-home:hover { color: var(--gold); }
+
+  .nav-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(201,168,76,0.7);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-right {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--dimmer);
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px 24px 80px;
+  }
+
+  .hero-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900;
+    color: var(--paper);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.4s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--dim);
+    max-width: 520px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.6s forwards;
+  }
+
+  .hero-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px auto 0;
+    width: 280px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.8s forwards;
+  }
+  .hero-rule::before, .hero-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+  }
+  .hero-rule span { color: var(--gold); font-size: 0.8rem; }
+
+  /* ── GRID ── */
+  .stories-section {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 32px 120px;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: rgba(201,168,76,0.5);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2px;
+  }
+
+  /* ── STORY CARD ── */
+  .story-card {
+    background: rgba(245,240,232,0.03);
+    border: 1px solid rgba(245,240,232,0.06);
+    padding: 44px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s, border-color 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+  }
+
+  .story-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--gold);
+    transition: height 0.4s ease;
+  }
+
+  .story-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.04) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .story-card:hover {
+    background: rgba(245,240,232,0.05);
+    border-color: rgba(201,168,76,0.2);
+  }
+  .story-card:hover::before { height: 100%; }
+  .story-card:hover::after { opacity: 1; }
+
+  .card-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-tag::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(201,168,76,0.2);
+    max-width: 40px;
+  }
+
+  .card-number {
+    position: absolute;
+    top: 44px;
+    right: 40px;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    font-style: italic;
+    color: rgba(245,240,232,0.04);
+    line-height: 1;
+    user-select: none;
+    transition: color 0.3s;
+  }
+
+  .story-card:hover .card-number {
+    color: rgba(201,168,76,0.07);
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--paper);
+    line-height: 1.2;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .card-subject {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--dim);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-desc {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    color: var(--dimmer);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-chapters {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: var(--dimmer);
+    text-transform: uppercase;
+  }
+
+  .card-cta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .story-card:hover .card-cta {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ── COMING SOON CARD ── */
+  .story-card.soon {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .story-card.soon::before { display: none; }
+
+  .soon-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    color: var(--dimmer);
+    text-transform: uppercase;
+    border: 1px solid rgba(245,240,232,0.1);
+    padding: 4px 8px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 48px 24px;
+    border-top: 1px solid rgba(245,240,232,0.06);
+  }
+
+  footer p {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--dimmer);
+    line-height: 1.8;
+  }
+
+  footer .footer-mark {
+    color: var(--gold);
+    margin: 0 8px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-animate {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeUp 0.8s forwards;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    nav { padding: 16px 24px; }
+    .nav-right { display: none; }
+    .stories-section { padding: 20px 20px 80px; }
+    .story-card { padding: 32px 28px; }
+    .stories-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-home">← Home</a>
+  <span class="nav-title">Stories</span>
+  <span class="nav-right">Writing</span>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-label">A Collection of Stories</div>
+  <h1 class="hero-title">Fiction Built on<br><em>Documented Truth</em></h1>
+  <p class="hero-sub">Stories that use narrative to illuminate what reports and court documents say plainly — and what power prefers you not to read.</p>
+  <div class="hero-rule"><span>✦</span></div>
+</header>
+
+<!-- STORIES GRID -->
+<main class="stories-section">
+  <div class="section-label">Published — Share the link, not the page</div>
+
+  <div class="stories-grid">
+
+    <!-- CARD 1 — THE INVISIBLE FILE -->
+    <a href="the-invisible-file.html" class="story-card card-animate" style="animation-delay: 0.1s">
+      <div class="card-number">I</div>
+      <div class="card-tag">Surveillance · Identity · Race</div>
+      <h2 class="card-title">The <em>Invisible</em> File</h2>
+      <p class="card-subject">The Story of Samuel George</p>
+      <p class="card-desc">A Nigerian immigrant arrives in London with clean papers and a legitimate life. A file — built by algorithm from a single family association — arrived before he did. A story about the systems that condemn before they accuse.</p>
+      <div class="card-meta">
+        <span class="card-chapters">3 Chapters &nbsp;·&nbsp; Fiction</span>
+        <span class="card-cta">Read → </span>
+      </div>
+    </a>
+
+    <!-- CARD 2 — COMING SOON -->
+    <div class="story-card soon card-animate" style="animation-delay: 0.2s">
+      <div class="soon-badge">Coming</div>
+      <div class="card-number">II</div>
+      <div class="card-tag">Power · Whistleblowing</div>
+      <h2 class="card-title">The Woman Who<br><em>Kept the Record</em></h2>
+      <p class="card-subject">Forthcoming</p>
+      <p class="card-desc">A civil servant discovers an anomaly in a dataset. What she does next reshapes everything around her — including the people she trusted most.</p>
+      <div class="card-meta">
+        <span class="card-chapters">In Progress</span>
+      </div>
+    </div>
+
+    <!-- CARD 3 — COMING SOON -->
+    <div class="story-card soon card-animate" style="animation-delay: 0.3s">
+      <div class="soon-badge">Coming</div>
+      <div class="card-number">III</div>
+      <div class="card-tag">Community · Informants · Faith</div>
+      <h2 class="card-title">Every Congregation<br><em>Has a Listener</em></h2>
+      <p class="card-subject">Forthcoming</p>
+      <p class="card-desc">Inside a South London church, trust is the currency and someone is spending it on behalf of people the congregation has never met.</p>
+      <div class="card-meta">
+        <span class="card-chapters">In Progress</span>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    These stories are fiction.
+    <span class="footer-mark">✦</span>
+    The systems, laws, and documented cases they draw upon are real.
+    <span class="footer-mark">✦</span>
+    Share them with people who need to read them.
+  </p>
+</footer>
+
+</body>
+</html>

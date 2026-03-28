@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Eke Market Day — Where Community Shops Together</title>
+<meta name="description" content="A community platform where neighbours shop, share, and care for each other at African & diaspora markets across the UK."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"/>
+<style>
+/* ============================================================
+   DESIGN SYSTEM — EDITORIAL MAXIMALISM × AFRO-MARKET WARMTH
+   ============================================================ */
+:root {
+  --terracotta:   #c8552a;
+  --terra-light:  #e07048;
+  --terra-pale:   #f5ded6;
+  --terra-dim:    rgba(200,85,42,0.10);
+  --terra-line:   rgba(200,85,42,0.30);
+  --gold:         #b8860b;
+  --gold-light:   #d4a017;
+  --gold-pale:    #fdf3d0;
+  --saffron:      #e8a020;
+  --forest:       #2d5016;
+  --forest-light: #4a7c28;
+  --cream:        #faf6ee;
+  --cream2:       #f3ead8;
+  --cream3:       #ebe0c8;
+  --ink:          #1c1208;
+  --ink2:         #3d2e18;
+  --ink3:         #7a6245;
+  --ink4:         #b09878;
+  --white:        #fff;
+  --border:       rgba(28,18,8,0.10);
+  --border2:      rgba(28,18,8,0.06);
+  --shadow-sm:    0 2px 12px rgba(28,18,8,0.08);
+  --shadow-md:    0 8px 32px rgba(28,18,8,0.12);
+  --shadow-lg:    0 20px 64px rgba(28,18,8,0.16);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Instrument Sans', sans-serif;
+  --font-impact:  'Bebas Neue', sans-serif;
+  --nav-h:        72px;
+  --ease:         cubic-bezier(.4,0,.2,1);
+  --spring:       cubic-bezier(.34,1.56,.64,1);
+  --bounce:       cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--cream);
+  color: var(--ink2);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button, input, select, textarea { font-family: var(--font-body); }
+
+/* CUSTOM CURSOR */
+*, *:hover { cursor: none !important; }
+#cursor {
+  position: fixed; z-index: 9999; pointer-events: none;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--terracotta);
+  transform: translate(-50%,-50%);
+  transition: width .2s var(--spring), height .2s var(--spring), background .2s;
+  mix-blend-mode: multiply;
+}
+#cursor.hover { width: 44px; height: 44px; background: var(--saffron); opacity: .5; }
+#cursor-ring {
+  position: fixed; z-index: 9998; pointer-events: none;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid var(--terracotta);
+  transform: translate(-50%,-50%);
+  transition: transform .12s linear, width .25s var(--spring), height .25s var(--spring), opacity .2s;
+  opacity: 0.4;
+}
+
+/* LAYOUT */
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 48px; }
+@media(max-width:600px){ .wrap { padding: 0 20px; } }
+
+/* GLOBAL LABEL */
+.eyebrow {
+  font-family: var(--font-body); font-size: 9px; font-weight: 500;
+  letter-spacing: .32em; text-transform: uppercase;
+  color: var(--terracotta); display: inline-block; margin-bottom: 14px;
+}
+.eyebrow--light { color: rgba(200,85,42,.7); }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream2); }
+::-webkit-scrollbar-thumb { background: var(--terracotta); border-radius: 2px; }
+
+/* ============================================================
+   ANNOUNCEMENT BAR
+   ============================================================ */
+.announce-bar {
+  background: var(--terracotta);
+  height: 38px; overflow: hidden; position: relative;
+  display: flex; align-items: center;
+}
+.announce-track {
+  display: flex; white-space: nowrap;
+  animation: marquee 32s linear infinite;
+}
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.announce-item {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 0 36px; font-size: 10px; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.9);
+}
+.announce-item .sep { color: rgba(255,255,255,.35); }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: sticky; top: 0; z-index: 400;
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  background: rgba(250,246,238,.96);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow .3s;
+}
+.nav.elevated { box-shadow: var(--shadow-md); }
+.nav__logo { display: flex; align-items: center; gap: 14px; }
+.nav__sigil {
+  width: 42px; height: 42px; position: relative; flex-shrink: 0;
+}
+.nav__sigil svg { width: 100%; height: 100%; }
+.nav__wordmark {
+  font-family: var(--font-display); font-size: 1.2rem;
+  font-weight: 700; color: var(--ink); letter-spacing: -.01em; line-height: 1.1;
+}
+.nav__wordmark small {
+  display: block; font-family: var(--font-body); font-size: 8px;
+  font-weight: 400; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink3); font-style: normal;
+}
+.nav__menu { display: flex; align-items: center; gap: 0; list-style: none; }
+.nav__menu a {
+  display: block; padding: 8px 16px; font-size: 11px; font-weight: 400;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--ink3);
+  transition: color .2s; position: relative;
+}
+.nav__menu a::after {
+  content: ''; position: absolute; bottom: 4px; left: 16px; right: 16px;
+  height: 1px; background: var(--terracotta); transform: scaleX(0);
+  transition: transform .25s var(--ease);
+}
+.nav__menu a:hover { color: var(--terracotta); }
+.nav__menu a:hover::after { transform: scaleX(1); }
+.nav__right { display: flex; align-items: center; gap: 12px; }
+.nav__pill {
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 14px; border-radius: 999px; border: 1px solid var(--border);
+  font-size: 10px; color: var(--ink3); background: var(--cream);
+}
+.nav__pill .live-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34,197,94,.2);
+  animation: livepulse 2s ease-in-out infinite;
+}
+@keyframes livepulse { 0%,100%{box-shadow:0 0 0 3px rgba(34,197,94,.2)} 50%{box-shadow:0 0 0 6px rgba(34,197,94,.05)} }
+.nav__cta {
+  padding: 9px 22px; background: var(--terracotta); color: #fff;
+  border: none; border-radius: 3px; font-size: 10px; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+  transition: background .2s, transform .18s var(--spring);
+}
+.nav__cta:hover { background: var(--terra-light); transform: translateY(-2px); }
+.nav__burger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; padding: 4px;
+}
+.nav__burger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: transform .3s, opacity .3s; }
+.nav__burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav__burger.open span:nth-child(2) { opacity: 0; }
+.nav__burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ============================================================
+   HERO — EDITORIAL SPLIT LAYOUT
+   ============================================================ */
+.hero {
+  min-height: calc(100vh - var(--nav-h) - 38px);
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.hero__left {
+  background: var(--ink);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 80px 64px 80px 48px;
+}
+/* Adire/kente-inspired geometric background */
+.hero__left::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(60deg, transparent, transparent 30px, rgba(200,85,42,.05) 30px, rgba(200,85,42,.05) 31px),
+    repeating-linear-gradient(-60deg, transparent, transparent 30px, rgba(184,134,11,.05) 30px, rgba(184,134,11,.05) 31px),
+    repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,.02) 60px, rgba(255,255,255,.02) 61px);
+  pointer-events: none;
+}
+.hero__left::after {
+  content: ''; position: absolute; bottom: -120px; left: -60px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(200,85,42,.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero__left-content { position: relative; z-index: 2; }
+.hero__day-tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 40px;
+}
+.hero__day-number {
+  font-family: var(--font-impact); font-size: 14px; letter-spacing: .2em;
+  color: var(--terracotta); line-height: 1;
+}
+.hero__day-line { width: 40px; height: 1px; background: rgba(200,85,42,.4); }
+.hero__day-text { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+.hero__title {
+  font-family: var(--font-display); font-weight: 900; font-style: italic;
+  font-size: clamp(4rem, 8vw, 7.5rem);
+  line-height: .88; letter-spacing: -.03em;
+  color: var(--white); margin-bottom: 32px;
+}
+.hero__title .stroke {
+  -webkit-text-stroke: 1.5px rgba(255,255,255,.4); color: transparent;
+  font-style: normal;
+}
+.hero__title .accent { color: var(--saffron); }
+.hero__desc {
+  font-size: 14px; line-height: 1.85; color: rgba(255,255,255,.55);
+  max-width: 420px; margin-bottom: 44px;
+}
+.hero__btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-hero-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 30px; background: var(--terracotta); color: #fff;
+  border: none; border-radius: 3px; font-size: 11px; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+  transition: background .2s, transform .2s var(--spring), box-shadow .2s;
+  box-shadow: 0 6px 24px rgba(200,85,42,.4);
+}
+.btn-hero-primary:hover { background: var(--terra-light); transform: translateY(-3px); box-shadow: 0 10px 32px rgba(200,85,42,.5); }
+.btn-hero-ghost {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 28px; background: transparent; color: rgba(255,255,255,.6);
+  border: 1px solid rgba(255,255,255,.15); border-radius: 3px;
+  font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+  transition: border-color .2s, color .2s, transform .2s var(--spring);
+}
+.btn-hero-ghost:hover { border-color: rgba(255,255,255,.4); color: #fff; transform: translateY(-3px); }
+.hero__stats-row {
+  display: flex; gap: 0; margin-top: 56px;
+  border-top: 1px solid rgba(255,255,255,.08); padding-top: 32px;
+}
+.hero__stat { padding: 0 28px 0 0; margin-right: 28px; border-right: 1px solid rgba(255,255,255,.08); }
+.hero__stat:last-child { border-right: none; }
+.hero__stat-n {
+  font-family: var(--font-impact); font-size: 2.8rem; color: var(--white);
+  letter-spacing: .02em; line-height: 1;
+}
+.hero__stat-l { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-top: 4px; }
+
+/* HERO RIGHT */
+.hero__right {
+  background: var(--cream2);
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center; padding: 60px 48px;
+}
+.hero__right::before {
+  content: 'ỌJA'; position: absolute; bottom: -40px; right: -20px;
+  font-family: var(--font-display); font-size: 220px; font-weight: 900; font-style: italic;
+  color: var(--terracotta); opacity: .04; line-height: 1; pointer-events: none; user-select: none;
+  letter-spacing: -.05em;
+}
+/* Adinkra-inspired SVG pattern overlay */
+.hero__right::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 20% 20%, rgba(200,85,42,.04) 2px, transparent 2px),
+                    radial-gradient(circle at 80% 80%, rgba(184,134,11,.04) 2px, transparent 2px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* LIVE BOARD PREVIEW */
+.board-preview { position: relative; z-index: 2; width: 100%; max-width: 440px; }
+.board-preview__header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.board-preview__title { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--ink); }
+.board-preview__count {
+  font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--terracotta); padding: 4px 10px; background: var(--terra-dim);
+  border: 1px solid var(--terra-line); border-radius: 2px;
+}
+.preview-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px 20px; margin-bottom: 10px;
+  box-shadow: var(--shadow-sm);
+  animation: slidePreview 1s var(--ease) both;
+  position: relative; overflow: hidden;
+}
+.preview-card::before {
+  content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+  background: var(--terracotta); border-radius: 10px 0 0 10px;
+}
+.preview-card--nanny::before { background: var(--saffron); }
+.preview-card--errand::before { background: var(--forest-light); }
+@keyframes slidePreview {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.preview-card:nth-child(2) { animation-delay: .15s; }
+.preview-card:nth-child(3) { animation-delay: .30s; }
+.preview-card:nth-child(4) { animation-delay: .45s; }
+.preview-card__row { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.preview-card__user { display: flex; align-items: center; gap: 9px; }
+.preview-card__av {
+  width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 13px; font-weight: 700; color: #fff;
+  background: var(--terracotta);
+}
+.preview-card__av--gold { background: var(--saffron); }
+.preview-card__av--green { background: var(--forest-light); }
+.preview-card__name { font-size: 12px; font-weight: 500; color: var(--ink); }
+.preview-card__loc { font-size: 10px; color: var(--ink4); display: flex; align-items: center; gap: 4px; margin-top: 1px; }
+.preview-card__reward {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+  color: var(--terracotta); white-space: nowrap;
+}
+.preview-card__reward small { font-family: var(--font-body); font-size: 9px; color: var(--ink4); font-weight: 300; display: block; text-align: right; margin-top: 1px; }
+.preview-card__items { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.preview-chip {
+  font-size: 9px; padding: 3px 8px; border-radius: 3px;
+  background: var(--cream2); color: var(--ink3); border: 1px solid var(--border2);
+}
+.preview-card__footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+.preview-card__urgency { font-size: 9px; color: var(--ink4); display: flex; align-items: center; gap: 5px; }
+.urgency-pip { width: 5px; height: 5px; border-radius: 50%; }
+.urgency-pip--red { background: #ef4444; }
+.urgency-pip--amber { background: var(--saffron); }
+.urgency-pip--green { background: #22c55e; }
+.preview-card__btn {
+  padding: 5px 12px; background: var(--terracotta); color: #fff;
+  border: none; border-radius: 3px; font-size: 9px; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  transition: background .2s, transform .15s var(--spring);
+}
+.preview-card__btn:hover { background: var(--terra-light); transform: scale(1.05); }
+.preview-card__claimed { font-size: 9px; color: var(--forest-light); display: flex; align-items: center; gap: 5px; font-weight: 500; }
+
+/* ============================================================
+   MARKET DAY CALENDAR
+   ============================================================ */
+.mday-section {
+  background: var(--ink); padding: 96px 0; position: relative; overflow: hidden;
+}
+.mday-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(200,85,42,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,85,42,.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+.mday-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; }
+.mday-header .eyebrow { color: rgba(200,85,42,.8); }
+.mday-h2 {
+  font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900; font-style: italic; color: var(--white);
+  line-height: 1.05; letter-spacing: -.02em;
+}
+.mday-h2 .accent { color: var(--saffron); }
+.mday-sub { font-size: 13px; color: rgba(255,255,255,.35); max-width: 360px; line-height: 1.7; }
+.mday-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; background: rgba(255,255,255,.04); }
+.mday-card {
+  background: rgba(255,255,255,.03); padding: 48px 36px;
+  position: relative; overflow: hidden;
+  transition: background .3s;
+}
+.mday-card:hover { background: rgba(255,255,255,.06); }
+.mday-card--active { background: rgba(200,85,42,.10) !important; }
+.mday-card__roman {
+  font-family: var(--font-impact); font-size: 5rem;
+  color: rgba(255,255,255,.06); line-height: 1;
+  position: absolute; top: 20px; right: 20px; letter-spacing: .02em;
+}
+.mday-card__active-band {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--terracotta); opacity: 0;
+  transition: opacity .3s;
+}
+.mday-card--active .mday-card__active-band { opacity: 1; }
+.mday-card__name {
+  font-family: var(--font-display); font-size: 2.2rem; font-weight: 900; font-style: italic;
+  color: var(--white); line-height: 1; margin-bottom: 6px; letter-spacing: -.02em;
+}
+.mday-card--active .mday-card__name { color: var(--terra-light); }
+.mday-card__igbo {
+  font-size: 8px; letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(255,255,255,.25); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.mday-card__igbo::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.08); }
+.mday-card__desc { font-size: 12px; line-height: 1.75; color: rgba(255,255,255,.4); margin-bottom: 20px; }
+.mday-card__markets { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px; }
+.mday-card__mkt {
+  font-size: 8px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 2px;
+  background: rgba(255,255,255,.05); color: rgba(255,255,255,.4);
+  border: 1px solid rgba(255,255,255,.07);
+}
+.mday-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 9px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 2px;
+}
+.mday-badge--live { background: rgba(34,197,94,.15); color: #4ade80; border: 1px solid rgba(34,197,94,.2); }
+.mday-badge--next { background: rgba(200,85,42,.15); color: var(--terra-light); border: 1px solid rgba(200,85,42,.2); }
+.mday-badge--soon { background: rgba(255,255,255,.05); color: rgba(255,255,255,.3); border: 1px solid rgba(255,255,255,.06); }
+
+/* ============================================================
+   HOW IT WORKS — DIAGONAL OFFSET LAYOUT
+   ============================================================ */
+.how-section { padding: 112px 0; background: var(--cream); overflow: hidden; }
+.how-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 72px; }
+.how-h2 {
+  font-family: var(--font-display); font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 900; color: var(--ink); line-height: 1.0; letter-spacing: -.025em;
+}
+.how-h2 em { font-style: italic; color: var(--terracotta); }
+.how-h2 .big {
+  font-family: var(--font-impact); font-size: clamp(3.5rem, 8vw, 7rem);
+  display: block; letter-spacing: .02em; color: var(--ink);
+  line-height: .9; margin-top: -8px;
+}
+.how-right-text { font-size: 14px; line-height: 1.85; color: var(--ink3); }
+.how-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border); }
+.how-step {
+  background: var(--cream); padding: 56px 44px; position: relative;
+  overflow: hidden; transition: background .3s;
+}
+.how-step:hover { background: var(--terra-pale); }
+.how-step__bg-num {
+  position: absolute; bottom: -20px; right: -10px;
+  font-family: var(--font-impact); font-size: 10rem; color: var(--terracotta);
+  opacity: .06; line-height: 1; pointer-events: none; user-select: none;
+}
+.how-step__num {
+  font-family: var(--font-impact); font-size: 11px; letter-spacing: .25em;
+  color: var(--terracotta); margin-bottom: 24px; display: block;
+}
+.how-step__icon-wrap {
+  width: 56px; height: 56px; border-radius: 12px; margin-bottom: 24px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; color: var(--terracotta);
+  background: var(--terra-dim); border: 1px solid var(--terra-line);
+  transition: transform .3s var(--spring), background .3s;
+}
+.how-step:hover .how-step__icon-wrap {
+  transform: scale(1.1) rotate(-4deg);
+  background: var(--terracotta); color: #fff;
+}
+.how-step__title {
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;
+  color: var(--ink); margin-bottom: 14px; line-height: 1.15; letter-spacing: -.01em;
+}
+.how-step__desc { font-size: 13px; line-height: 1.8; color: var(--ink3); }
+.how-connector {
+  position: absolute; right: -18px; top: 52px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--terra-dim); border: 1px solid var(--terra-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--terracotta); font-size: 11px; z-index: 3;
+}
+.how-step:last-child .how-connector { display: none; }
+
+/* ============================================================
+   LIVE BOARD
+   ============================================================ */
+.board-section { padding: 96px 0; background: var(--cream2); }
+.board-top { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; margin-bottom: 32px; }
+.board-h2 {
+  font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900; font-style: italic; color: var(--ink);
+  line-height: 1.05; letter-spacing: -.02em;
+}
+.board-h2 span { color: var(--terracotta); }
+.filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+.flt {
+  padding: 8px 18px; border-radius: 999px; border: 1.5px solid var(--border);
+  font-size: 10px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink3); background: var(--white); transition: all .2s var(--ease);
+}
+.flt:hover { border-color: var(--terra-line); color: var(--terracotta); background: var(--terra-dim); }
+.flt.on { background: var(--terracotta); border-color: var(--terracotta); color: #fff; }
+.board-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.rq-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+  overflow: hidden; transition: box-shadow .25s, transform .25s var(--spring);
+  position: relative;
+}
+.rq-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+.rq-card__bar { height: 4px; background: var(--terracotta); }
+.rq-card__bar--nanny  { background: linear-gradient(90deg, var(--saffron), var(--gold-light)); }
+.rq-card__bar--errand { background: linear-gradient(90deg, var(--forest), var(--forest-light)); }
+.rq-card__body { padding: 22px; }
+.rq-card__head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.rq-card__user-row { display: flex; align-items: center; gap: 11px; }
+.rq-card__ava {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff;
+}
+.rq-card__ava--A { background: linear-gradient(135deg,#c8552a,#e07048); }
+.rq-card__ava--N { background: linear-gradient(135deg,#b8860b,#d4a017); }
+.rq-card__ava--T { background: linear-gradient(135deg,#2d5016,#4a7c28); }
+.rq-card__ava--F { background: linear-gradient(135deg,#9b4dca,#c084fc); }
+.rq-card__ava--K { background: linear-gradient(135deg,#0369a1,#38bdf8); }
+.rq-card__ava--C { background: linear-gradient(135deg,#b45309,#fbbf24); }
+.rq-card__ava--O { background: linear-gradient(135deg,#be123c,#fb7185); }
+.rq-card__uname { font-size: 13px; font-weight: 500; color: var(--ink); }
+.rq-card__uloc { font-size: 10px; color: var(--ink4); display: flex; align-items: center; gap: 3px; margin-top: 2px; }
+.rq-card__type {
+  font-size: 8px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500;
+  padding: 4px 10px; border-radius: 2px;
+}
+.type-shop { background: var(--terra-dim); color: var(--terracotta); }
+.type-nanny { background: var(--gold-pale); color: var(--gold); }
+.type-errand { background: rgba(45,80,22,.08); color: var(--forest-light); }
+.rq-card__title {
+  font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;
+  color: var(--ink); margin-bottom: 10px; line-height: 1.2;
+}
+.rq-card__chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+.rq-chip {
+  font-size: 10px; padding: 3px 9px; border-radius: 999px;
+  background: var(--cream2); color: var(--ink2); border: 1px solid var(--border2);
+}
+.rq-card__foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 12px; border-top: 1px solid var(--border2);
+}
+.rq-card__reward-num {
+  font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--terracotta);
+}
+.rq-card__reward-label { font-size: 9px; color: var(--ink4); }
+.rq-card__urgency { display: flex; align-items: center; gap: 5px; font-size: 9px; color: var(--ink4); }
+.rq-claim-btn {
+  padding: 9px 18px; background: var(--terracotta); color: #fff; border: none;
+  border-radius: 6px; font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  transition: background .2s, transform .15s var(--spring), box-shadow .2s;
+  box-shadow: 0 2px 12px rgba(200,85,42,.25);
+}
+.rq-claim-btn:hover { background: var(--terra-light); transform: scale(1.06); box-shadow: 0 4px 18px rgba(200,85,42,.4); }
+.rq-claimed { display: flex; align-items: center; gap: 6px; color: var(--forest-light); font-size: 10px; font-weight: 500; }
+
+/* ============================================================
+   POST FORM — IMMERSIVE DARK SECTION
+   ============================================================ */
+.post-section {
+  padding: 96px 0; background: var(--ink2); position: relative; overflow: hidden;
+}
+.post-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.post-section::after {
+  content: ''; position: absolute; top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(200,85,42,.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+.post-glow {
+  position: absolute; bottom: -200px; left: -100px; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(184,134,11,.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+.post-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 80px; align-items: start; position: relative; z-index: 2; }
+.post-eyebrow { color: rgba(200,85,42,.8); }
+.post-h2 {
+  font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 900; font-style: italic; color: var(--white);
+  line-height: 1.0; letter-spacing: -.025em; margin-bottom: 20px;
+}
+.post-h2 span { color: var(--saffron); }
+.post-body { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,.4); margin-bottom: 40px; }
+.post-perks { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.post-perk { display: flex; align-items: flex-start; gap: 16px; }
+.post-perk__icon {
+  width: 38px; height: 38px; border-radius: 8px; flex-shrink: 0;
+  background: rgba(200,85,42,.15); border: 1px solid rgba(200,85,42,.25);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--terra-light); font-size: 14px;
+}
+.post-perk__text { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,.4); }
+.post-perk__text strong { color: rgba(255,255,255,.8); display: block; margin-bottom: 2px; font-weight: 500; }
+.post-quote {
+  margin-top: 40px; padding: 24px 28px; border-left: 3px solid var(--terracotta);
+  background: rgba(200,85,42,.08); border-radius: 0 8px 8px 0;
+}
+.post-quote p {
+  font-family: var(--font-display); font-size: 1rem; font-style: italic;
+  color: rgba(255,255,255,.6); line-height: 1.65;
+}
+.post-quote cite { display: block; margin-top: 8px; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--terracotta); font-style: normal; }
+
+/* FORM CARD */
+.post-form-card {
+  background: var(--white); border-radius: 16px; padding: 40px;
+  box-shadow: 0 32px 80px rgba(0,0,0,.4);
+}
+.post-form-title {
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
+  color: var(--ink); margin-bottom: 28px; line-height: 1.2;
+}
+.post-form-title em { font-style: italic; color: var(--terracotta); }
+.fg { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.fg label {
+  font-size: 8px; font-weight: 500; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--ink3);
+}
+.fg input, .fg select, .fg textarea {
+  padding: 12px 14px; border: 1.5px solid var(--border);
+  border-radius: 8px; background: var(--cream);
+  font-size: 13px; color: var(--ink); outline: none;
+  transition: border-color .2s, background .2s; -webkit-appearance: none;
+}
+.fg input::placeholder, .fg textarea::placeholder { color: var(--ink4); }
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  border-color: var(--terra-line); background: var(--white);
+}
+.fg select { color: var(--ink2); }
+.fg textarea { resize: vertical; min-height: 88px; }
+.fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.items-wrap {
+  border: 1.5px dashed var(--border); border-radius: 8px;
+  background: var(--cream); padding: 10px 12px; min-height: 70px;
+  display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start;
+}
+.items-wrap:focus-within { border-color: var(--terra-line); background: var(--white); }
+.item-tk {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; background: var(--terra-dim); border: 1px solid var(--terra-line);
+  border-radius: 999px; font-size: 11px; color: var(--terracotta);
+}
+.item-tk button { background: none; border: none; color: var(--terracotta); opacity: .6; font-size: 11px; line-height: 1; padding: 0; }
+.item-tk button:hover { opacity: 1; }
+.items-bare-input { border: none; background: none; font-size: 13px; color: var(--ink); outline: none; min-width: 120px; padding: 4px 4px; }
+.items-bare-input::placeholder { color: var(--ink4); }
+.type-toggles { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.tt {
+  padding: 12px 8px; border: 1.5px solid var(--border); border-radius: 8px;
+  text-align: center; font-size: 11px; color: var(--ink3); background: var(--cream);
+  transition: all .2s; display: flex; flex-direction: column; align-items: center; gap: 5px;
+}
+.tt i { font-size: 18px; }
+.tt.on { border-color: var(--terracotta); background: var(--terra-dim); color: var(--terracotta); }
+.tt.on i { color: var(--terracotta); }
+.submit-row { display: flex; align-items: center; gap: 12px; margin-top: 6px; }
+.form-submit-btn {
+  flex: 1; padding: 15px; background: var(--terracotta); color: #fff; border: none;
+  border-radius: 8px; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+  transition: background .2s, transform .18s var(--spring), box-shadow .2s;
+  box-shadow: 0 4px 20px rgba(200,85,42,.35);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.form-submit-btn:hover { background: var(--terra-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,85,42,.45); }
+.form-helper { font-size: 10px; color: var(--ink3); text-align: center; line-height: 1.5; }
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+.services-section { padding: 96px 0; background: var(--cream); }
+.services-h2 {
+  font-family: var(--font-display); font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 900; color: var(--ink); line-height: 1.0; letter-spacing: -.025em;
+  margin-bottom: 52px;
+}
+.services-h2 em { font-style: italic; color: var(--terracotta); }
+.svc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.svc-card {
+  border: 1.5px solid var(--border); border-radius: 14px; padding: 36px 32px;
+  background: var(--white); position: relative; overflow: hidden;
+  transition: border-color .25s, box-shadow .25s, transform .25s var(--spring);
+}
+.svc-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 0;
+  background: linear-gradient(to top, var(--terra-pale), transparent);
+  transition: height .4s var(--ease);
+}
+.svc-card:hover { border-color: var(--terra-line); box-shadow: 0 12px 40px rgba(200,85,42,.12); transform: translateY(-5px); }
+.svc-card:hover::after { height: 60%; }
+.svc-card__content { position: relative; z-index: 1; }
+.svc-card__icon {
+  width: 60px; height: 60px; border-radius: 14px; margin-bottom: 24px;
+  display: flex; align-items: center; justify-content: center; font-size: 26px;
+  transition: transform .3s var(--spring);
+}
+.svc-card:hover .svc-card__icon { transform: scale(1.1) rotate(-5deg); }
+.svc-card__icon--terra { background: var(--terra-dim); color: var(--terracotta); border: 1px solid var(--terra-line); }
+.svc-card__icon--gold { background: var(--gold-pale); color: var(--gold); border: 1px solid rgba(184,134,11,.25); }
+.svc-card__icon--green { background: rgba(45,80,22,.07); color: var(--forest-light); border: 1px solid rgba(45,80,22,.15); }
+.svc-card__title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--ink); margin-bottom: 10px; letter-spacing: -.01em; }
+.svc-card__desc { font-size: 13px; line-height: 1.8; color: var(--ink3); margin-bottom: 20px; }
+.svc-card__tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.svc-tag { font-size: 9px; padding: 3px 9px; border-radius: 2px; background: var(--cream2); color: var(--ink3); border: 1px solid var(--border); }
+.svc-card__markets-banner {
+  margin-top: 16px; padding: 10px 12px; background: var(--cream2);
+  border-radius: 6px; font-size: 10px; color: var(--ink3); border: 1px solid var(--border);
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* ============================================================
+   COMMUNITY STRIP
+   ============================================================ */
+.community-section {
+  background: var(--terracotta); padding: 80px 0; position: relative; overflow: hidden;
+}
+.community-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(60deg, transparent, transparent 40px, rgba(0,0,0,.03) 40px, rgba(0,0,0,.03) 41px),
+    repeating-linear-gradient(-60deg, transparent, transparent 40px, rgba(0,0,0,.03) 40px, rgba(0,0,0,.03) 41px);
+  pointer-events: none;
+}
+.community-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
+.comm-h2 {
+  font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 900; font-style: italic; color: var(--white);
+  line-height: .95; letter-spacing: -.03em; margin-bottom: 24px;
+}
+.comm-p { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,.7); margin-bottom: 12px; }
+.comm-proverb {
+  margin: 28px 0; padding: 20px 24px; border-left: 3px solid rgba(255,255,255,.4);
+  background: rgba(255,255,255,.08); border-radius: 0 6px 6px 0;
+}
+.comm-proverb p { font-family: var(--font-display); font-size: 1rem; font-style: italic; color: rgba(255,255,255,.9); line-height: 1.6; }
+.comm-proverb cite { display: block; margin-top: 6px; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.5); font-style: normal; }
+.comm-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.btn-comm-white {
+  padding: 12px 24px; background: #fff; color: var(--terracotta); border: none;
+  border-radius: 3px; font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+  transition: background .2s, transform .18s var(--spring), box-shadow .2s;
+  box-shadow: 0 4px 20px rgba(0,0,0,.15);
+}
+.btn-comm-white:hover { background: var(--cream); transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,.2); }
+.btn-comm-outline {
+  padding: 11px 22px; background: transparent; color: rgba(255,255,255,.8);
+  border: 1.5px solid rgba(255,255,255,.3); border-radius: 3px;
+  font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+  transition: all .2s, transform .18s var(--spring);
+}
+.btn-comm-outline:hover { border-color: rgba(255,255,255,.7); color: #fff; transform: translateY(-2px); }
+.activity-feed { display: flex; flex-direction: column; gap: 10px; }
+.act-item {
+  display: flex; align-items: center; gap: 14px; padding: 14px 18px;
+  background: rgba(255,255,255,.12); border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(8px);
+  transition: background .2s, transform .2s var(--spring);
+  animation: actSlide .6s var(--ease) both;
+}
+@keyframes actSlide { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
+.act-item:nth-child(2){animation-delay:.1s}
+.act-item:nth-child(3){animation-delay:.2s}
+.act-item:nth-child(4){animation-delay:.3s}
+.act-item:nth-child(5){animation-delay:.4s}
+.act-item:hover { background: rgba(255,255,255,.18); transform: translateX(-3px); }
+.act-av {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--terracotta);
+  background: var(--white);
+}
+.act-main { flex: 1; }
+.act-name { font-size: 12px; font-weight: 500; color: #fff; }
+.act-action { font-size: 11px; color: rgba(255,255,255,.6); }
+.act-time { font-size: 9px; color: rgba(255,255,255,.35); white-space: nowrap; font-family: monospace; }
+.act-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.act-title { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+.act-live { display: flex; align-items: center; gap: 5px; font-size: 9px; color: rgba(255,255,255,.5); }
+.act-live-dot { width: 5px; height: 5px; border-radius: 50%; background: #4ade80; animation: livepulse 2s infinite; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer { background: var(--ink); }
+.footer__main {
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px;
+  padding: 72px 48px 56px; border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.footer__sigil {
+  width: 48px; height: 48px; border-radius: 10px;
+  background: var(--terracotta); display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 24px; font-weight: 900; font-style: italic;
+  color: #fff; margin-bottom: 18px;
+}
+.footer__brand-name { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+.footer__brand-p { font-size: 12px; line-height: 1.85; color: rgba(255,255,255,.35); max-width: 260px; margin-bottom: 24px; }
+.footer__social-row { display: flex; gap: 8px; }
+.footer__soc-btn {
+  width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: rgba(255,255,255,.3);
+  transition: border-color .2s, color .2s, background .2s;
+}
+.footer__soc-btn:hover { border-color: var(--terra-line); color: var(--terra-light); background: var(--terra-dim); }
+.footer__col h4 { font-size: 8px; letter-spacing: .24em; text-transform: uppercase; color: rgba(255,255,255,.2); margin-bottom: 22px; }
+.footer__col a { display: block; font-size: 12px; color: rgba(255,255,255,.35); margin-bottom: 11px; transition: color .2s; }
+.footer__col a:hover { color: var(--terra-light); }
+.footer__bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 48px; flex-wrap: wrap; gap: 16px;
+}
+.footer__copy { font-size: 10px; color: rgba(255,255,255,.18); }
+.footer__badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 14px; border-radius: 999px;
+  border: 1px solid rgba(200,85,42,.2); font-size: 9px; letter-spacing: .1em;
+  color: rgba(200,85,42,.5);
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast {
+  position: fixed; bottom: 28px; right: 28px;
+  background: var(--ink); color: #fff;
+  padding: 14px 20px; border-radius: 10px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.3);
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; z-index: 999;
+  border-left: 4px solid var(--terracotta);
+  transform: translateX(120px); opacity: 0;
+  transition: transform .4s var(--spring), opacity .3s;
+  max-width: 320px;
+}
+.toast.show { transform: translateX(0); opacity: 1; }
+.toast i { color: var(--terracotta); font-size: 16px; flex-shrink: 0; }
+
+/* ============================================================
+   MOBILE NAV
+   ============================================================ */
+.nav__mobile {
+  display: none; position: fixed; top: calc(var(--nav-h) + 38px); left: 0; right: 0;
+  background: var(--cream); border-bottom: 1px solid var(--border);
+  z-index: 300; padding: 12px 0 20px; flex-direction: column;
+}
+.nav__mobile.open { display: flex; }
+.nav__mobile a {
+  padding: 13px 28px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink3); border-bottom: 1px solid var(--border); transition: color .2s;
+}
+.nav__mobile a:hover { color: var(--terracotta); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:1080px){
+  .hero { grid-template-columns: 1fr; }
+  .hero__right { display: none; }
+  .hero__left { padding: 80px 48px 80px; }
+  .post-grid { grid-template-columns: 1fr; gap: 48px; }
+  .community-inner { grid-template-columns: 1fr; gap: 48px; }
+  .board-grid { grid-template-columns: 1fr 1fr; }
+  .footer__main { grid-template-columns: 1fr 1fr; }
+  .how-intro { grid-template-columns: 1fr; gap: 24px; }
+}
+@media(max-width:760px){
+  .nav { padding: 0 20px; }
+  .nav__menu, .nav__right { display: none; }
+  .nav__burger { display: flex; }
+  .mday-grid { grid-template-columns: 1fr 1fr; }
+  .how-steps { grid-template-columns: 1fr; }
+  .how-connector { display: none; }
+  .board-grid { grid-template-columns: 1fr; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .fg-row { grid-template-columns: 1fr; }
+  .type-toggles { grid-template-columns: repeat(3,1fr); }
+  .footer__main { grid-template-columns: 1fr; padding: 48px 20px; }
+  .footer__bottom { padding: 20px; }
+  .post-form-card { padding: 24px; }
+}
+@media(max-width:480px){
+  .hero__left { padding: 60px 20px 60px; }
+  .mday-grid { grid-template-columns: 1fr; }
+  .mday-section { padding: 64px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="fa fa-check-circle"></i><span id="toast-msg">Done!</span></div>
+
+<!-- ANNOUNCE BAR -->
+<div class="announce-bar">
+  <div class="announce-track" id="ticker">
+    <span class="announce-item">Today is <strong>&nbsp;Eke&nbsp;</strong> — The Big Market Day <span class="sep">·</span></span>
+    <span class="announce-item">16 open requests on the board <span class="sep">·</span></span>
+    <span class="announce-item">Brixton · Ridley Road · Peckham · Elephant &amp; Castle · Lewisham · Tooting <span class="sep">·</span></span>
+    <span class="announce-item">Earn while you shop — claim a request near you <span class="sep">·</span></span>
+    <span class="announce-item">Nanny &amp; childcare requests available <span class="sep">·</span></span>
+    <span class="announce-item">Free to join — community-owned &amp; led <span class="sep">·</span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="announce-item">Today is <strong>&nbsp;Eke&nbsp;</strong> — The Big Market Day <span class="sep">·</span></span>
+    <span class="announce-item">16 open requests on the board <span class="sep">·</span></span>
+    <span class="announce-item">Brixton · Ridley Road · Peckham · Elephant &amp; Castle · Lewisham · Tooting <span class="sep">·</span></span>
+    <span class="announce-item">Earn while you shop — claim a request near you <span class="sep">·</span></span>
+    <span class="announce-item">Nanny &amp; childcare requests available <span class="sep">·</span></span>
+    <span class="announce-item">Free to join — community-owned &amp; led <span class="sep">·</span></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav__logo">
+    <div class="nav__sigil">
+      <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="21" cy="21" r="21" fill="#c8552a"/>
+        <circle cx="21" cy="21" r="13" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+        <text x="21" y="27" text-anchor="middle" font-family="Playfair Display,Georgia,serif" font-size="17" font-weight="900" font-style="italic" fill="white">E</text>
+        <circle cx="21" cy="21" r="4" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="nav__wordmark">Eke Market Day<small>Community Platform</small></div>
+  </a>
+  <ul class="nav__menu">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#board">Browse</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#post">Post Request</a></li>
+    <li><a href="#community">Community</a></li>
+  </ul>
+  <div class="nav__right">
+    <div class="nav__pill"><div class="live-dot"></div> <span id="live-count">16</span> live requests</div>
+    <button class="nav__cta" onclick="scrollTo('#post')">Post a Request</button>
+  </div>
+  <button class="nav__burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+</nav>
+<nav class="nav__mobile" id="mobile-nav">
+  <a href="#how">How It Works</a>
+  <a href="#board">Browse Requests</a>
+  <a href="#services">Services</a>
+  <a href="#post">Post a Request</a>
+  <a href="#community">Community</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero__left">
+    <div class="hero__left-content">
+      <div class="hero__day-tag">
+        <span class="hero__day-number">ỌJA</span>
+        <div class="hero__day-line"></div>
+        <span class="hero__day-text">Eke · First Day · Big Market</span>
+      </div>
+      <h1 class="hero__title">
+        Shop<br>
+        <span class="stroke">Together</span><br>
+        <span class="accent">Share</span><br>
+        Together
+      </h1>
+      <p class="hero__desc">
+        A community platform where neighbours shop at African &amp; diaspora markets for each other — and earn while doing it. Food, essentials, childcare &amp; errands.
+      </p>
+      <div class="hero__btns">
+        <a href="#post" class="btn-hero-primary"><i class="fa fa-basket-shopping"></i> Post a Request</a>
+        <a href="#board" class="btn-hero-ghost">Browse the Board <i class="fa fa-arrow-right"></i></a>
+      </div>
+      <div class="hero__stats-row">
+        <div class="hero__stat">
+          <div class="hero__stat-n">16</div>
+          <div class="hero__stat-l">Open Requests</div>
+        </div>
+        <div class="hero__stat">
+          <div class="hero__stat-n">42</div>
+          <div class="hero__stat-l">Shoppers Ready</div>
+        </div>
+        <div class="hero__stat">
+          <div class="hero__stat-n">6</div>
+          <div class="hero__stat-l">Markets Covered</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero__right">
+    <div class="board-preview">
+      <div class="board-preview__header">
+        <div class="board-preview__title">Live Request Board</div>
+        <div class="board-preview__count">16 open today</div>
+      </div>
+
+      <div class="preview-card">
+        <div class="preview-card__row">
+          <div class="preview-card__user">
+            <div class="preview-card__av">A</div>
+            <div>
+              <div class="preview-card__name">Adaeze O.</div>
+              <div class="preview-card__loc"><i class="fa fa-location-dot" style="color:var(--terracotta);font-size:9px"></i> Brixton Market</div>
+            </div>
+          </div>
+          <div class="preview-card__reward">£5<small>tip + costs</small></div>
+        </div>
+        <div class="preview-card__items">
+          <span class="preview-chip">Ugu leaves</span><span class="preview-chip">Stockfish</span><span class="preview-chip">Ogiri</span><span class="preview-chip">Crayfish</span>
+        </div>
+        <div class="preview-card__footer">
+          <div class="preview-card__urgency"><span class="urgency-pip urgency-pip--red"></span> By 5pm today</div>
+          <button class="preview-card__btn" onclick="claimCard(this)">Claim</button>
+        </div>
+      </div>
+
+      <div class="preview-card preview-card--nanny">
+        <div class="preview-card__row">
+          <div class="preview-card__user">
+            <div class="preview-card__av preview-card__av--gold"><i class="fa fa-child"></i></div>
+            <div>
+              <div class="preview-card__name">Ngozi M. · Nanny</div>
+              <div class="preview-card__loc"><i class="fa fa-location-dot" style="color:var(--saffron);font-size:9px"></i> Peckham, SE15</div>
+            </div>
+          </div>
+          <div class="preview-card__reward" style="color:var(--saffron)">£25<small>3 hours flat</small></div>
+        </div>
+        <div class="preview-card__items">
+          <span class="preview-chip">2pm–5pm today</span><span class="preview-chip">2 children (4 &amp; 7)</span>
+        </div>
+        <div class="preview-card__footer">
+          <div class="preview-card__urgency"><span class="urgency-pip urgency-pip--red"></span> Urgent</div>
+          <button class="preview-card__btn" style="background:var(--saffron)" onclick="claimCard(this)">Claim</button>
+        </div>
+      </div>
+
+      <div class="preview-card preview-card--errand">
+        <div class="preview-card__row">
+          <div class="preview-card__user">
+            <div class="preview-card__av preview-card__av--green"><i class="fa fa-box"></i></div>
+            <div>
+              <div class="preview-card__name">Taiwo B. · Errand</div>
+              <div class="preview-card__loc"><i class="fa fa-location-dot" style="color:var(--forest-light);font-size:9px"></i> Dalston, E8</div>
+            </div>
+          </div>
+          <div class="preview-card__reward" style="color:var(--forest-light)">£10<small>tip</small></div>
+        </div>
+        <div class="preview-card__items">
+          <span class="preview-chip">Post 2 parcels</span><span class="preview-chip">Pharmacy pickup</span>
+        </div>
+        <div class="preview-card__footer">
+          <div class="preview-card__claimed"><i class="fa fa-circle-check" style="color:var(--forest-light)"></i> Claimed by Seun A.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET DAY CALENDAR -->
+<section class="mday-section" id="calendar">
+  <div class="wrap">
+    <div class="mday-header">
+      <div>
+        <div class="eyebrow eyebrow--light">The Igbo Market Week</div>
+        <h2 class="mday-h2">Four <span class="accent">sacred</span> days</h2>
+      </div>
+      <p class="mday-sub">The Igbo four-day week has shaped West African market culture for centuries. Eke Market Day is built around this rhythm.</p>
+    </div>
+    <div class="mday-grid">
+      <div class="mday-card mday-card--active">
+        <div class="mday-card__active-band"></div>
+        <div class="mday-card__roman">I</div>
+        <div class="mday-card__name">Eke</div>
+        <div class="mday-card__igbo">EKE · FIRST DAY</div>
+        <div class="mday-card__desc">The most auspicious market day. Traditionally the biggest gathering — best for bulk produce, fresh fish, stockfish, spices, and textiles.</div>
+        <div class="mday-card__markets">
+          <span class="mday-card__mkt">Brixton</span>
+          <span class="mday-card__mkt">Ridley Rd</span>
+          <span class="mday-card__mkt">Peckham</span>
+        </div>
+        <span class="mday-badge mday-badge--live"><i class="fa fa-circle" style="font-size:7px"></i> Today — Active</span>
+      </div>
+      <div class="mday-card">
+        <div class="mday-card__active-band"></div>
+        <div class="mday-card__roman">II</div>
+        <div class="mday-card__name">Orie</div>
+        <div class="mday-card__igbo">ORIE · SECOND DAY</div>
+        <div class="mday-card__desc">Ideal for household goods, peppers, fresh vegetables, and fermented condiments. Known as the trading day for essentials.</div>
+        <div class="mday-card__markets">
+          <span class="mday-card__mkt">Elephant &amp; Castle</span>
+          <span class="mday-card__mkt">Lewisham</span>
+        </div>
+        <span class="mday-badge mday-badge--next">Tomorrow</span>
+      </div>
+      <div class="mday-card">
+        <div class="mday-card__active-band"></div>
+        <div class="mday-card__roman">III</div>
+        <div class="mday-card__name">Afọ</div>
+        <div class="mday-card__igbo">AFỌ · THIRD DAY</div>
+        <div class="mday-card__desc">Livestock, grains, and artisan craft. Best for specialty African ingredients, fabric, and prepared foods.</div>
+        <div class="mday-card__markets">
+          <span class="mday-card__mkt">Tooting</span>
+          <span class="mday-card__mkt">Woolwich</span>
+        </div>
+        <span class="mday-badge mday-badge--soon">In 2 days</span>
+      </div>
+      <div class="mday-card">
+        <div class="mday-card__active-band"></div>
+        <div class="mday-card__roman">IV</div>
+        <div class="mday-card__name">Nkwo</div>
+        <div class="mday-card__igbo">NKWO · FOURTH DAY</div>
+        <div class="mday-card__desc">The rest and errand day. Perfect for childcare, school pickups, personal errands, and food preparation support.</div>
+        <div class="mday-card__markets">
+          <span class="mday-card__mkt">All Areas</span>
+          <span class="mday-card__mkt">Home Visits</span>
+        </div>
+        <span class="mday-badge mday-badge--soon">In 3 days</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="wrap">
+    <div class="how-intro">
+      <div>
+        <div class="eyebrow">Simple as going to market</div>
+        <h2 class="how-h2">
+          <span class="big">HOW IT</span>
+          <em>works</em>
+        </h2>
+      </div>
+      <p class="how-right-text">
+        Eke Market Day connects people who need things from the market with community members who are already going. No strangers. No apps with hidden fees. Just neighbours helping neighbours — the way it's always been.
+      </p>
+    </div>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-connector"><i class="fa fa-chevron-right"></i></div>
+        <span class="how-step__num">STEP 01</span>
+        <div class="how-step__icon-wrap"><i class="fa fa-list-check"></i></div>
+        <h3 class="how-step__title">Post Your List</h3>
+        <p class="how-step__desc">Share what you need — African produce, a nanny for a few hours, or a quick errand. Set a tip or payment that feels fair to you. Takes 2 minutes.</p>
+        <div class="how-step__bg-num">1</div>
+      </div>
+      <div class="how-step">
+        <div class="how-connector"><i class="fa fa-chevron-right"></i></div>
+        <span class="how-step__num">STEP 02</span>
+        <div class="how-step__icon-wrap"><i class="fa fa-hand-pointer"></i></div>
+        <h3 class="how-step__title">A Neighbour Claims It</h3>
+        <p class="how-step__desc">A community member already heading to that market or area sees your request and claims it. They shop for you alongside their own — no extra journey needed.</p>
+        <div class="how-step__bg-num">2</div>
+      </div>
+      <div class="how-step">
+        <span class="how-step__num">STEP 03</span>
+        <div class="how-step__icon-wrap"><i class="fa fa-truck-fast"></i></div>
+        <h3 class="how-step__title">Receive &amp; Pay</h3>
+        <p class="how-step__desc">Your items arrive at your door or an agreed drop-off point. You pay for goods plus the tip. Everyone benefits — community built one market trip at a time.</p>
+        <div class="how-step__bg-num">3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE BOARD -->
+<section class="board-section" id="board">
+  <div class="wrap">
+    <div class="board-top">
+      <div>
+        <div class="eyebrow">Live Today</div>
+        <h2 class="board-h2">Open <span>Requests</span></h2>
+      </div>
+      <div class="filter-group">
+        <button class="flt on" onclick="doFilter('all',this)">All (16)</button>
+        <button class="flt" onclick="doFilter('shopping',this)">🛒 Shopping</button>
+        <button class="flt" onclick="doFilter('nanny',this)">👶 Nanny</button>
+        <button class="flt" onclick="doFilter('errand',this)">📦 Errands</button>
+      </div>
+    </div>
+    <div class="board-grid" id="mainBoard">
+
+      <div class="rq-card" data-type="shopping">
+        <div class="rq-card__bar"></div>
+        <div class="rq-card__body">
+          <div class="rq-card__head">
+            <div class="rq-card__user-row">
+              <div class="rq-card__ava rq-card__ava--A">A</div>
+              <div>
+                <div class="rq-card__uname">Adaeze Okonkwo</div>
+                <div class="rq-card__uloc"><i class="fa fa-location-dot" style="font-size:9px;color:var(--terracotta)"></i> Brixton Market, SW9</div>
+              </div>
+            </div>
+            <span class="rq-card__type type-shop">Shopping</span>
+          </div>
+          <div class="rq-card__title">Weekly Egusi Soup Ingredients</div>
+          <div class="rq-card__chips">
+            <span class="rq-chip">Ugu leaves × 2</span><span class="rq-chip">Stockfish</span><span class="rq-chip">Ogiri</span><span class="rq-chip">Crayfish</span><span class="rq-chip">Palm oil 2L</span>
+          </div>
+          <div class="rq-card__foot">
+            <div>
+              <div class="rq-card__reward-num">£5 tip</div>
+              <div class="rq-card__reward-label">+ full cost covered</div>
+            </div>
+            <div>
+              <div class="rq-card__urgency"><span class="urgency-pip urgency-pip--red"></span> By 5pm today</div>
+              <button class="rq-claim-btn" style="margin-top:6px" onclick="claimRq(this)">Claim</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rq-card" data-type="nanny">
+        <div class="rq-card__bar rq-card__bar--nanny"></div>
+        <div class="rq-card__body">
+          <div class="rq-card__head">
+            <div class="rq-card__user-row">
+              <div class="rq-card__ava rq-card__ava--N">N</div>
+              <div>
+                <div class="rq-card__uname">Ngozi Mensah</div>
+                <div class="rq-card__uloc"><i class="fa fa-location-dot" style="font-size:9px;color:var(--saffron)"></i> Peckham, SE15</div>
+              </div>
+            </div>
+            <span class="rq-card__type type-nanny">Nanny</span>
+          </div>
+          <div class="rq-card__title">Childcare 2pm – 5pm Today</div>
+          <div class="rq-card__chips">
+            <span class="rq-chip">3 hours</span><span class="rq-chip">2 children (4 &amp; 7)</span><span class="rq-chip">CRB preferred</span>
+          </div>
+          <div class="rq-card__foot">
+            <div>
+              <div class="rq-card__reward-num" style="color:var(--saffron)">£25</div>
+              <div class="rq-card__reward-label">flat rate</div>
+            </div>
+            <div>
+              <div class="rq-card__urgency"><span class="urgency-pip urgency-pip--red"></span> Today only</div>
+              <button class="rq-claim-btn" style="margin-top:6px;background:var(--saffron);box-shadow:0 2px 12px rgba(232,160,32,.3)" onclick="claimRq(this)">Claim</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rq-card" data-type="errand">
+        <div class="rq-card__bar rq-card__bar--errand"></div>
+        <div class="rq-card__body">
+          <div class="rq-card__head">
+            <div class="rq-card__user-row">
+              <div class="rq-card__ava rq-card__ava--T">T</div>
+              <div>
+                <div class="rq-card__uname">Taiwo Babatunde</div>
+                <div class="rq-card__uloc"><i class="fa fa-location-dot" style="font-size:9px;color:var(--forest-light)"></i> Dalston, E8</div>
+              </div>
+            </div>
+            <span class="rq-card__type type-errand">Errand</span>
+          </div>
+          <div class="rq-card__title">Post Office + Pharmacy Run</div>
+          <div class="rq-card__chips">
+            <span class="rq-chip">Send 2 parcels</span><span class="rq-chip">Prescription pickup</span><span class="rq-chip">~1 hour</span>
+          </div>
+          <div class="rq-card__foot">
+            <div>
+              <div class="rq-card__reward-num" style="color:var(--forest-light)">£10</div>
+              <div class="rq-card__reward-label">tip</div>
+            </div>
+            <div>
+              <div class="rq-card__urgency"><span class="urgency-pip urgency-pip--amber"></span> Flexible today</div>
+              <button class="rq-claim-btn" style="margin-top:6px;background:var(--forest-light);box-shadow:0 2px 12px rgba(74,124,40,.3)" onclick="claimRq(this)">Claim</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rq-card" data-type="shopping">
+        <div class="rq-card__bar"></div>
+        <div class="rq-card__body">
+          <div class="rq-card__head">
+            <div class="rq-card__user-row">
+              <div class="rq-card__ava rq-card__ava--F">F</div>
+              <div>
+                <div class="rq-card__uname">Fatima Diallo</div>
+                <div class="rq-card__uloc"><i class="fa fa-location-dot" style="font-size:9px;color:var(--terracotta)"></i> Ridley Road, E8</div>
+              </div>
+            </div>
+            <span class="rq-card__type type-shop">Shopping</span>
+          </div>
+          <div class="rq-card__title">Halal Meat &amp; Spices</div>
+          <div class="rq-card__chips">
+            <span class="rq-chip">Lamb cuts 2kg</span><span class="rq-chip">Suya spice</span><span class="rq-chip">Dates × 1 box</span><span class="rq-chip">Cardamom</span>
+          </div>
+          <div class="rq-card__foot">
+            <div>
+              <div class="rq-card__reward-num">£8 tip</div>
+              <div class="rq-card__reward-label">+ full cost covered</div>
+            </div>
+            <div>
+              <div class="rq-card__urgency"><span class="urgency-pip urgency-pip--amber"></span> By 6pm</div>
+              <button class="rq-claim-btn" style="margin-top:6px" onclick="claimRq(this)">Claim</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rq-card" data-type="nanny">
+        <div class="rq-card__bar rq-card__bar--nanny"></div>
+        <div class="rq-card__body">
+          <div class="rq-card__head">
+            <div class="rq-card__user-row">
+              <div class="rq-card__ava rq-card__ava--C">C</div>
+              <div>
+                <div class="rq-card__uname">Chioma Eze</div>
+                <div class="rq-card__uloc"><i class="fa fa-location-dot" style="font-size:9px;color:var(--saffron)"></i> Stockwell, SW9</div>
+              </div>
+            </div>
+            <span class="rq-card__type type-nanny">Nanny</span>
+          </div>
+          <div class="rq-card__title">After-school Pickup &amp; Homework</div>
+          <div class="rq-card__chips">
+            <span class="rq-chip">Pickup 3:15pm</span><span class="rq-chip">1 child, age 9</span><span class="rq-chip">Homework help</span>
+          </div>
+          <div class="rq-card__foot">
+            <div>
+              <div class="rq-card__reward-num" style="color:var(--saffron)">£20</div>
+              <div class="rq-card__reward-label">flat rate</div>
+            </div>
+            <div>
+              <div class="rq-card__urgency"><span class="urgency-pip urgency-pip--red"></span> Urgent</div>
+              <button class="rq-claim-btn" style="margin-top:6px;background:var(--saffron);box-shadow:0 2px 12px rgba(232,160,32,.3)" onclick="claimRq(this)">Claim</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rq-card" data-type="shopping">
+        <div class="rq-card__bar"></div>
+        <div class="rq-card__body">
+          <div class="rq-card__head">
+            <div class="rq-card__user-row">
+              <div class="rq-card__ava rq-card__ava--K">K</div>
+              <div>
+                <div class="rq-card__uname">Kemi Williams</div>
+                <div class="rq-card__uloc"><i class="fa fa-location-dot" style="font-size:9px;color:var(--terracotta)"></i> Elephant &amp; Castle</div>
+              </div>
+            </div>
+            <span class="rq-card__type type-shop">Shopping</span>
+          </div>
+          <div class="rq-card__title">Nigerian Provisions Restock</div>
+          <div class="rq-card__chips">
+            <span class="rq-chip">Indomie carton</span><span class="rq-chip">Maggi cubes × 3</span><span class="rq-chip">Tomato paste</span><span class="rq-chip">Oat milk × 2</span>
+          </div>
+          <div class="rq-card__foot">
+            <div>
+              <div class="rq-card__reward-num">£4 tip</div>
+              <div class="rq-card__reward-label">+ full cost covered</div>
+            </div>
+            <div>
+              <div class="rq-card__urgency"><span class="urgency-pip urgency-pip--green"></span> Tomorrow ok</div>
+              <div class="rq-claimed" style="margin-top:6px"><i class="fa fa-circle-check"></i> Claimed by Seun</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="wrap">
+    <div class="eyebrow">What We Support</div>
+    <h2 class="services-h2">More than <em>groceries</em></h2>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="svc-card__content">
+          <div class="svc-card__icon svc-card__icon--terra"><i class="fa fa-basket-shopping"></i></div>
+          <h3 class="svc-card__title">Market Shopping</h3>
+          <p class="svc-card__desc">African produce, Caribbean staples, halal meats, stockfish, fresh peppers and vegetables — sourced from the real markets your community depends on.</p>
+          <div class="svc-card__tags">
+            <span class="svc-tag">Ugu &amp; Uziza</span><span class="svc-tag">Stockfish</span><span class="svc-tag">Ogiri &amp; Dawadawa</span>
+            <span class="svc-tag">Scotch bonnet</span><span class="svc-tag">Yam &amp; plantain</span><span class="svc-tag">Halal meat</span>
+          </div>
+          <div class="svc-card__markets-banner">
+            <i class="fa fa-map-location-dot" style="color:var(--terracotta)"></i>
+            Brixton · Ridley Road · Peckham · Elephant &amp; Castle · Lewisham · Tooting
+          </div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card__content">
+          <div class="svc-card__icon svc-card__icon--gold"><i class="fa fa-child-reaching"></i></div>
+          <h3 class="svc-card__title">Nanny &amp; Childcare</h3>
+          <p class="svc-card__desc">Trusted community members available for childcare, school pickups, after-school supervision, and overnight stays — vetted with community reviews.</p>
+          <div class="svc-card__tags">
+            <span class="svc-tag">School pickups</span><span class="svc-tag">After-school care</span><span class="svc-tag">Homework help</span>
+            <span class="svc-tag">Babysitting</span><span class="svc-tag">Overnight stays</span><span class="svc-tag">Hourly rates</span>
+          </div>
+          <div class="svc-card__markets-banner" style="border-color:rgba(184,134,11,.2);background:var(--gold-pale);color:var(--gold)">
+            <i class="fa fa-shield-halved"></i> Community-vetted · Rated by families you know
+          </div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card__content">
+          <div class="svc-card__icon svc-card__icon--green"><i class="fa fa-box-open"></i></div>
+          <h3 class="svc-card__title">Errands &amp; Delivery</h3>
+          <p class="svc-card__desc">Post office runs, pharmacy pickups, council office visits, document drops — practical community support for migrants navigating daily UK life.</p>
+          <div class="svc-card__tags">
+            <span class="svc-tag">Post office</span><span class="svc-tag">Pharmacy runs</span><span class="svc-tag">Council forms</span>
+            <span class="svc-tag">Document delivery</span><span class="svc-tag">Same-day</span><span class="svc-tag">Next-day</span>
+          </div>
+          <div class="svc-card__markets-banner" style="border-color:rgba(45,80,22,.15);background:rgba(45,80,22,.05);color:var(--forest-light)">
+            <i class="fa fa-clock"></i> Available 7 days a week · All London boroughs
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST FORM -->
+<section class="post-section" id="post">
+  <div class="post-glow"></div>
+  <div class="wrap">
+    <div class="post-grid">
+      <div>
+        <div class="eyebrow post-eyebrow">Post a Request</div>
+        <h2 class="post-h2">Need something?<br><span>Ask the market.</span></h2>
+        <p class="post-body">
+          Whether it's a weekly food shop, last-minute childcare, or a quick errand — post your request and let a community shopper handle it for you.
+        </p>
+        <ul class="post-perks">
+          <li class="post-perk">
+            <div class="post-perk__icon"><i class="fa fa-users"></i></div>
+            <div class="post-perk__text"><strong>Community Verified</strong>Every shopper has a community profile and reviews from people you may know.</div>
+          </li>
+          <li class="post-perk">
+            <div class="post-perk__icon"><i class="fa fa-coins"></i></div>
+            <div class="post-perk__text"><strong>You Set the Tip</strong>Offer what feels fair. Most requests include cost + £3–£10 tip for time and travel.</div>
+          </li>
+          <li class="post-perk">
+            <div class="post-perk__icon"><i class="fa fa-truck-fast"></i></div>
+            <div class="post-perk__text"><strong>Doorstep Delivery</strong>Items come to you or an agreed drop-off point. Same day and next day available.</div>
+          </li>
+          <li class="post-perk">
+            <div class="post-perk__icon"><i class="fa fa-heart"></i></div>
+            <div class="post-perk__text"><strong>Support Your Neighbour</strong>Every request funded is money staying in the community — shoppers earn while helping.</div>
+          </li>
+        </ul>
+        <div class="post-quote">
+          <p>"Onye wetara oji wetara ndu" — He who brings kola brings life.</p>
+          <cite>Igbo proverb</cite>
+        </div>
+      </div>
+
+      <div class="post-form-card">
+        <div class="post-form-title">Post a new <em>request</em></div>
+
+        <div class="fg">
+          <label>Type of Request</label>
+          <div class="type-toggles" id="typeToggles">
+            <div class="tt on" onclick="pickType(this,'shopping')"><i class="fa fa-basket-shopping"></i> Shopping</div>
+            <div class="tt" onclick="pickType(this,'nanny')"><i class="fa fa-child-reaching"></i> Nanny</div>
+            <div class="tt" onclick="pickType(this,'errand')"><i class="fa fa-box-open"></i> Errand</div>
+          </div>
+          <input type="hidden" id="selectedType" value="shopping"/>
+        </div>
+
+        <div class="fg-row">
+          <div class="fg">
+            <label>Your Name</label>
+            <input type="text" id="f-name" placeholder="e.g. Adaeze O."/>
+          </div>
+          <div class="fg">
+            <label>Postcode / Area</label>
+            <input type="text" id="f-area" placeholder="e.g. SW9 · Brixton"/>
+          </div>
+        </div>
+
+        <div class="fg" id="marketGroup">
+          <label>Preferred Market</label>
+          <select id="f-market">
+            <option value="" disabled selected>Select a market…</option>
+            <option>Brixton Market (SW9)</option>
+            <option>Ridley Road, Dalston (E8)</option>
+            <option>Peckham Market (SE15)</option>
+            <option>Elephant &amp; Castle (SE1)</option>
+            <option>Lewisham Market (SE13)</option>
+            <option>Tooting Market (SW17)</option>
+            <option>Any / Flexible</option>
+          </select>
+        </div>
+
+        <div class="fg">
+          <label>Items / Details <span style="letter-spacing:0;text-transform:none;font-size:9px;color:var(--ink4)">(press Enter to add each item)</span></label>
+          <div class="items-wrap" id="itemsWrap" onclick="document.getElementById('itemInput').focus()">
+            <input class="items-bare-input" id="itemInput" placeholder="Type an item and press Enter…"/>
+          </div>
+        </div>
+
+        <div class="fg-row">
+          <div class="fg">
+            <label>Needed By (time)</label>
+            <input type="time" id="f-time"/>
+          </div>
+          <div class="fg">
+            <label>Tip Offered (£)</label>
+            <input type="number" id="f-tip" placeholder="e.g. 5" min="0" step="0.50"/>
+          </div>
+        </div>
+
+        <div class="fg">
+          <label>Notes for the shopper</label>
+          <textarea id="f-notes" placeholder="Preferred brands, allergies, specific sizes, how to reach you…"></textarea>
+        </div>
+
+        <div class="submit-row">
+          <button class="form-submit-btn" onclick="submitPost(event)">
+            Post to the Board <i class="fa fa-arrow-right"></i>
+          </button>
+        </div>
+        <p class="form-helper" style="margin-top:12px">Free to post · No account needed · Shopper contacts you directly</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="community-section" id="community">
+  <div class="wrap">
+    <div class="community-inner">
+      <div>
+        <h2 class="comm-h2">Built for<br>community,<br>by community</h2>
+        <p class="comm-p">Eke Market Day was born from the reality that many African and diaspora migrants — especially new arrivals, parents with young children, and the elderly — can't always make it to the market themselves.</p>
+        <p class="comm-p">We believe the community already has everything it needs. Someone is always going to the market. Someone always needs something from the market. We just connect them — with dignity, trust, and fair pay.</p>
+        <div class="comm-proverb">
+          <p>"Egbe bere, ugo bere — nke si ibe ya ebela, nku kwaa ya."</p>
+          <cite>Let the kite perch and the eagle perch — whoever says the other should not, may his wings break. (Igbo proverb on coexistence)</cite>
+        </div>
+        <div class="comm-btns">
+          <a href="#post" class="btn-comm-white"><i class="fa fa-plus"></i> Post a Request</a>
+          <a href="#board" class="btn-comm-outline">Become a Shopper</a>
+        </div>
+      </div>
+      <div>
+        <div class="act-header">
+          <span class="act-title">Live community activity</span>
+          <span class="act-live"><span class="act-live-dot"></span> Real-time</span>
+        </div>
+        <div class="activity-feed" id="activityFeed">
+          <div class="act-item">
+            <div class="act-av">S</div>
+            <div class="act-main">
+              <div class="act-name">Seun Adeyemi</div>
+              <div class="act-action">Claimed Kemi's Brixton shopping list 🛒</div>
+            </div>
+            <div class="act-time">4m ago</div>
+          </div>
+          <div class="act-item">
+            <div class="act-av">B</div>
+            <div class="act-main">
+              <div class="act-name">Bisi Olatunji</div>
+              <div class="act-action">Delivered to Adaeze — rated ⭐⭐⭐⭐⭐</div>
+            </div>
+            <div class="act-time">28m ago</div>
+          </div>
+          <div class="act-item">
+            <div class="act-av">M</div>
+            <div class="act-main">
+              <div class="act-name">Mary Nwosu</div>
+              <div class="act-action">Posted a nanny request for tomorrow 👶</div>
+            </div>
+            <div class="act-time">1h ago</div>
+          </div>
+          <div class="act-item">
+            <div class="act-av">I</div>
+            <div class="act-main">
+              <div class="act-name">Ifeoma Chukwu</div>
+              <div class="act-action">Joined as a shopper in Peckham 🎉</div>
+            </div>
+            <div class="act-time">2h ago</div>
+          </div>
+          <div class="act-item">
+            <div class="act-av">D</div>
+            <div class="act-main">
+              <div class="act-name">Dauda Koroma</div>
+              <div class="act-action">Completed errand for Taiwo — pharmacy ✅</div>
+            </div>
+            <div class="act-time">3h ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__main">
+    <div>
+      <div class="footer__sigil">E</div>
+      <div class="footer__brand-name">Eke Market Day</div>
+      <p class="footer__brand-p">A community mutual-aid platform by EonCanvas, connecting African and diaspora migrants through shared shopping, childcare, and community solidarity. Based in Brighton, UK.</p>
+      <div class="footer__social-row">
+        <a href="https://www.instagram.com/e_on_canvas" target="_blank" rel="noopener" class="footer__soc-btn"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@e_on_canvas" target="_blank" rel="noopener" class="footer__soc-btn"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.youtube.com/@E_on_Canvas" target="_blank" rel="noopener" class="footer__soc-btn"><i class="fab fa-youtube"></i></a>
+        <a href="https://substack.com/@eoncanvas" target="_blank" rel="noopener" class="footer__soc-btn"><i class="fa fa-newspaper"></i></a>
+        <a href="https://www.linkedin.com/company/eoncanvas" target="_blank" rel="noopener" class="footer__soc-btn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+    <div class="footer__col">
+      <h4>Platform</h4>
+      <a href="#board">Browse Requests</a>
+      <a href="#post">Post a Request</a>
+      <a href="#services">Our Services</a>
+      <a href="#how">How It Works</a>
+      <a href="#calendar">Market Calendar</a>
+    </div>
+    <div class="footer__col">
+      <h4>Markets Covered</h4>
+      <a href="#">Brixton Market, SW9</a>
+      <a href="#">Ridley Road, Dalston E8</a>
+      <a href="#">Peckham Market, SE15</a>
+      <a href="#">Elephant &amp; Castle, SE1</a>
+      <a href="#">Lewisham Market, SE13</a>
+      <a href="#">Tooting Market, SW17</a>
+    </div>
+    <div class="footer__col">
+      <h4>EonCanvas</h4>
+      <a href="https://eoncanvas.co.uk">EonCanvas.co.uk</a>
+      <a href="https://www.instagram.com/e_on_canvas" target="_blank">Instagram</a>
+      <a href="https://substack.com/@eoncanvas" target="_blank">Newsletter</a>
+      <a href="https://calendly.com/eoncanvas-info/30min" target="_blank">Book a Call</a>
+      <a href="mailto:info@eoncanvas.co.uk">info@eoncanvas.co.uk</a>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span class="footer__copy">© 2025 Eke Market Day · An EonCanvas Initiative · Brighton, UK · Open to everyone</span>
+    <span class="footer__badge"><i class="fa fa-heart" style="color:var(--terracotta)"></i> Community-owned &amp; led</span>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+/* --- CURSOR --- */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e=>{
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx+'px'; cur.style.top = my+'px';
+});
+(function animRing(){
+  rx += (mx-rx)*0.12; ry += (my-ry)*0.12;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('button, a, .flt, .tt, .act-item, .rq-card, .preview-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('hover'));
+});
+
+/* --- NAV SCROLL --- */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('elevated', window.scrollY > 30);
+},{passive:true});
+
+/* --- BURGER --- */
+const burger = document.getElementById('burger');
+const mobileNav = document.getElementById('mobile-nav');
+burger.addEventListener('click',()=>{
+  burger.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+});
+mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  burger.classList.remove('open'); mobileNav.classList.remove('open');
+}));
+
+/* --- FILTER --- */
+function doFilter(type, btn){
+  document.querySelectorAll('.flt').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.rq-card').forEach(c=>{
+    c.style.display = (type==='all' || c.dataset.type===type) ? '' : 'none';
+  });
+}
+
+/* --- CLAIM on board --- */
+function claimRq(btn){
+  const card = btn.closest('.rq-card');
+  const name = card.querySelector('.rq-card__uname').textContent;
+  btn.innerHTML='<i class="fa fa-spinner fa-spin"></i>';
+  btn.disabled=true;
+  setTimeout(()=>{
+    const foot = card.querySelector('.rq-card__foot > div:last-child');
+    const urgRow = foot.querySelector('.rq-card__urgency');
+    if(urgRow) urgRow.remove();
+    btn.outerHTML = `<div class="rq-claimed"><i class="fa fa-circle-check"></i> You claimed this</div>`;
+    toast(`You claimed ${name}'s request! They'll be notified.`);
+  },700);
+}
+
+/* --- CLAIM on preview --- */
+function claimCard(btn){
+  btn.innerHTML='<i class="fa fa-check"></i> Claimed';
+  btn.style.background='#22c55e';
+  btn.disabled=true;
+  toast('Request claimed! Check your messages.');
+}
+
+/* --- TYPE TOGGLE --- */
+function pickType(el, val){
+  document.querySelectorAll('#typeToggles .tt').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('selectedType').value=val;
+  const mg = document.getElementById('marketGroup');
+  mg.style.display = (val==='nanny'||val==='errand') ? 'none' : '';
+}
+
+/* --- ITEM TAGS --- */
+const itemInput = document.getElementById('itemInput');
+const itemsWrap = document.getElementById('itemsWrap');
+itemInput.addEventListener('keydown', e=>{
+  if(e.key==='Enter' && itemInput.value.trim()){
+    e.preventDefault();
+    const v = itemInput.value.trim();
+    const tk = document.createElement('span');
+    tk.className='item-tk';
+    tk.innerHTML=`${v}<button onclick="this.parentElement.remove()" title="Remove">×</button>`;
+    itemsWrap.insertBefore(tk, itemInput);
+    itemInput.value='';
+  }
+});
+
+/* --- SUBMIT --- */
+function submitPost(e){
+  e.preventDefault();
+  const name = document.getElementById('f-name').value.trim();
+  if(!name){ toast('Please enter your name first.'); return; }
+  toast(`Request posted, ${name.split(' ')[0]}! Shoppers in your area will be notified.`);
+  // reset
+  document.querySelectorAll('#post input, #post select, #post textarea').forEach(el=>el.value='');
+  itemsWrap.querySelectorAll('.item-tk').forEach(t=>t.remove());
+  document.querySelectorAll('#typeToggles .tt').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('#typeToggles .tt')[0].classList.add('on');
+  document.getElementById('selectedType').value='shopping';
+  document.getElementById('marketGroup').style.display='';
+}
+
+/* --- TOAST --- */
+function toast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(()=>t.classList.remove('show'),4200);
+}
+
+/* --- LIVE COUNT SIMULATION --- */
+let cnt=16;
+setInterval(()=>{
+  if(Math.random()>.65){ cnt++; document.getElementById('live-count').textContent=cnt; }
+},20000);
+
+/* --- ACTIVITY FEED SIMULATION --- */
+const newActivity = [
+  {av:'Z', name:'Zainab H.', action:'Posted a shopping request for Tooting 🛒', time:'just now'},
+  {av:'E', name:'Emeka O.', action:'Claimed Fatima\'s Ridley Road request 🤝', time:'just now'},
+  {av:'A', name:'Aisha M.', action:'Joined as a shopper in Lewisham 🎉', time:'just now'},
+  {av:'K', name:'Kofi A.', action:'Delivered to Ngozi — rated ⭐⭐⭐⭐⭐', time:'just now'},
+];
+let actIdx=0;
+setInterval(()=>{
+  const feed = document.getElementById('activityFeed');
+  const item = newActivity[actIdx % newActivity.length]; actIdx++;
+  const el = document.createElement('div');
+  el.className='act-item'; el.style.opacity='0'; el.style.transform='translateX(20px)';
+  el.innerHTML=`<div class="act-av">${item.av}</div><div class="act-main"><div class="act-name">${item.name}</div><div class="act-action">${item.action}</div></div><div class="act-time">${item.time}</div>`;
+  feed.insertBefore(el, feed.firstChild);
+  requestAnimationFrame(()=>{
+    el.style.transition='opacity .5s, transform .5s';
+    el.style.opacity='1'; el.style.transform='translateX(0)';
+  });
+  if(feed.children.length > 6) feed.removeChild(feed.lastChild);
+}, 12000);
+</script>
+</body>
+</html>
