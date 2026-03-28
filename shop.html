@@ -158,14 +158,11 @@ img{display:block;max-width:100%}
 .art-badge{font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px;border-radius:2px}
 .art-badge.unique{background:var(--gold);color:#000}
 .art-badge.artist{background:rgba(0,0,0,0.7);color:var(--text-bright);border:1px solid var(--border)}
-
-/* availability indicator */
 .art-availability{display:flex;align-items:center;gap:8px;margin-bottom:20px}
 .art-availability__dot{width:8px;height:8px;border-radius:50%;background:#4caf50;
   box-shadow:0 0 6px rgba(76,175,80,0.6);flex-shrink:0}
 .art-availability__dot.sold{background:#e53935;box-shadow:0 0 6px rgba(229,57,53,0.6)}
 .art-availability__text{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)}
-
 .art-card__info{background:var(--surface);padding:52px 48px;display:flex;flex-direction:column}
 .art-section-tag{font-size:9px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;
   color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px}
@@ -193,8 +190,6 @@ img{display:block;max-width:100%}
 .art-lock p{font-size:11px;color:var(--text-muted);line-height:1.7}
 .art-cta-row{display:flex;gap:10px;flex-wrap:wrap;min-height:52px;align-items:center}
 .art-status-msg{font-size:11px;color:var(--text-muted);font-style:italic;letter-spacing:.04em}
-
-/* checking spinner */
 .art-checking{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--text-muted);letter-spacing:.08em}
 .art-checking i{animation:spin 1s linear infinite;color:var(--gold)}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -217,7 +212,54 @@ img{display:block;max-width:100%}
 .modal-title{font-family:var(--font-display);font-size:2rem;font-weight:300;
   color:var(--text-bright);line-height:1.15;margin-bottom:12px}
 .modal-title em{font-style:italic;color:var(--gold)}
-.modal-summary{font-size:13px;color:var(--text);line-height:1.85;margin-bottom:28px}
+.modal-summary{font-size:13px;color:var(--text);line-height:1.85;margin-bottom:24px}
+.modal-form{display:flex;flex-direction:column;gap:14px;margin-bottom:8px}
+.modal-field{display:flex;flex-direction:column;gap:6px}
+.modal-label{font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted)}
+.modal-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:2px;
+  padding:12px 14px;font-family:var(--font-body);font-size:13px;font-weight:300;
+  color:var(--text-bright);outline:none;transition:border-color .2s}
+.modal-input:focus{border-color:var(--gold-line)}
+.modal-input::placeholder{color:var(--text-muted)}
+.modal-textarea{resize:vertical;min-height:90px}
+.modal-select{cursor:pointer;-webkit-appearance:none}
+.modal-select option{background:#1a1a1a}
+
+/* ── CHECKBOX ── */
+.modal-checkbox-wrap{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:14px 16px;border:1px solid var(--border);
+  border-radius:2px;background:rgba(255,255,255,0.02);
+  cursor:pointer;transition:border-color .2s;
+}
+.modal-checkbox-wrap:hover{border-color:var(--gold-line)}
+.modal-checkbox-wrap.checked{border-color:rgba(201,168,76,0.4);background:var(--gold-dim)}
+.modal-checkbox{
+  width:18px;height:18px;flex-shrink:0;
+  border:1px solid var(--border);border-radius:2px;
+  background:var(--surface2);display:flex;align-items:center;
+  justify-content:center;margin-top:1px;transition:background .2s,border-color .2s;
+}
+.modal-checkbox i{font-size:10px;color:#000;display:none}
+.modal-checkbox-wrap.checked .modal-checkbox{background:var(--gold);border-color:var(--gold)}
+.modal-checkbox-wrap.checked .modal-checkbox i{display:block}
+.modal-checkbox-text{font-size:11px;color:var(--text-muted);line-height:1.7}
+.modal-checkbox-text a{color:var(--gold);border-bottom:1px solid var(--gold-line)}
+.modal-checkbox-text a:hover{border-bottom-color:var(--gold)}
+
+.modal-error{display:flex;align-items:center;gap:8px;font-size:11px;color:#e53935;
+  padding:10px 14px;border:1px solid rgba(229,57,53,0.3);border-radius:2px;
+  background:rgba(229,57,53,0.06)}
+.modal-proceed{width:100%;padding:16px 24px;background:var(--gold);color:#000;
+  border:none;border-radius:3px;font-size:13px;font-weight:600;cursor:pointer;
+  letter-spacing:.05em;transition:background .2s,transform .18s;
+  display:flex;align-items:center;justify-content:center;gap:10px;margin-top:4px}
+.modal-proceed:hover{background:var(--gold-light);transform:translateY(-2px)}
+.modal-proceed:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.modal-summary-box{background:var(--surface2);border:1px solid var(--border);
+  border-radius:2px;padding:16px 18px;margin-bottom:24px;font-size:12px;
+  color:var(--text);line-height:1.8}
+.modal-summary-box strong{color:var(--text-bright)}
 .modal-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
 .modal-step{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;
   border:1px solid var(--border);border-radius:2px;background:var(--surface2)}
@@ -234,6 +276,10 @@ img{display:block;max-width:100%}
   transition:background .2s,transform .18s;margin-bottom:12px}
 .modal-paypal:hover{background:#005ea6;transform:translateY(-2px)}
 .modal-paypal i{font-size:20px}
+.modal-back{width:100%;padding:12px 24px;background:transparent;color:var(--text-muted);
+  border:1px solid var(--border);border-radius:3px;font-size:11px;cursor:pointer;
+  letter-spacing:.1em;text-transform:uppercase;transition:color .2s,border-color .2s;margin-top:8px}
+.modal-back:hover{color:var(--text-bright);border-color:var(--text-muted)}
 .modal-note{font-size:10px;color:var(--text-muted);text-align:center;line-height:1.7;font-style:italic}
 .modal-note a{color:var(--gold)}
 
@@ -247,32 +293,6 @@ img{display:block;max-width:100%}
 .shop-footer__links{display:flex;gap:20px}
 .shop-footer__links a{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);transition:color .2s}
 .shop-footer__links a:hover{color:var(--gold)}
-
-/* MODAL FORM */
-.modal-form { display:flex; flex-direction:column; gap:14px; margin-bottom:8px; }
-.modal-field { display:flex; flex-direction:column; gap:6px; }
-.modal-label { font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--text-muted); }
-.modal-input { width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:2px; padding:12px 14px; font-family:var(--font-body); font-size:13px; font-weight:300; color:var(--text-bright); outline:none; transition:border-color .2s; }
-.modal-input:focus { border-color:var(--gold-line); }
-.modal-input::placeholder { color:var(--text-muted); }
-.modal-textarea { resize:vertical; min-height:90px; }
-.modal-select { cursor:pointer; -webkit-appearance:none; }
-.modal-select option { background:#1a1a1a; }
-.modal-error { display:flex; align-items:center; gap:8px; font-size:11px; color:#e53935; padding:10px 14px; border:1px solid rgba(229,57,53,0.3); border-radius:2px; background:rgba(229,57,53,0.06); }
-.modal-proceed { width:100%; padding:16px 24px; background:var(--gold); color:#000; border:none; border-radius:3px; font-size:13px; font-weight:600; cursor:pointer; letter-spacing:.05em; transition:background .2s, transform .18s; display:flex; align-items:center; justify-content:center; gap:10px; }
-.modal-proceed:hover { background:var(--gold-light); transform:translateY(-2px); }
-.modal-summary-box { background:var(--surface2); border:1px solid var(--border); border-radius:2px; padding:16px 18px; margin-bottom:24px; font-size:12px; color:var(--text); line-height:1.8; }
-.modal-summary-box strong { color:var(--text-bright); }
-.modal-privacy {
-  font-size:10px; color:var(--text-muted); line-height:1.7;
-  padding:12px 14px; border:1px solid var(--border);
-  border-radius:2px; background:rgba(255,255,255,0.02);
-  margin-top:10px; display:flex; align-items:flex-start; gap:8px;
-}
-.modal-privacy i { color:var(--gold); font-size:11px; margin-top:2px; flex-shrink:0; }
-.modal-privacy a { color:var(--gold); }
-.modal-back { width:100%; padding:12px 24px; background:transparent; color:var(--text-muted); border:1px solid var(--border); border-radius:3px; font-size:11px; cursor:pointer; letter-spacing:.1em; text-transform:uppercase; transition:color .2s, border-color .2s; margin-top:8px; }
-.modal-back:hover { color:var(--text-bright); border-color:var(--text-muted); }
 
 /* RESPONSIVE */
 @media(max-width:1024px){
@@ -368,7 +388,6 @@ img{display:block;max-width:100%}
         <p class="book-card__desc">A bold, research-grounded exploration of why the world's most complex challenges demand its most diverse minds. Weaving personal stories, global case studies and frontline research, this book argues that the ideas we most need are the ones we keep silencing.</p>
         <div class="book-formats" id="bookFormats">
 
-          <!-- Digital — always same -->
           <a href="https://payhip.com/b/OFMCP" target="_blank" rel="noopener" class="book-format highlight">
             <div class="bf-left">
               <i class="fa fa-file-pdf bf-icon"></i>
@@ -381,7 +400,6 @@ img{display:block;max-width:100%}
             </div>
           </a>
 
-          <!-- Kindle Pre-order — location aware -->
           <a href="#" target="_blank" rel="noopener" class="book-format" id="kindleLink">
             <div class="bf-left">
               <i class="fab fa-amazon bf-icon"></i>
@@ -397,7 +415,6 @@ img{display:block;max-width:100%}
             </div>
           </a>
 
-          <!-- Paperback — location aware -->
           <a href="#" target="_blank" rel="noopener" class="book-format" id="paperbackLink">
             <div class="bf-left">
               <i class="fa fa-book bf-icon"></i>
@@ -438,17 +455,14 @@ img{display:block;max-width:100%}
       </div>
       <div class="art-card__info">
         <div class="art-section-tag">Original Artwork</div>
-
-        <!-- Live availability indicator -->
         <div class="art-availability" id="artAvailability">
           <div class="art-availability__dot" id="artDot"></div>
           <span class="art-availability__text" id="artAvailText">Checking availability...</span>
         </div>
-
         <h2 class="art-title">The World is Cracked —<br><em>But It's Still in Our Hands</em></h2>
         <p class="art-provenance">Commissioned for <span>Innovation in Diversity</span> by Damilola Ajiboye.<br>© 2026 EonCanvas Arts · eoncanvas.co.uk</p>
         <div class="art-specs">
-          <div class="art-spec"><div class="art-spec__lbl">Medium</div><div class="art-spec__val">Charcoal on Paper</div></div>
+          <div class="art-spec"><div class="art-spec__lbl">Medium</div><div class="art-spec__val">Charcoard on Paper</div></div>
           <div class="art-spec"><div class="art-spec__lbl">Edition</div><div class="art-spec__val">1 of 1 · Original</div></div>
           <div class="art-spec"><div class="art-spec__lbl">Artist</div><div class="art-spec__val">EonCanvas Arts</div></div>
           <div class="art-spec"><div class="art-spec__lbl">Year</div><div class="art-spec__val">2026</div></div>
@@ -490,8 +504,8 @@ img{display:block;max-width:100%}
         <div class="shop-footer__copy">© 2026 EonCanvas · Melchizedek Joseph Publication. All rights reserved.</div>
         <div class="shop-footer__links">
           <a href="index.html">Home</a>
-          <a href="/cdn-cgi/l/email-protection#5930373f36193c36373a38372f382a773a36772c32">Contact</a>
-          <a href="https://www.eoncanvas.co.uk/privacy-policy" target="_blank">Privacy</a>
+          <a href="mailto:info@eoncanvas.co.uk">Contact</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
         </div>
       </div>
     </div>
@@ -505,6 +519,7 @@ img{display:block;max-width:100%}
     <button class="modal-close" id="modalCloseBtn" type="button" aria-label="Close">
       <i class="fa fa-xmark"></i>
     </button>
+
     <!-- STEP 1: Details Form -->
     <div id="modalStep1">
       <div class="modal-tag">Original · 1 of 1 · EonCanvas Arts</div>
@@ -530,17 +545,27 @@ img{display:block;max-width:100%}
             <option value="International">International — £950 (includes £50 shipping)</option>
           </select>
         </div>
+
+        <!-- PRIVACY CHECKBOX -->
+        <div class="modal-checkbox-wrap" id="privacyCheckbox" role="checkbox" aria-checked="false" tabindex="0">
+          <div class="modal-checkbox">
+            <i class="fa fa-check"></i>
+          </div>
+          <span class="modal-checkbox-text">
+            I confirm my details are correct and I agree to the
+            <a href="privacy-policy.html" target="_blank" onclick="event.stopPropagation()">Privacy Policy</a>.
+            My data will be used solely for order fulfilment and delivery of this artwork.
+          </span>
+        </div>
+
         <div class="modal-error" id="modalError" style="display:none;">
           <i class="fa fa-circle-exclamation"></i>
           <span id="modalErrorText">Please fill in all fields.</span>
         </div>
-        <button class="modal-proceed" id="proceedBtn" type="button">
+
+        <button class="modal-proceed" id="proceedBtn" type="button" disabled>
           Continue to Payment <i class="fa fa-arrow-right"></i>
         </button>
-        <p class="modal-privacy">
-          <i class="fa fa-shield-halved"></i>
-          Your details are collected solely for order fulfilment and delivery of this artwork. We do not share your data with third parties. By continuing you agree to our <a href="https://www.eoncanvas.co.uk/privacy-policy" target="_blank">Privacy Policy</a>.
-        </p>
       </div>
       <p class="modal-note" style="margin-top:16px;">
         Questions? <a href="https://calendly.com/eoncanvas-info/30min" target="_blank">Book a 30-min call</a> or email info@eoncanvas.co.uk
@@ -551,7 +576,7 @@ img{display:block;max-width:100%}
     <div id="modalStep2" style="display:none;">
       <div class="modal-tag">Almost There · 1 of 1 · EonCanvas Arts</div>
       <h3 class="modal-title">Complete <em>Your</em><br>Payment</h3>
-      <p class="modal-summary">Your details have been saved. Click below to complete payment via PayPal.</p>
+      <p class="modal-summary">Your details have been saved. Click below to complete payment via PayPal. Use Goods &amp; Services for buyer protection.</p>
       <div class="modal-summary-box" id="orderSummary"></div>
       <div class="modal-steps">
         <div class="modal-step">
@@ -581,14 +606,15 @@ img{display:block;max-width:100%}
         Questions? <a href="https://calendly.com/eoncanvas-info/30min" target="_blank">Book a 30-min call</a> or email info@eoncanvas.co.uk
       </p>
     </div>
+
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function() {
 
   // ═══════════════════════════════════════════════
-  // REPLACE THIS URL after following setup-instructions.md
+  // REPLACE THIS URL with your Google Apps Script URL
   // ═══════════════════════════════════════════════
   var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHqxwKu-V3G_0aZixTo8sgzD41W6E-MrRyHob8kMKMeP_LwFBwhiFrUiZo-p56YLd9dQ/exec';
 
@@ -606,24 +632,54 @@ img{display:block;max-width:100%}
     });
   }
 
+  // ── CHECKBOX ──
+  var checkbox = document.getElementById('privacyCheckbox');
+  var proceedBtn = document.getElementById('proceedBtn');
+  var isChecked = false;
+
+  function toggleCheckbox() {
+    isChecked = !isChecked;
+    if (isChecked) {
+      checkbox.classList.add('checked');
+      checkbox.setAttribute('aria-checked', 'true');
+      proceedBtn.disabled = false;
+    } else {
+      checkbox.classList.remove('checked');
+      checkbox.setAttribute('aria-checked', 'false');
+      proceedBtn.disabled = true;
+    }
+  }
+
+  checkbox.addEventListener('click', toggleCheckbox);
+  checkbox.addEventListener('keydown', function(e) {
+    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleCheckbox(); }
+  });
+
   // ── MODAL ──
   function openModal() {
     var m = document.getElementById('artModal');
     m.style.display = 'flex';
     document.body.style.overflow = 'hidden';
-    // Reset to step 1
+    // Reset form
     document.getElementById('modalStep1').style.display = 'block';
     document.getElementById('modalStep2').style.display = 'none';
     document.getElementById('modalError').style.display = 'none';
     document.getElementById('orderName').value = '';
     document.getElementById('orderEmail').value = '';
     document.getElementById('orderAddress').value = '';
+    // Reset checkbox
+    isChecked = false;
+    checkbox.classList.remove('checked');
+    checkbox.setAttribute('aria-checked', 'false');
+    proceedBtn.disabled = true;
   }
+
   function closeModal() {
     var m = document.getElementById('artModal');
     m.style.display = 'none';
     document.body.style.overflow = '';
   }
+
   document.getElementById('modalCloseBtn').addEventListener('click', function(e) {
     e.preventDefault(); closeModal();
   });
@@ -634,8 +690,8 @@ img{display:block;max-width:100%}
     if (e.key === 'Escape') closeModal();
   });
 
-  // ── PROCEED BUTTON — validate form + save to Google Sheet ──
-  document.getElementById('proceedBtn').addEventListener('click', function() {
+  // ── PROCEED BUTTON ──
+  proceedBtn.addEventListener('click', function() {
     var name    = document.getElementById('orderName').value.trim();
     var email   = document.getElementById('orderEmail').value.trim();
     var address = document.getElementById('orderAddress').value.trim();
@@ -643,7 +699,6 @@ img{display:block;max-width:100%}
     var errEl   = document.getElementById('modalError');
     var errTxt  = document.getElementById('modalErrorText');
 
-    // Validate
     if (!name || !email || !address) {
       errTxt.textContent = 'Please fill in all fields before continuing.';
       errEl.style.display = 'flex';
@@ -656,13 +711,11 @@ img{display:block;max-width:100%}
     }
     errEl.style.display = 'none';
 
-    // Show loading state
     var btn = document.getElementById('proceedBtn');
     btn.innerHTML = '<i class="fa fa-circle-notch fa-spin"></i> Saving your details...';
     btn.disabled = true;
 
-    // Save to Google Sheet
-    var amount = country === 'UK' ? '£900' : '£950';
+    var amount  = country === 'UK' ? '£900' : '£950';
     var payload = {
       action:  'saveOrder',
       name:    name,
@@ -672,8 +725,7 @@ img{display:block;max-width:100%}
       amount:  amount
     };
 
-    var saveData = function() {
-      // Show step 2
+    var showStep2 = function() {
       var summary = document.getElementById('orderSummary');
       summary.innerHTML =
         '<strong>Name:</strong> ' + name + '<br>' +
@@ -690,10 +742,10 @@ img{display:block;max-width:100%}
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
-      .then(function() { saveData(); })
-      .catch(function() { saveData(); }); // Show step 2 even if save fails
+      .then(function() { showStep2(); })
+      .catch(function() { showStep2(); });
     } else {
-      saveData(); // Dev mode
+      showStep2();
     }
   });
 
@@ -703,7 +755,7 @@ img{display:block;max-width:100%}
     document.getElementById('modalStep2').style.display = 'none';
     var btn = document.getElementById('proceedBtn');
     btn.innerHTML = 'Continue to Payment <i class="fa fa-arrow-right"></i>';
-    btn.disabled = false;
+    btn.disabled = !isChecked;
   });
 
   // ── PAYPAL BUTTON ──
@@ -712,22 +764,18 @@ img{display:block;max-width:100%}
     setTimeout(closeModal, 400);
   });
 
-  // ── SHOW SOLD STATE ──
+  // ── SOLD STATE ──
   function showSold(msg) {
-    // Stamp on image
     var ov = document.getElementById('artSoldOverlay');
     if (ov) ov.classList.add('active');
-    // Dot indicator
     var dot = document.getElementById('artDot');
     if (dot) dot.classList.add('sold');
     var txt = document.getElementById('artAvailText');
     if (txt) txt.textContent = 'Sold — no longer available';
-    // Replace CTA
     var row = document.getElementById('artCtaRow');
     if (row) row.innerHTML = '<p class="art-status-msg">' + (msg || 'This original artwork has been claimed.') + '</p>';
   }
 
-  // ── SHOW AVAILABLE STATE ──
   function showAvailable() {
     var dot = document.getElementById('artDot');
     if (dot) { dot.classList.remove('sold'); }
@@ -746,22 +794,16 @@ img{display:block;max-width:100%}
     });
   }
 
-  // ── CHECK SOLD STATE FROM GOOGLE SHEET ──
+  // ── CHECK SOLD STATE ──
   function checkSoldState() {
-    // If no script URL set yet, show available (dev mode)
     if (!SCRIPT_URL || SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwHqxwKu-V3G_0aZixTo8sgzD41W6E-MrRyHob8kMKMeP_LwFBwhiFrUiZo-p56YLd9dQ/exec') {
       showAvailable();
       return;
     }
     fetch(SCRIPT_URL + '?t=' + Date.now())
       .then(function(r) { return r.json(); })
-      
       .then(function(data) {
-        if (data.sold === true) {
-          showSold();
-        } else {
-          showAvailable();
-        }
+        if (data.sold === true) { showSold(); } else { showAvailable(); }
       })
       .catch(function() {
         console.warn('EonCanvas: Could not check sold state. Defaulting to available.');
@@ -769,60 +811,49 @@ img{display:block;max-width:100%}
       });
   }
 
-  // Run on load
-  checkSoldState();
-
   // ── LOCATION DETECTION ──
   var BOOK_DATA = {
     US: {
-      kindle:    { url: 'https://www.amazon.com/dp/B0GSNSDCDV',  price: '$9.99',  note: 'Auto-delivered 29 Mar 2026 · Rises to $9.99 after' },
+      kindle:    { url: 'https://www.amazon.com/dp/B0GSNSDCDV',  price: '$9.99',  note: 'Auto-delivered 29 Mar 2026 · <strong>Rises to $9.99 after</strong>' },
       paperback: { url: 'https://www.amazon.com/dp/B0GSV3JPT2',  price: '$14.99', note: 'Physical copy · Amazon US · Ships worldwide' }
     },
     GB: {
-      kindle:    { url: 'https://www.amazon.co.uk/dp/B0GSNSDCDV', price: '£7.99',  note: 'Auto-delivered 29 Mar 2026 · Rises to £9.99 after' },
+      kindle:    { url: 'https://www.amazon.co.uk/dp/B0GSNSDCDV', price: '£7.99',  note: 'Auto-delivered 29 Mar 2026 · <strong>Rises to £9.99 after</strong>' },
       paperback: { url: 'https://www.amazon.co.uk/dp/B0GSV3JPT2', price: '£11.32', note: 'Physical copy · Amazon UK · Ships worldwide' }
     },
     FR: {
-      kindle:    { url: 'https://www.amazon.fr/dp/B0GSNSDCDV',  price: '€9.26',  note: 'Auto-delivered 29 Mar 2026 · Rises after pre-order' },
+      kindle:    { url: 'https://www.amazon.fr/dp/B0GSNSDCDV',  price: '€9.26',  note: 'Auto-delivered 29 Mar 2026 · <strong>Rises after pre-order</strong>' },
       paperback: { url: 'https://www.amazon.fr/dp/B0GSV3JPT2',  price: '€13.83', note: 'Physical copy · Amazon FR · Ships worldwide' }
     },
     NL: {
-      kindle:    { url: 'https://www.amazon.nl/dp/B0GSNSDCDV',  price: '€9.26',  note: 'Auto-delivered 29 Mar 2026 · Rises after pre-order' },
+      kindle:    { url: 'https://www.amazon.nl/dp/B0GSNSDCDV',  price: '€9.26',  note: 'Auto-delivered 29 Mar 2026 · <strong>Rises after pre-order</strong>' },
       paperback: { url: 'https://www.amazon.nl/dp/B0GSV3JPT2',  price: '€14.03', note: 'Physical copy · Amazon NL · Ships worldwide' }
     }
   };
 
   function updateBookLinks(countryCode) {
     var data = BOOK_DATA[countryCode] || BOOK_DATA['GB'];
-
-    // Kindle
     var kLink  = document.getElementById('kindleLink');
     var kPrice = document.getElementById('kindlePrice');
     var kNote  = document.getElementById('kindleNote');
-    if (kLink)  kLink.href        = data.kindle.url;
+    if (kLink)  kLink.href         = data.kindle.url;
     if (kPrice) kPrice.textContent = data.kindle.price;
-    if (kNote)  kNote.innerHTML   = data.kindle.note;
-
-    // Paperback
+    if (kNote)  kNote.innerHTML    = data.kindle.note;
     var pLink  = document.getElementById('paperbackLink');
     var pPrice = document.getElementById('paperbackPrice');
     var pNote  = document.getElementById('paperbackNote');
-    if (pLink)  pLink.href        = data.paperback.url;
+    if (pLink)  pLink.href         = data.paperback.url;
     if (pPrice) pPrice.textContent = data.paperback.price;
     if (pNote)  pNote.textContent  = data.paperback.note;
   }
 
-  // Detect country using free ipapi.co
+  // Run on load
+  checkSoldState();
+
   fetch('https://ipapi.co/json/')
     .then(function(r) { return r.json(); })
-    .then(function(d) {
-      var country = (d.country_code || 'GB').toUpperCase();
-      updateBookLinks(country);
-    })
-    .catch(function() {
-      // Default to UK if detection fails
-      updateBookLinks('GB');
-    });
+    .then(function(d) { updateBookLinks((d.country_code || 'GB').toUpperCase()); })
+    .catch(function() { updateBookLinks('GB'); });
 
 })();
 </script>
