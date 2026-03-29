@@ -9,9 +9,10 @@ var ARTWORK_ID = "world-is-cracked";
 // ── Called by your shop page to CHECK if artwork is sold ──
 function doGet(e) {
   var sold = isSold();
-  return ContentService
+  var response = ContentService
     .createTextOutput(JSON.stringify({ sold: sold }))
     .setMimeType(ContentService.MimeType.JSON);
+  return response;
 }
 
 // ── Called by PayPal IPN to MARK artwork as sold ──
@@ -20,15 +21,19 @@ function doPost(e) {
 
   // Handle order form submission from shop.html
   try {
-    var body = JSON.parse(e.postData.contents);
-    if (body.action === 'saveOrder') {
-      saveOrderDetails(body);
-      return ContentService
-        .createTextOutput(JSON.stringify({ status: 'order_saved' }))
-        .setMimeType(ContentService.MimeType.JSON);
+    var rawBody = e.postData ? e.postData.contents : null;
+    if (rawBody) {
+      var body = JSON.parse(rawBody);
+      if (body.action === 'saveOrder') {
+        saveOrderDetails(body);
+        return ContentService
+          .createTextOutput(JSON.stringify({ status: 'order_saved' }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
     }
   } catch(err) {
     // Not JSON — continue to IPN handling below
+    Logger.log('doPost parse error: ' + err);
   }
 
   var params = e.parameter;
