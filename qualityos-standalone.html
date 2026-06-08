@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QualityOS — QA & Product Hub</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f4f0;min-height:100vh;padding:24px;color:#1a1a1a}
+  .app{max-width:900px;margin:0 auto;background:#fff;border-radius:16px;border:1px solid #e5e3dc;overflow:hidden}
+  .header{padding:20px 24px 16px;border-bottom:1px solid #e5e3dc;display:flex;align-items:flex-start;justify-content:space-between}
+  .header-left h1{font-size:20px;font-weight:600}
+  .header-left p{font-size:13px;color:#888;margin-top:2px}
+  .export-btn{display:flex;align-items:center;gap:6px;padding:8px 16px;border:1px solid #e5e3dc;border-radius:10px;background:#fff;cursor:pointer;font-size:13px;font-weight:500;color:#1a1a1a}
+  .export-btn:hover{background:#f5f4f0}
+  .tabs{display:flex;gap:4px;padding:12px 16px;border-bottom:1px solid #e5e3dc;background:#faf9f6}
+  .tab{flex:1;padding:9px 12px;border:1px solid #e5e3dc;border-radius:10px;background:#fff;cursor:pointer;font-size:13px;font-weight:500;color:#666;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s}
+  .tab.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+  .tab:hover:not(.active){background:#f5f4f0}
+  .panel{display:none;padding:20px 24px}
+  .panel.active{display:block}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+  .stat{background:#f5f4f0;border-radius:12px;padding:16px;text-align:center}
+  .stat-num{font-size:28px;font-weight:600;line-height:1}
+  .stat-num.red{color:#c0392b}
+  .stat-num.green{color:#27ae60}
+  .stat-label{font-size:12px;color:#888;margin-top:6px}
+
+  /* Forms */
+  .form-section{background:#f9f8f5;border:1px solid #e5e3dc;border-radius:12px;padding:18px;margin-bottom:20px}
+  .form-section h3{font-size:14px;font-weight:600;margin-bottom:14px}
+  .field-row{display:grid;gap:10px;margin-bottom:10px}
+  .field-row.two{grid-template-columns:1fr 1fr}
+  .field-row.three{grid-template-columns:1fr 1fr 1fr}
+  label{display:block;font-size:12px;color:#666;margin-bottom:4px;font-weight:500}
+  input,select,textarea{width:100%;font-size:13px;padding:8px 10px;border:1px solid #e0ddd6;border-radius:8px;background:#fff;font-family:inherit;color:#1a1a1a;outline:none}
+  input:focus,select:focus,textarea:focus{border-color:#1a1a1a}
+  textarea{resize:vertical;min-height:70px}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border:1px solid #e5e3dc;border-radius:8px;background:#fff;cursor:pointer;font-size:13px;font-weight:500;color:#1a1a1a;font-family:inherit;transition:all .15s}
+  .btn:hover{background:#f5f4f0}
+  .btn.primary{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+  .btn.primary:hover{background:#333}
+  .btn.danger{color:#c0392b;border-color:#f5c6c6}
+  .btn.danger:hover{background:#fff5f5}
+  .btn-row{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+
+  /* Issues */
+  .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .section-title{font-size:14px;font-weight:600}
+  .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .filter-row select{width:auto;font-size:12px;padding:5px 8px}
+  .issue-card{border:1px solid #e5e3dc;border-radius:12px;padding:14px 16px;margin-bottom:8px;background:#fff}
+  .issue-card:hover{border-color:#ccc}
+  .issue-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .issue-title{font-size:14px;font-weight:600;margin-bottom:6px}
+  .issue-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid}
+  .badge.critical{background:#fff0f0;color:#8b1a1a;border-color:#f5c6c6}
+  .badge.high{background:#fff8ee;color:#7a4000;border-color:#fad9a8}
+  .badge.medium{background:#eef4ff;color:#1a3a7a;border-color:#b8d0f8}
+  .badge.low{background:#edfff5;color:#1a5a35;border-color:#a8e6c0}
+  .badge.open{background:#fff0f0;color:#8b1a1a;border-color:#f5c6c6}
+  .badge.in-progress{background:#fff8ee;color:#7a4000;border-color:#fad9a8}
+  .badge.resolved{background:#edfff5;color:#1a5a35;border-color:#a8e6c0}
+  .badge.wontfix{background:#f5f4f0;color:#666;border-color:#e0ddd6}
+  .issue-desc{font-size:12px;color:#666;margin-top:8px;line-height:1.5}
+  .issue-rec{font-size:12px;color:#888;margin-top:6px}
+  .issue-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+  .status-select{font-size:11px;padding:4px 6px;border-radius:6px;cursor:pointer;border:1px solid #e0ddd6;width:auto}
+  .empty-state{text-align:center;padding:32px;color:#aaa;border:1px dashed #e0ddd6;border-radius:12px;font-size:13px}
+
+  /* Docs */
+  .doc-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border:1px solid #e5e3dc;border-radius:10px;margin-bottom:6px;background:#fff}
+  .doc-item:hover{border-color:#ccc}
+  .doc-title{font-size:14px;font-weight:500}
+  .doc-meta{font-size:12px;color:#888;margin-top:2px}
+  .tag{background:#f0ede6;border:1px solid #e0ddd6;border-radius:6px;padding:2px 8px;font-size:11px;color:#666}
+
+  /* Strategy */
+  .strategy-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  .strategy-card{border:1px solid #e5e3dc;border-radius:12px;padding:14px;background:#fff}
+  .strategy-card h4{font-size:12px;font-weight:600;color:#444;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+  .strategy-card textarea{min-height:70px;border:1px solid #eee}
+
+  /* Overview */
+  .ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+  .ov-card{border:1px solid #e5e3dc;border-radius:12px;padding:16px;background:#fff}
+  .ov-card h4{font-size:13px;font-weight:600;margin-bottom:12px}
+  .sev-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f0ede6}
+  .sev-row:last-child{border-bottom:none}
+  .export-bar{background:#f5f4f0;border-radius:12px;padding:14px 16px;margin-top:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .export-label{font-size:12px;color:#888;margin-right:4px}
+  .snip-row{margin-bottom:10px}
+  .snip-key{font-size:11px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+  .snip-val{font-size:13px;color:#1a1a1a}
+
+  /* Saved indicator */
+  .saved-banner{background:#edfff5;border:1px solid #a8e6c0;border-radius:8px;padding:8px 12px;font-size:12px;color:#1a5a35;display:none;margin-top:10px}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="header">
+    <div class="header-left">
+      <h1>QA &amp; Product Hub</h1>
+      <p>Testing · Documentation · Strategy</p>
+    </div>
+    <button class="export-btn" onclick="exportAll()">⬇ Export report</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('qa',this)">⚙ QA Log</button>
+    <button class="tab" onclick="switchTab('docs',this)">📄 Docs</button>
+    <button class="tab" onclick="switchTab('strategy',this)">📊 Strategy</button>
+    <button class="tab" onclick="switchTab('overview',this)">⊞ Overview</button>
+  </div>
+
+  <!-- QA LOG -->
+  <div id="panel-qa" class="panel active">
+    <div class="form-section">
+      <h3>Log new issue</h3>
+      <div class="field-row two">
+        <div><label>Issue title</label><input id="i-title" placeholder="e.g. Login button unresponsive on mobile"></div>
+        <div><label>Screen / feature</label><input id="i-screen" placeholder="e.g. Auth > Login"></div>
+      </div>
+      <div class="field-row three">
+        <div><label>Severity</label>
+          <select id="i-sev">
+            <option value="critical">🔴 Critical</option>
+            <option value="high">🟠 High</option>
+            <option value="medium" selected>🔵 Medium</option>
+            <option value="low">🟢 Low</option>
+          </select>
+        </div>
+        <div><label>Type</label>
+          <select id="i-type">
+            <option>Bug</option><option>UX</option><option>Performance</option>
+            <option>Copy</option><option>Accessibility</option><option>Other</option>
+          </select>
+        </div>
+        <div><label>Status</label>
+          <select id="i-status">
+            <option value="open">Open</option>
+            <option value="in-progress">In progress</option>
+            <option value="resolved">Resolved</option>
+            <option value="wontfix">Won't fix</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:10px"><label>Description</label><textarea id="i-desc" placeholder="Steps to reproduce, expected vs actual behaviour…"></textarea></div>
+      <div><label>Recommendation / suggested fix</label><textarea id="i-rec" style="min-height:52px" placeholder="Suggested fix or workaround…"></textarea></div>
+      <div class="btn-row"><button class="btn primary" onclick="addIssue()">+ Add issue</button></div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Issues <span id="issue-count" style="color:#aaa;font-weight:400"></span></div>
+      <div class="filter-row" style="margin:0">
+        <select id="f-sev" onchange="renderIssues()">
+          <option value="">All severities</option>
+          <option value="critical">Critical</option><option value="high">High</option>
+          <option value="medium">Medium</option><option value="low">Low</option>
+        </select>
+        <select id="f-status" onchange="renderIssues()">
+          <option value="">All statuses</option>
+          <option value="open">Open</option><option value="in-progress">In progress</option>
+          <option value="resolved">Resolved</option><option value="wontfix">Won't fix</option>
+        </select>
+      </div>
+    </div>
+    <div id="issue-list"></div>
+  </div>
+
+  <!-- DOCS -->
+  <div id="panel-docs" class="panel">
+    <div class="form-section">
+      <h3>Add documentation</h3>
+      <div class="field-row two">
+        <div><label>Title</label><input id="d-title" placeholder="e.g. Onboarding flow overview"></div>
+        <div><label>Category</label>
+          <select id="d-cat">
+            <option>PRD</option><option>Test Plan</option><option>User Story</option>
+            <option>Meeting Note</option><option>Decision Log</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div><label>Content</label><textarea id="d-content" style="min-height:100px" placeholder="Write your documentation here…"></textarea></div>
+      <div class="btn-row"><button class="btn primary" onclick="addDoc()">+ Save doc</button></div>
+    </div>
+    <div class="section-title" style="margin-bottom:12px">Saved documents</div>
+    <div id="doc-list"></div>
+  </div>
+
+  <!-- STRATEGY -->
+  <div id="panel-strategy" class="panel">
+    <div class="form-section" style="margin-bottom:12px">
+      <h3>Product strategy canvas</h3>
+      <div class="strategy-grid">
+        <div class="strategy-card"><h4>🎯 Goal / vision</h4><textarea id="s-goal" placeholder="What does success look like?"></textarea></div>
+        <div class="strategy-card"><h4>👤 Target users</h4><textarea id="s-users" placeholder="Who is this for?"></textarea></div>
+        <div class="strategy-card"><h4>✅ Key features (pilot scope)</h4><textarea id="s-features" placeholder="What's in scope for this test?"></textarea></div>
+        <div class="strategy-card"><h4>⚠ Risks &amp; assumptions</h4><textarea id="s-risks" placeholder="What could go wrong?"></textarea></div>
+      </div>
+      <div class="strategy-grid">
+        <div class="strategy-card"><h4>📈 Success metrics</h4><textarea id="s-metrics" placeholder="How will you measure success?"></textarea></div>
+        <div class="strategy-card"><h4>🛣 Next milestones</h4><textarea id="s-milestones" placeholder="What comes after this pilot?"></textarea></div>
+      </div>
+      <div class="btn-row"><button class="btn primary" onclick="saveStrategy()">💾 Save strategy</button></div>
+      <div class="saved-banner" id="saved-banner">✓ Strategy saved — visible in Overview</div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div id="panel-overview" class="panel">
+    <div class="stats" id="ov-stats"></div>
+    <div class="ov-grid">
+      <div class="ov-card">
+        <h4>Open issues by severity</h4>
+        <div id="ov-issues"></div>
+      </div>
+      <div class="ov-card">
+        <h4>Strategy snapshot</h4>
+        <div id="ov-strategy"></div>
+      </div>
+    </div>
+    <div class="export-bar">
+      <span class="export-label">Export:</span>
+      <button class="btn" onclick="exportCSV()">📊 Issues CSV</button>
+      <button class="btn" onclick="copyReport()">📋 Copy full report</button>
+      <button class="btn" onclick="alert('Share this HTML file with your team — all data is saved inside it automatically.')">🔗 Share file</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────
+let issues = JSON.parse(localStorage.getItem('qos_issues') || '[]');
+let docs   = JSON.parse(localStorage.getItem('qos_docs')   || '[]');
+let strategy = JSON.parse(localStorage.getItem('qos_strategy') || '{}');
+let uid = parseInt(localStorage.getItem('qos_uid') || '1');
+
+function save() {
+  localStorage.setItem('qos_issues', JSON.stringify(issues));
+  localStorage.setItem('qos_docs',   JSON.stringify(docs));
+  localStorage.setItem('qos_strategy', JSON.stringify(strategy));
+  localStorage.setItem('qos_uid', String(uid));
+}
+
+// ── Tabs ───────────────────────────────────────────────
+function switchTab(id, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-' + id).classList.add('active');
+  if (id === 'overview') renderOverview();
+  if (id === 'strategy') loadStrategy();
+}
+
+// ── Issues ─────────────────────────────────────────────
+function addIssue() {
+  const title = document.getElementById('i-title').value.trim();
+  if (!title) { alert('Please enter an issue title'); return; }
+  issues.push({
+    id: uid++,
+    title,
+    screen: document.getElementById('i-screen').value.trim(),
+    severity: document.getElementById('i-sev').value,
+    type: document.getElementById('i-type').value,
+    status: document.getElementById('i-status').value,
+    desc: document.getElementById('i-desc').value.trim(),
+    rec: document.getElementById('i-rec').value.trim(),
+    date: new Date().toLocaleDateString('en-GB')
+  });
+  ['i-title','i-screen','i-desc','i-rec'].forEach(id => document.getElementById(id).value = '');
+  save();
+  renderIssues();
+}
+
+function renderIssues() {
+  const fs  = document.getElementById('f-sev').value;
+  const fst = document.getElementById('f-status').value;
+  const filtered = issues.filter(i => (!fs || i.severity === fs) && (!fst || i.status === fst));
+  document.getElementById('issue-count').textContent = '(' + filtered.length + ')';
+  const el = document.getElementById('issue-list');
+  if (!filtered.length) {
+    el.innerHTML = '<div class="empty-state">No issues yet — log your first finding above</div>';
+    return;
+  }
+  el.innerHTML = filtered.map(i => `
+    <div class="issue-card">
+      <div class="issue-header">
+        <div style="flex:1">
+          <div class="issue-title">#${i.id} ${i.title}</div>
+          <div class="issue-meta">
+            <span class="badge ${i.severity}">${i.severity}</span>
+            <span class="badge ${i.status}">${i.status.replace('-',' ')}</span>
+            <span style="font-size:12px;color:#aaa">${i.type}${i.screen ? ' · ' + i.screen : ''} · ${i.date}</span>
+          </div>
+          ${i.desc ? `<div class="issue-desc">${i.desc}</div>` : ''}
+          ${i.rec  ? `<div class="issue-rec">💡 ${i.rec}</div>` : ''}
+        </div>
+        <div class="issue-actions">
+          <select class="status-select" onchange="updateStatus(${i.id},this.value)">
+            <option value="open" ${i.status==='open'?'selected':''}>Open</option>
+            <option value="in-progress" ${i.status==='in-progress'?'selected':''}>In progress</option>
+            <option value="resolved" ${i.status==='resolved'?'selected':''}>Resolved</option>
+            <option value="wontfix" ${i.status==='wontfix'?'selected':''}>Won't fix</option>
+          </select>
+          <button class="btn danger" style="padding:4px 8px;font-size:11px" onclick="deleteIssue(${i.id})">🗑</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function updateStatus(id, val) {
+  const i = issues.find(x => x.id === id);
+  if (i) { i.status = val; save(); }
+}
+
+function deleteIssue(id) {
+  if (!confirm('Delete this issue?')) return;
+  issues = issues.filter(x => x.id !== id);
+  save(); renderIssues();
+}
+
+// ── Docs ───────────────────────────────────────────────
+function addDoc() {
+  const title = document.getElementById('d-title').value.trim();
+  if (!title) { alert('Please enter a title'); return; }
+  docs.push({
+    id: uid++,
+    title,
+    cat: document.getElementById('d-cat').value,
+    content: document.getElementById('d-content').value.trim(),
+    date: new Date().toLocaleDateString('en-GB')
+  });
+  document.getElementById('d-title').value = '';
+  document.getElementById('d-content').value = '';
+  save(); renderDocs();
+}
+
+function renderDocs() {
+  const el = document.getElementById('doc-list');
+  if (!docs.length) { el.innerHTML = '<div class="empty-state">No documents yet</div>'; return; }
+  el.innerHTML = docs.map(d => `
+    <div class="doc-item">
+      <div>
+        <div class="doc-title">📄 ${d.title}</div>
+        <div class="doc-meta">${d.date}${d.content ? ' · ' + d.content.slice(0,60) + (d.content.length > 60 ? '…' : '') : ''}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="tag">${d.cat}</span>
+        <button class="btn danger" style="padding:4px 8px;font-size:11px" onclick="deleteDoc(${d.id})">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+function deleteDoc(id) {
+  if (!confirm('Delete this document?')) return;
+  docs = docs.filter(x => x.id !== id);
+  save(); renderDocs();
+}
+
+// ── Strategy ───────────────────────────────────────────
+function loadStrategy() {
+  ['goal','users','features','risks','metrics','milestones'].forEach(k => {
+    const el = document.getElementById('s-' + k);
+    if (el) el.value = strategy[k] || '';
+  });
+}
+
+function saveStrategy() {
+  ['goal','users','features','risks','metrics','milestones'].forEach(k => {
+    const el = document.getElementById('s-' + k);
+    if (el) strategy[k] = el.value;
+  });
+  save();
+  const banner = document.getElementById('saved-banner');
+  banner.style.display = 'block';
+  setTimeout(() => banner.style.display = 'none', 2500);
+}
+
+// ── Overview ───────────────────────────────────────────
+function renderOverview() {
+  const total    = issues.length;
+  const open     = issues.filter(i => i.status === 'open').length;
+  const critical = issues.filter(i => i.severity === 'critical' && i.status !== 'resolved').length;
+  const resolved = issues.filter(i => i.status === 'resolved').length;
+
+  document.getElementById('ov-stats').innerHTML = `
+    <div class="stat"><div class="stat-num">${total}</div><div class="stat-label">Total issues</div></div>
+    <div class="stat"><div class="stat-num red">${open}</div><div class="stat-label">Open</div></div>
+    <div class="stat"><div class="stat-num red">${critical}</div><div class="stat-label">Critical</div></div>
+    <div class="stat"><div class="stat-num green">${resolved}</div><div class="stat-label">Resolved</div></div>`;
+
+  const openIssues = issues.filter(i => i.status === 'open');
+  const sevEl = document.getElementById('ov-issues');
+  if (!openIssues.length) {
+    sevEl.innerHTML = '<div class="empty-state" style="padding:20px">No open issues</div>';
+  } else {
+    sevEl.innerHTML = ['critical','high','medium','low'].map(s => {
+      const n = openIssues.filter(i => i.severity === s).length;
+      return n ? `<div class="sev-row"><span class="badge ${s}">${s}</span><strong>${n}</strong></div>` : '';
+    }).join('');
+  }
+
+  const strEl = document.getElementById('ov-strategy');
+  const fields = [['Goal', strategy.goal],['Users', strategy.users],['Metrics', strategy.metrics],['Milestones', strategy.milestones]];
+  const filled = fields.filter(([,v]) => v);
+  strEl.innerHTML = filled.length
+    ? filled.map(([k,v]) => `<div class="snip-row"><div class="snip-key">${k}</div><div class="snip-val">${v}</div></div>`).join('')
+    : '<div class="empty-state" style="padding:16px">Fill in the Strategy tab</div>';
+}
+
+// ── Export ─────────────────────────────────────────────
+function exportCSV() {
+  if (!issues.length) { alert('No issues to export yet'); return; }
+  const rows = [['ID','Title','Screen','Severity','Type','Status','Description','Recommendation','Date'],
+    ...issues.map(i => [i.id,i.title,i.screen,i.severity,i.type,i.status,i.desc,i.rec,i.date])];
+  const csv = rows.map(r => r.map(c => '"' + String(c||'').replace(/"/g,'""') + '"').join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'qualityos-issues.csv';
+  a.click();
+}
+
+function copyReport() {
+  const lines = ['QUALITYOS QA REPORT', '===================', 'Generated: ' + new Date().toLocaleString(), ''];
+  lines.push('ISSUES (' + issues.length + ')', '');
+  issues.forEach(i => lines.push(`[${i.id}] ${i.title} | ${i.severity.toUpperCase()} | ${i.status} | ${i.screen || 'no screen'}`, i.desc || '', i.rec ? 'Recommendation: ' + i.rec : '', ''));
+  if (strategy.goal) {
+    lines.push('PRODUCT STRATEGY', '----------------');
+    ['goal','users','features','risks','metrics','milestones'].forEach(k => {
+      if (strategy[k]) lines.push(k.toUpperCase() + ': ' + strategy[k]);
+    });
+  }
+  navigator.clipboard.writeText(lines.join('\n'))
+    .then(() => alert('Full report copied to clipboard!'))
+    .catch(() => alert('Copy failed — please copy from the text manually'));
+}
+
+function exportAll() {
+  const tab = document.querySelector('.tab.active');
+  if (tab) tab.click();
+  exportCSV();
+}
+
+// ── Init ───────────────────────────────────────────────
+renderIssues();
+renderDocs();
+loadStrategy();
+</script>
+</body>
+</html>
